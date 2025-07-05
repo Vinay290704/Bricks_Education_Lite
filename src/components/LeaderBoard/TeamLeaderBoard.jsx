@@ -11,9 +11,9 @@ const TeamLeaderboard = () => {
     setExpandedTeams((prevExpandedTeams) => {
       const newExpandedTeams = new Set(prevExpandedTeams);
       if (newExpandedTeams.has(id)) {
-        newExpandedTeams.delete(id); 
+        newExpandedTeams.delete(id);
       } else {
-        newExpandedTeams.add(id); 
+        newExpandedTeams.add(id);
       }
       return newExpandedTeams;
     });

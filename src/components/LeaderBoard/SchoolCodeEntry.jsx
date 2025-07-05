@@ -5,7 +5,7 @@ import {
   CheckCircle,
   AlertCircle,
 } from "lucide-react";
-import BricksLogo from "../../assets/Logo.png";
+import BricksLogo from "../../assets/images/Logo.png";
 import { useContext, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 

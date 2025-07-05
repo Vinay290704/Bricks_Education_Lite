@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { DataContext } from "../../context/DataContext";
 import { Calendar, MapPin, Users, TrendingUp } from "lucide-react";
 import EventCard from "./EventCard";
-import BricksLogo from "../../assets/Logo.png";
+import BricksLogo from "../../assets/images/Logo.png";
 const MetadataSidebar = () => {
   const { computedValues } = useContext(DataContext);
   const upcomingEvents = [

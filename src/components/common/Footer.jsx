@@ -6,7 +6,6 @@ const Footer = () => {
     <footer className="bg-gray-800 text-white py-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand Section */}
           <div className="text-center md:text-left">
             <h3 className="text-xl font-bold mb-2">BRICKS EDUCATION</h3>
             <p className="text-gray-300 italic">
@@ -14,7 +13,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Contact Section */}
           <div className="text-center md:text-left">
             <div className="mb-4">
               <span className="font-semibold">Phone:</span>
@@ -39,7 +37,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Note Section */}
           <div className="text-center md:text-left">
             <p className="text-sm text-gray-300">
               <strong>Note:</strong> Our team will capture key moments from the
