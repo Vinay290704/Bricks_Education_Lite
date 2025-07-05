@@ -6,45 +6,44 @@ import React, {
   useCallback,
 } from "react";
 
+const SCHOOL_CODES = {
+  RKBS_XAG175: "RKBS_XAG175",
+  SMPS_BHJ892: "SMPS_BHJ892",
+  DVPS_KLM456: "DVPS_KLM456",
+};
+
+const SCHOOLS = [
+  {
+    code: SCHOOL_CODES.RKBS_XAG175,
+    name: "Radha Krishna Public School",
+    sheetName: "RKBS_Teams",
+  },
+  {
+    code: SCHOOL_CODES.SMPS_BHJ892,
+    name: "St. Mary's Public School",
+    sheetName: "SMPS_Teams",
+  },
+  {
+    code: SCHOOL_CODES.DVPS_KLM456,
+    name: "Delhi Valley Public School",
+    sheetName: "DVPS_Teams",
+  },
+];
+
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const [teams, setTeams] = useState([]);
   const [sheetId, setSheetId] = useState(
     "1hSEQDnZq2ZewQcgZPxvmUWAMfqD0JXZLG5mJVhS_zFM"
-  ); // for link of spreadsheet
-  const [schoolCode, setSchoolCode] = useState(""); // selected school code
+  );
+  const [schoolCode, setSchoolCode] = useState("RKBS_XAG175");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [lastUpdated, setLastUpdated] = useState(null);
-
-  const SCHOOL_CODES = {
-    RKBS_XAG175: "RKBS_XAG175",
-    SMPS_BHJ892: "SMPS_BHJ892",
-    DVPS_KLM456: "DVPS_KLM456",
-  };
-
-  const schools = [
-    {
-      code: SCHOOL_CODES.RKBS_XAG175,
-      name: "Radha Krishna Public School",
-      sheetName: "RKBS_Teams",
-    },
-    {
-      code: SCHOOL_CODES.SMPS_BHJ892,
-      name: "St. Mary's Public School",
-      sheetName: "SMPS_Teams",
-    },
-    {
-      code: SCHOOL_CODES.DVPS_KLM456,
-      name: "Delhi Valley Public School",
-      sheetName: "DVPS_Teams",
-    },
-  ];
 
   const schoolCodeToName = useMemo(() => {
     const mapping = {};
-    schools.forEach((school) => {
+    SCHOOLS.forEach((school) => {
       mapping[school.code] = school.name;
     });
     return mapping;
@@ -52,19 +51,19 @@ export const DataProvider = ({ children }) => {
 
   const schoolCodeToSheetName = useMemo(() => {
     const mapping = {};
-    schools.forEach((school) => {
+    SCHOOLS.forEach((school) => {
       mapping[school.code] = school.sheetName;
     });
     return mapping;
   }, []);
 
-  const getCsvUrl = (id, sheetName) => {
+  const getCsvUrl = useCallback((id, sheetName) => {
     return `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(
       sheetName
     )}`;
-  };
+  }, []);
 
-  const parseCSV = (csvText) => {
+  const parseCSV = useCallback((csvText) => {
     try {
       const lines = [];
       let current = "";
@@ -114,24 +113,50 @@ export const DataProvider = ({ children }) => {
       console.error("CSV parsing error:", error);
       throw new Error("Failed to parse CSV data");
     }
-  };
+  }, []);
 
-  const convertToTeams = (csvRows) => {
-    return csvRows.map((row, index) => {
-      const [teamName, points, ...members] = row;
-
+  const assignRanks = useCallback((teamsData) => {
+    const sortedTeams = [...teamsData].sort((a, b) => b.points - a.points);
+    let currentRank = 1;
+    return sortedTeams.map((team, index) => {
+      if (index === 0) {
+        return {
+          ...team,
+          rank: 1,
+        };
+      }
+      if (team.points !== sortedTeams[index - 1].points) {
+        currentRank++;
+      }
       return {
-        id: index + 1,
-        name: teamName || `Team ${index + 1}`,
-        points: parseInt(points) || 0,
-        members: members.filter((member) => member && member.trim() !== ""),
-        memberCount: members.filter((member) => member && member.trim() !== "")
-          .length,
-        schoolCode: schoolCode,
-        schoolName: schoolCodeToName[schoolCode] || "Unknown School",
+        ...team,
+        rank: currentRank,
       };
     });
-  };
+  }, []);
+
+  const convertToTeams = useCallback(
+    (csvRows) => {
+      const teamsData = csvRows.map((row, index) => {
+        const [teamName, points, ...members] = row;
+
+        return {
+          id: index + 1,
+          name: teamName || `Team ${index + 1}`,
+          points: parseInt(points) || 0,
+          members: members.filter((member) => member && member.trim() !== ""),
+          teamLeader: members[0],
+          memberCount: members.filter(
+            (member) => member && member.trim() !== ""
+          ).length,
+          schoolCode: schoolCode,
+          schoolName: schoolCodeToName[schoolCode] || "Unknown School",
+        };
+      });
+      return assignRanks(teamsData);
+    },
+    [schoolCode, schoolCodeToName, assignRanks]
+  );
 
   const loadData = useCallback(async () => {
     if (!sheetId.trim()) {
@@ -175,7 +200,6 @@ export const DataProvider = ({ children }) => {
 
       const teamsData = convertToTeams(csvRows);
       setTeams(teamsData);
-      setLastUpdated(new Date());
     } catch (error) {
       console.error("Error loading data:", error);
       setError(
@@ -185,70 +209,42 @@ export const DataProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [sheetId, schoolCode, schoolCodeToSheetName, schoolCodeToName]);
+  }, [
+    sheetId,
+    schoolCode,
+    schoolCodeToSheetName,
+    getCsvUrl,
+    parseCSV,
+    convertToTeams,
+  ]);
 
   useEffect(() => {
     if (!sheetId.trim() || !schoolCode.trim()) return;
 
     const interval = setInterval(loadData, 5000);
     return () => clearInterval(interval);
-  }, [loadData]);
+  }, [loadData, sheetId, schoolCode]);
 
   useEffect(() => {
     if (sheetId.trim() && schoolCode.trim()) {
       loadData();
     }
-  }, [sheetId, schoolCode]);
+  }, [loadData, sheetId, schoolCode]);
+
+  const getSchoolByCode = useCallback((code) => {
+    return SCHOOLS.find((school) => school.code === code).name;
+  }, []);
 
   const computedValues = useMemo(
     () => ({
+      schoolName: getSchoolByCode(schoolCode),
       totalTeams: teams.length,
       totalStudents: teams.reduce((sum, team) => sum + team.memberCount, 0),
-      highestScoringTeam: teams.reduce(
-        (max, team) => (team.points > (max?.points || 0) ? team : max),
-        null
-      ),
-      averagePoints:
-        teams.length > 0
-          ? Math.round(
-              teams.reduce((sum, team) => sum + team.points, 0) / teams.length
-            )
-          : 0,
       teamsSortedByPoints: [...teams].sort((a, b) => b.points - a.points),
+      teamsSortedByRank: [...teams].sort((a, b) => a.rank - b.rank),
     }),
-    [teams]
+    [teams, getSchoolByCode, schoolCode]
   );
-
-  const getTeamById = useCallback(
-    (id) => {
-      return teams.find((team) => team.id === id);
-    },
-    [teams]
-  );
-
-  const getTeamByName = useCallback(
-    (name) => {
-      return teams.find(
-        (team) => team.name.toLowerCase() === name.toLowerCase()
-      );
-    },
-    [teams]
-  );
-
-  const getTopTeams = useCallback(
-    (limit = 5) => {
-      return [...teams].sort((a, b) => b.points - a.points).slice(0, limit);
-    },
-    [teams]
-  );
-
-  const getSchoolByCode = useCallback((code) => {
-    return schools.find((school) => school.code === code);
-  }, []);
-
-  const getAllSchools = useCallback(() => {
-    return schools;
-  }, []);
 
   const value = useMemo(
     () => ({
@@ -260,17 +256,12 @@ export const DataProvider = ({ children }) => {
       setSchoolCode,
       loading,
       error,
-      lastUpdated,
-      schools,
+      schools: SCHOOLS,
       schoolCodeToName,
       schoolCodeToSheetName,
       currentSchoolName: schoolCodeToName[schoolCode] || "",
-      ...computedValues,
-      getTeamById,
-      getTeamByName,
-      getTopTeams,
+      computedValues,
       getSchoolByCode,
-      getAllSchools,
       loadData,
     }),
     [
@@ -279,15 +270,10 @@ export const DataProvider = ({ children }) => {
       schoolCode,
       loading,
       error,
-      lastUpdated,
       schoolCodeToName,
       schoolCodeToSheetName,
       computedValues,
-      getTeamById,
-      getTeamByName,
-      getTopTeams,
       getSchoolByCode,
-      getAllSchools,
       loadData,
     ]
   );
