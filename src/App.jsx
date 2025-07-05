@@ -1,10 +1,6 @@
-import React from "react";
-import GoogleSheetsApp from "./Test/GoogleSheet";
+import DataProvider from "./context/DataContext";
 const App = () => {
-  return (
-    <div>
-    </div>
-  );
+  return <DataProvider></DataProvider>;
 };
 
 export default App;
