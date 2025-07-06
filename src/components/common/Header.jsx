@@ -11,12 +11,7 @@ const Header = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
-  const activeSection = useActiveSection([
-    "about",
-    "outcomes",
-    "schedule",
-    "footer",
-  ]);
+  const activeSection = useActiveSection(["about", "outcomes", "schedule", "footer"]);
 
   // Handle scroll for navbar hiding/showing
   useEffect(() => {
@@ -72,18 +67,18 @@ const Header = () => {
     }
 
     if (hash === "#footer") {
-      const footer = document.querySelector("footer");
+      const footer = document.querySelector('footer');
+     
+        const headerHeight = 80;
+        const elementPosition = footer.getBoundingClientRect().top;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - headerHeight;
 
-      const headerHeight = 80;
-      const elementPosition = footer.getBoundingClientRect().top;
-      const offsetPosition =
-        elementPosition + window.pageYOffset - headerHeight;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      
       setIsMobileMenuOpen(false);
       return;
     }
@@ -130,29 +125,29 @@ const Header = () => {
           {/* Logo Section */}
           <Link
             to="/"
-            className=" flex items-center gap-4 text-white"
+            className="flex items-center gap-4 text-white transition-transform duration-300 ease-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 rounded-lg animate-[slideInLeft_0.8s_ease-out]"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div className="absolute left-10 w-[50px] h-[50px] bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center overflow-hidden shadow-[0_4px_15px_rgba(231,76,60,0.3)] transition-all duration-300 hover:rotate-[5deg] hover:scale-105 hover:shadow-[0_8px_25px_rgba(231,76,60,0.4)]">
+            <div className="relative w-[50px] h-[50px] bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center overflow-hidden shadow-[0_4px_15px_rgba(231,76,60,0.3)] transition-all duration-300 hover:rotate-[5deg] hover:scale-105 hover:shadow-[0_8px_25px_rgba(231,76,60,0.4)]">
               <img
                 src={BricksLogo}
                 alt="Bricks Education Logo"
                 className="w-full h-full object-cover rounded-xl"
               />
             </div>
-            <div className="absolute left-25 text-2xl font-bold text-white">
+            <div className="text-2xl font-bold text-white">
               BRICKS EDUCATION
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="absolute right-10 hidden md:flex items-center gap-8 list-none">
+          <ul className="hidden md:flex items-center gap-8 list-none">
             {navigationItems.map((item) => (
               <li key={item.section} className="relative">
                 <a
                   href={item.href}
                   onClick={(e) => handleHashNavigation(e, item.href)}
-                  className={`relative px-4 py-2 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 overflow-hidden "
+                  className={`relative px-4 py-2 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 overflow-hidden 
                   }`}
                 >
                   {item.label}
