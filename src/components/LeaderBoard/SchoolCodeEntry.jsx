@@ -1,15 +1,19 @@
-import {
-  School,
-  Lock,
-  ArrowRight,
-  CheckCircle,
-  AlertCircle,
-} from "lucide-react";
-import BricksLogo from "../../assets/images/Logo.png";
+import { School, Lock, ArrowRight, AlertCircle } from "lucide-react";
 import { useContext, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 
 const SchoolCodeEntry = () => {
+  const getImageUrl = (imageName) => {
+    try {
+      const url = new URL(`../../assets/images/${imageName}`, import.meta.url)
+        .href;
+      return url;
+    } catch (error) {
+      return `https://via.placeholder.com/150x150?text=${encodeURIComponent(
+        imageName
+      )}`;
+    }
+  };
   const { schoolCode, setSchoolCode, loading, error, schools, loadData } =
     useContext(DataContext);
 
@@ -20,16 +24,13 @@ const SchoolCodeEntry = () => {
       setLocalError("Please enter a school code");
       return;
     }
-
     const validSchoolCode = schools.find(
       (school) => school.code === schoolCode.trim()
     );
-
     if (!validSchoolCode) {
       setLocalError("Invalid school code. Please check and try again.");
       return;
     }
-
     setLocalError("");
     await loadData();
   };
@@ -38,12 +39,6 @@ const SchoolCodeEntry = () => {
     setSchoolCode(e.target.value);
     if (localError) setLocalError("");
     if (error) setLocalError("");
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSubmit();
-    }
   };
 
   const displayError = localError || error;
@@ -56,7 +51,7 @@ const SchoolCodeEntry = () => {
         <div className="text-center mb-8">
           <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
             <img
-              src={BricksLogo}
+              src={getImageUrl("Logo.png")}
               alt="Bricks Logo"
               className="w-12 h-12 object-contain"
             />
@@ -93,7 +88,6 @@ const SchoolCodeEntry = () => {
                   type="text"
                   value={schoolCode}
                   onChange={handleInputChange}
-                  onKeyPress={handleKeyPress}
                   placeholder="Enter your school code"
                   className={`w-full px-4 py-4 text-lg font-mono tracking-wider text-center border-2 rounded-xl focus:outline-none focus:ring-4 transition-all duration-300 ${
                     displayError

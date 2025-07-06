@@ -112,7 +112,6 @@ export const DataProvider = ({ children }) => {
         return result;
       });
     } catch (error) {
-      console.error("CSV parsing error:", error);
       throw new Error("Failed to parse CSV data");
     }
   }, []);
@@ -205,7 +204,6 @@ export const DataProvider = ({ children }) => {
       setAuthenticated(true);
       setTeams(teamsData);
     } catch (error) {
-      console.error("Error loading data:", error);
       setError(
         error.message ||
           "Failed to load data. Please check your Sheet ID and make sure the sheet is public."

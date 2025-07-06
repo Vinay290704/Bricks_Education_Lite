@@ -6,8 +6,7 @@ const TestimonialsSection = () => {
 
   const getImageUrl = (imageName) => {
     try {
-      const url = new URL(`../../assets/${imageName}`, import.meta.url).href;
-      console.log(`Loading image: ${imageName} -> ${url}`);
+      const url = new URL(`../../assets/images/${imageName}`, import.meta.url).href;
       return url;
     } catch (error) {
       console.error(`Failed to load image: ${imageName}`, error);
@@ -17,10 +16,6 @@ const TestimonialsSection = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("Current module URL:", import.meta.url);
-    console.log("Sample image URL:", getImageUrl("facebook.png"));
-  }, []);
 
   const testimonials = [
     {

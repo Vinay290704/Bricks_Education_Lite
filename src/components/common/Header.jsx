@@ -6,14 +6,57 @@ import useActiveSection from "../../hooks/useActiveSection";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
   const activeSection = useActiveSection(["about", "outcomes", "schedule"]);
 
+  // Handle scroll for navbar hiding/showing
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsHeaderVisible(false);
+      } else {
+        setIsHeaderVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  // Close mobile menu when location changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (isMobileMenuOpen && !event.target.closest("nav")) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener("click", handleOutsideClick);
+      // Prevent body scroll when mobile menu is open
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
 
   const handleHashNavigation = (e, hash) => {
     e.preventDefault();
@@ -25,9 +68,14 @@ const Header = () => {
 
     const element = document.querySelector(hash);
     if (element) {
-      element.scrollIntoView({
+      const headerHeight = 80; // Account for fixed header height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
         behavior: "smooth",
-        block: "start",
       });
     }
 
@@ -42,76 +90,104 @@ const Header = () => {
     return activeSection === sectionId;
   };
 
+  const navigationItems = [
+    { href: "#about", label: "About", section: "about" },
+    { href: "#outcomes", label: "Outcomes", section: "outcomes" },
+    { href: "#schedule", label: "Schedule", section: "schedule" },
+  ];
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur-lg border-b border-gray-200/60 shadow-sm transition-all duration-300 ease-in-out">
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between lg:h-20">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 bg-red-500 backdrop-blur-[20px] border-b border-red-500/10 shadow-[0_4px_20px_rgba(0,0,0,0.1)] transition-transform duration-300 ease-in-out ${
+        isHeaderVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
+      <nav className="mx-auto max-w-[1200px] px-8 py-4">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo Section */}
           <Link
             to="/"
-            className="group flex items-center gap-3 text-gray-900 transition-transform duration-300 ease-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 rounded-lg"
+            className="flex items-center gap-4 text-white transition-transform duration-300 ease-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 rounded-lg animate-[slideInLeft_0.8s_ease-out]"
+            onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-red-50 to-red-100 p-1 shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:shadow-red-500/10">
-              <div className="h-8 w-8 overflow-hidden rounded-lg lg:h-10 lg:w-10">
-                <img
-                  src={BricksLogo}
-                  alt="Bricks Education Logo"
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-              </div>
+            <div className="relative w-[50px] h-[50px] bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center overflow-hidden shadow-[0_4px_15px_rgba(231,76,60,0.3)] transition-all duration-300 hover:rotate-[5deg] hover:scale-105 hover:shadow-[0_8px_25px_rgba(231,76,60,0.4)]">
+              <img
+                src={BricksLogo}
+                alt="Bricks Education Logo"
+                className="w-full h-full object-cover rounded-xl"
+              />
             </div>
-            <div className="bg-gradient-to-r from-gray-800 to-gray-900 bg-clip-text text-lg font-bold tracking-wide text-transparent lg:text-xl">
+            <div className="text-2xl font-bold text-white">
               BRICKS EDUCATION
             </div>
           </Link>
 
-          {/* Desktop Navigation with increased gaps */}
-          <ul className="hidden items-center gap-10 md:flex lg:gap-8">
-            {[
-              { href: "#about", label: "About", section: "about" },
-              { href: "#outcomes", label: "Outcomes", section: "outcomes" },
-              { href: "#schedule", label: "Schedule", section: "schedule" },
-            ].map((item) => (
-              <li key={item.section}>
+          {/* Desktop Navigation */}
+          <ul className="hidden md:flex items-center gap-8 list-none">
+            {navigationItems.map((item) => (
+              <li key={item.section} className="relative">
                 <a
                   href={item.href}
                   onClick={(e) => handleHashNavigation(e, item.href)}
-                  className={`relative px-4 py-2.5 rounded-xl font-semibold text-sm lg:text-base transition-all duration-300 ease-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 ${
+                  className={`relative px-4 py-2 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 overflow-hidden ${
                     isActiveLink(item.section)
-                      ? "bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25"
-                      : "text-gray-700 hover:bg-gradient-to-r hover:from-red-50 hover:to-red-100 hover:text-red-600 hover:shadow-md"
+                      ? "bg-gradient-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/25"
+                      : "hover:bg-white/10"
                   }`}
                 >
                   {item.label}
-                  {isActiveLink(item.section) && (
-                    <div className="absolute inset-0 rounded-xl bg-white/20 animate-pulse"></div>
-                  )}
                 </a>
               </li>
             ))}
 
-            <li>
+            <li className="relative">
               <Link
                 to="/leaderboard"
-                className={`relative flex items-center gap-2.5 px-4 py-2.5 rounded-xl font-semibold text-sm lg:text-base transition-all duration-300 ease-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 ${
+                className={`relative flex items-center gap-2.5 px-4 py-2 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 overflow-hidden ${
                   location.pathname === "/leaderboard"
-                    ? "bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25"
-                    : "text-gray-700 hover:bg-gradient-to-r hover:from-red-50 hover:to-red-100 hover:text-red-600 hover:shadow-md"
+                    ? "bg-gradient-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/25"
+                    : "hover:bg-white/10"
                 }`}
-                onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Trophy size={18} className="flex-shrink-0" />
                 <span>Leaderboard</span>
-                {location.pathname === "/leaderboard" && (
-                  <div className="absolute inset-0 rounded-xl bg-white/20 animate-pulse"></div>
-                )}
               </Link>
             </li>
           </ul>
 
           {/* Mobile Menu Button */}
           <button
-            className="relative p-3 rounded-xl text-gray-700 transition-all duration-300 ease-out hover:bg-gray-100 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 md:hidden"
+            className={`hidden md:hidden flex-col cursor-pointer gap-1 p-2 ${
+              isMobileMenuOpen ? "active" : ""
+            }`}
+            onClick={toggleMobileMenu}
+            aria-label="Toggle mobile menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            <span
+              className={`w-[25px] h-[3px] bg-white transition-all duration-300 rounded-sm ${
+                isMobileMenuOpen
+                  ? "rotate-45 translate-x-[5px] translate-y-[5px]"
+                  : ""
+              }`}
+            ></span>
+            <span
+              className={`w-[25px] h-[3px] bg-white transition-all duration-300 rounded-sm ${
+                isMobileMenuOpen ? "opacity-0" : ""
+              }`}
+            ></span>
+            <span
+              className={`w-[25px] h-[3px] bg-white transition-all duration-300 rounded-sm ${
+                isMobileMenuOpen
+                  ? "-rotate-45 translate-x-[7px] -translate-y-[6px]"
+                  : ""
+              }`}
+            ></span>
+          </button>
+
+          {/* Updated Mobile Menu Button for smaller screens */}
+          <button
+            className="relative p-3 rounded-xl text-white transition-all duration-300 ease-out hover:bg-white/10 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 md:hidden"
             onClick={toggleMobileMenu}
             aria-label="Toggle mobile menu"
             aria-expanded={isMobileMenuOpen}
@@ -135,27 +211,20 @@ const Header = () => {
             isMobileMenuOpen ? "max-h-96 opacity-100 pb-6" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="border-t border-gray-200/60 pt-4">
-            <ul className="space-y-3">
-              {[
-                { href: "#about", label: "About", section: "about" },
-                { href: "#outcomes", label: "Outcomes", section: "outcomes" },
-                { href: "#schedule", label: "Schedule", section: "schedule" },
-              ].map((item) => (
+          <div className="border-t border-white/20 pt-4">
+            <ul className="space-y-3 list-none">
+              {navigationItems.map((item) => (
                 <li key={item.section}>
                   <a
                     href={item.href}
                     onClick={(e) => handleHashNavigation(e, item.href)}
-                    className={`relative block px-4 py-3.5 rounded-xl font-semibold transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 ${
+                    className={`relative block px-4 py-3.5 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 overflow-hidden ${
                       isActiveLink(item.section)
-                        ? "bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25"
-                        : "text-gray-700 hover:bg-gradient-to-r hover:from-red-50 hover:to-red-100 hover:text-red-600"
+                        ? "bg-gradient-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/25"
+                        : "hover:bg-white/10"
                     }`}
                   >
                     {item.label}
-                    {isActiveLink(item.section) && (
-                      <div className="absolute inset-0 rounded-xl bg-white/20 animate-pulse"></div>
-                    )}
                   </a>
                 </li>
               ))}
@@ -163,18 +232,15 @@ const Header = () => {
               <li>
                 <Link
                   to="/leaderboard"
-                  className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 ${
+                  className={`relative flex items-center gap-3 px-4 py-3.5 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 overflow-hidden ${
                     location.pathname === "/leaderboard"
-                      ? "bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25"
-                      : "text-gray-700 hover:bg-gradient-to-r hover:from-red-50 hover:to-red-100 hover:text-red-600"
+                      ? "bg-gradient-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/25"
+                      : "hover:bg-white/10"
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <Trophy size={20} className="flex-shrink-0" />
                   <span>Leaderboard</span>
-                  {location.pathname === "/leaderboard" && (
-                    <div className="absolute inset-0 rounded-xl bg-white/20 animate-pulse"></div>
-                  )}
                 </Link>
               </li>
             </ul>
