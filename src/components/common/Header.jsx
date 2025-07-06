@@ -11,7 +11,12 @@ const Header = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
-  const activeSection = useActiveSection(["about", "outcomes", "schedule"]);
+  const activeSection = useActiveSection([
+    "about",
+    "outcomes",
+    "schedule",
+    "footer",
+  ]);
 
   // Handle scroll for navbar hiding/showing
   useEffect(() => {
@@ -66,6 +71,23 @@ const Header = () => {
       return;
     }
 
+    if (hash === "#footer") {
+      const footer = document.querySelector("footer");
+
+      const headerHeight = 80;
+      const elementPosition = footer.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      setIsMobileMenuOpen(false);
+      return;
+    }
+
     const element = document.querySelector(hash);
     if (element) {
       const headerHeight = 80; // Account for fixed header height
@@ -94,12 +116,13 @@ const Header = () => {
     { href: "#about", label: "About", section: "about" },
     { href: "#outcomes", label: "Outcomes", section: "outcomes" },
     { href: "#schedule", label: "Schedule", section: "schedule" },
+    { href: "#footer", label: "Contact", section: "footer" },
   ];
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 bg-red-500 backdrop-blur-[20px] border-b border-red-500/10 shadow-[0_4px_20px_rgba(0,0,0,0.1)] transition-transform duration-300 ease-in-out ${
-        isHeaderVisible ? "translate-y-0" : "-translate-y-full"
+        isHeaderVisible ? "translate-y-0" : "-translate-y-0"
       }`}
     >
       <nav className="mx-auto max-w-[1200px] px-8 py-4">
@@ -107,32 +130,29 @@ const Header = () => {
           {/* Logo Section */}
           <Link
             to="/"
-            className="flex items-center gap-4 text-white transition-transform duration-300 ease-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 rounded-lg animate-[slideInLeft_0.8s_ease-out]"
+            className=" flex items-center gap-4 text-white"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div className="relative w-[50px] h-[50px] bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center overflow-hidden shadow-[0_4px_15px_rgba(231,76,60,0.3)] transition-all duration-300 hover:rotate-[5deg] hover:scale-105 hover:shadow-[0_8px_25px_rgba(231,76,60,0.4)]">
+            <div className="absolute left-10 w-[50px] h-[50px] bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center overflow-hidden shadow-[0_4px_15px_rgba(231,76,60,0.3)] transition-all duration-300 hover:rotate-[5deg] hover:scale-105 hover:shadow-[0_8px_25px_rgba(231,76,60,0.4)]">
               <img
                 src={BricksLogo}
                 alt="Bricks Education Logo"
                 className="w-full h-full object-cover rounded-xl"
               />
             </div>
-            <div className="text-2xl font-bold text-white">
+            <div className="absolute left-25 text-2xl font-bold text-white">
               BRICKS EDUCATION
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-8 list-none">
+          <ul className="absolute right-10 hidden md:flex items-center gap-8 list-none">
             {navigationItems.map((item) => (
               <li key={item.section} className="relative">
                 <a
                   href={item.href}
                   onClick={(e) => handleHashNavigation(e, item.href)}
-                  className={`relative px-4 py-2 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 overflow-hidden ${
-                    isActiveLink(item.section)
-                      ? "bg-gradient-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/25"
-                      : "hover:bg-white/10"
+                  className={`relative px-4 py-2 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 overflow-hidden "
                   }`}
                 >
                   {item.label}
