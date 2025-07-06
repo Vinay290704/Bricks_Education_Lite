@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { DataContext } from "../context/DataContext";
 
-import TeamLeaderboard from "../components/LeaderBoard/TeamLeaderboard";
+import TeamLeaderboard from "../components/LeaderBoard/TeamLeaderBoard";
 import MetaDataSidebar from "../components/LeaderBoard/MetaDataSideBar";
 import SchoolCodeEntry from "../components/LeaderBoard/SchoolCodeEntry";
 
