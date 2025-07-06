@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import HomeContext from "../../context/HomeContext";
+
 const ScheduleSection = () => {
   const { currentDay, showDay } = useContext(HomeContext);
   const scheduleData = {
@@ -117,65 +118,117 @@ const ScheduleSection = () => {
   return (
     <section
       id="schedule"
-      className="section schedule-section animate-on-scroll"
+      className="section schedule-section animate-on-scroll bg-gray-50 py-16"
     >
-      <div className="container">
-        <div className="section-header">
-          <h2>Workshop Schedule</h2>
-          <p className="section-subtitle">
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="section-header text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">Workshop Schedule</h2>
+          <p className="text-xl text-gray-600">
             A comprehensive 3-day journey of learning and innovation
           </p>
         </div>
 
-        <div className="schedule-container">
-          <div className="schedule-sidebar">
-            <div className="schedule-progress-line"></div>
+        {/* Desktop Layout - Your original design */}
+        <div className="hidden lg:block">
+          <div className="schedule-container">
+            <div className="schedule-sidebar">
+              <div className="schedule-progress-line"></div>
 
-            {[1, 2, 3].map((day) => (
-              <div
-                key={day}
-                className={`schedule-day-item ${
-                  currentDay === day ? "active" : ""
-                }`}
-                onClick={() => showDay(day)}
-              >
-                <div className="day-number">0{day}</div>
-                <div className="day-title">
-                  {day === 1 && "Mindset & Fundamentals"}
-                  {day === 2 && "Action & Competition"}
-                  {day === 3 && "Think Like a CEO"}
+              {[1, 2, 3].map((day) => (
+                <div
+                  key={day}
+                  className={`schedule-day-item ${currentDay === day ? "active" : ""}`}
+                  onClick={() => showDay(day)}
+                >
+                  <div className="progress-dot"></div>
+                  <span className="day-number">0{day}</span>
+                  <span className="day-title">
+                    {day === 1 && "Mindset & Fundamentals"}
+                    {day === 2 && "Action & Competition"}
+                    {day === 3 && "Think Like a CEO"}
+                  </span>
+                  <span className="day-subtitle">
+                    {day === 1 && "6 hours of immersive learning"}
+                    {day === 2 && "4 hours of building and competing"}
+                    {day === 3 && "4.5 hours of innovation and presentation"}
+                  </span>
                 </div>
-                <div className="day-subtitle">
-                  {day === 1 && "6 hours of immersive learning"}
-                  {day === 2 && "4 hours of building and competing"}
-                  {day === 3 && "4.5 hours of innovation and presentation"}
-                </div>
-                <div className="progress-dot"></div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="schedule-content" id="scheduleContent">
-            <div className={`schedule-day ${currentDay ? "active" : ""}`}>
-              <div className="day-header">
-                <h3>{scheduleData[currentDay]?.title}</h3>
-                <div className="day-duration">
-                  {scheduleData[currentDay]?.duration}
-                </div>
-              </div>
-              <div className="schedule-timeline">
-                {scheduleData[currentDay]?.timeline.map((item, index) => (
-                  <div key={index} className="timeline-item">
-                    <div className="timeline-time">{item.time}</div>
-                    <div className="timeline-content">
-                      <div className="timeline-icon">{item.icon}</div>
-                      <h4>{item.title}</h4>
-                      <p>{item.description}</p>
-                    </div>
+            <div className="schedule-content">
+              <div className={`schedule-day ${currentDay ? "active" : ""}`}>
+                <div className="day-header">
+                  <h3>{scheduleData[currentDay]?.title}</h3>
+                  <div className="day-duration">
+                    {scheduleData[currentDay]?.duration}
                   </div>
-                ))}
+                </div>
+                <div className="schedule-timeline">
+                  {scheduleData[currentDay]?.timeline.map((item, index) => (
+                    <div key={index} className="timeline-item">
+                      <div className="timeline-time">
+                        {item.time}
+                      </div>
+                      <div className="timeline-content">
+                        <div className="timeline-icon">{item.icon}</div>
+                        <h4>{item.title}</h4>
+                        <p>{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Simplified Mobile Layout */}
+        <div className="lg:hidden">
+          {/* Mobile: Show all days in a simple vertical layout */}
+          <div className="space-y-8">
+            {[1, 2, 3].map((day) => (
+              <div key={day} className="mobile-day-section">
+                {/* Day Header */}
+                <div className="bg-red-500 text-white p-4 rounded-t-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-white text-red-500 rounded-full flex items-center justify-center text-sm font-bold">
+                      {day}
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg">
+                        {day === 1 && "Mindset & Fundamentals"}
+                        {day === 2 && "Action & Competition"}
+                        {day === 3 && "Think Like a CEO"}
+                      </h3>
+                      <p className="text-sm opacity-90">
+                        {scheduleData[day]?.duration}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Day Timeline */}
+                <div className="bg-white rounded-b-xl border-x border-b border-gray-200">
+                  {scheduleData[day]?.timeline.map((item, index) => (
+                    <div key={index} className="p-4 border-b border-gray-100 last:border-b-0">
+                      <div className="flex gap-3">
+                        <div className="text-lg shrink-0">{item.icon}</div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-1">
+                            <h4 className="font-semibold text-gray-800 text-sm">{item.title}</h4>
+                            <span className="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-medium">
+                              {item.time}
+                            </span>
+                          </div>
+                          <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

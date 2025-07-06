@@ -135,13 +135,13 @@ const Header = () => {
                 className="w-full h-full object-cover rounded-xl"
               />
             </div>
-            <div className="text-2xl font-bold text-white">
-              BRICKS EDUCATION
+            <div className="text-2xl md:text-2xl font-bold text-white">
+              BRICKS <span className="text-lg md:text-2xl">EDUCATION</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-8 list-none">
+           <ul className="hidden md:flex items-center gap-8 list-none">
             {navigationItems.map((item) => (
               <li key={item.section} className="relative">
                 <a
@@ -169,37 +169,7 @@ const Header = () => {
             </li>
           </ul>
 
-          {/* Mobile Menu Button */}
-          <button
-            className={`hidden md:hidden flex-col cursor-pointer gap-1 p-2 ${
-              isMobileMenuOpen ? "active" : ""
-            }`}
-            onClick={toggleMobileMenu}
-            aria-label="Toggle mobile menu"
-            aria-expanded={isMobileMenuOpen}
-          >
-            <span
-              className={`w-[25px] h-[3px] bg-white transition-all duration-300 rounded-sm ${
-                isMobileMenuOpen
-                  ? "rotate-45 translate-x-[5px] translate-y-[5px]"
-                  : ""
-              }`}
-            ></span>
-            <span
-              className={`w-[25px] h-[3px] bg-white transition-all duration-300 rounded-sm ${
-                isMobileMenuOpen ? "opacity-0" : ""
-              }`}
-            ></span>
-            <span
-              className={`w-[25px] h-[3px] bg-white transition-all duration-300 rounded-sm ${
-                isMobileMenuOpen
-                  ? "-rotate-45 translate-x-[7px] -translate-y-[6px]"
-                  : ""
-              }`}
-            ></span>
-          </button>
-
-          {/* Updated Mobile Menu Button for smaller screens */}
+        
           <button
             className="relative p-3 rounded-xl text-white transition-all duration-300 ease-out hover:bg-white/10 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 md:hidden"
             onClick={toggleMobileMenu}
@@ -219,7 +189,7 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Fixed positioning */}
         <div
           className={`overflow-hidden transition-all duration-500 ease-in-out md:hidden ${
             isMobileMenuOpen ? "max-h-96 opacity-100 pb-6" : "max-h-0 opacity-0"
@@ -261,17 +231,8 @@ const Header = () => {
           </div>
         </div>
       </nav>
-
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-opacity duration-300 md:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
-          aria-hidden="true"
-        />
-      )}
     </header>
   );
-};
+}
 
 export default Header;
