@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { DataProvider } from "./context/DataContext";
-import Leaderboard from "./pages/LeaderBoard";
+import Leaderboard from "./pages/Leaderboard";
 import Home from "./pages/Home";
 import Header from "./components/common/Header";
 
