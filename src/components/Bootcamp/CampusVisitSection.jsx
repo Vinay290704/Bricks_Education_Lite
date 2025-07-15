@@ -65,10 +65,10 @@ const CampusVisitSection = () => {
     }
   }, []);
 
-  
   const getImageUrl = (imageName) => {
     try {
-      const url = new URL(`../../assets/images/${imageName}`, import.meta.url).href;
+      const url = new URL(`../../assets/images/${imageName}`, import.meta.url)
+        .href;
       return url;
     } catch (error) {
       console.error(`Failed to load image: ${imageName}`, error);
@@ -77,8 +77,6 @@ const CampusVisitSection = () => {
       )}`;
     }
   };
-
-  
 
   const leaders = [
     {
@@ -125,16 +123,16 @@ const CampusVisitSection = () => {
     },
     {
       id: 4,
-      name: "Manmeet Singh",
-      position: "Founder & CEO",
-      company: "Juspay",
+      name: "Manmeet Singh Akali",
+      position: "Vice President",
+      company: "Scaler School of Technology",
       image: "pic4.webp",
-      bio: "Fintech pioneer who revolutionized digital payments in India and built one of the country's leading payment platforms.",
+      bio: "EdTech leader who scaled Scaler from $8M to $65M revenue and built India's largest tech community with 120K+ members.",
       achievements: [
-        "Built Juspay to process $20B+ annually",
-        "Expert in Financial Technology",
-        "IIT Delhi Alumni",
-        "Recognized fintech innovator",
+        "Scaled Scaler revenue from $8M to $65M in 2 years",
+        "Built 100 Cr+ revenue business at Scaler School of Technology",
+        "Grew Discord community from 25K to 120K members",
+        "Successfully exited startup (Klarity) to Sequoia-backed Eduvanz",
       ],
     },
   ];
