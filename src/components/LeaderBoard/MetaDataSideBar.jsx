@@ -8,24 +8,24 @@ const MetadataSidebar = () => {
   const upcomingEvents = [
     {
       id: 1,
-      title: "Challenge",
-      time: "10:00 AM",
-      type: "Competition",
-      description: "Solve complex algorithms in teams",
+      title: "Build && Fun",
+      time: "12:00 PM",
+      type: "WorkShop",
+      description: "Build Robots in teams using Kits",
     },
     {
       id: 2,
-      title: "UI/UX Workshop",
-      time: "2:00 PM",
-      type: "Workshop",
-      description: "Learn modern design principles",
+      title: "Robo Races",
+      time: "12:45 PM",
+      type: "WorkShop",
+      description: "Wanna check whose robot is faster?",
     },
     {
       id: 3,
-      title: "Demo Day",
-      time: "3:30 PM",
-      type: "Presentation",
-      description: "Present your team projects",
+      title: "Robo Wars",
+      time: "1:00 PM",
+      type: "WorkShop",
+      description: "Present your team's skills by fun wars",
     },
   ];
 

@@ -5,33 +5,25 @@ import {
   useMemo,
   useCallback,
 } from "react";
-
 const SCHOOL_CODES = {
+  NONE: "NONE",
   RKBS_XAG175: "RKBS_XAG175",
-  SMPS_BHJ892: "SMPS_BHJ892",
-  DVPS_KLM456: "DVPS_KLM456",
+  VAPS_BRI271: "VAPS_BRI271",
 };
 
 const SCHOOLS = [
   {
+    code: SCHOOL_CODES.NONE,
+  },
+  {
+    code: SCHOOL_CODES.VAPS_BRI271,
+    name: "Vidyashram Public Sr. Sec. School",
+    sheetName: "VIDY",
+  },
+  {
     code: SCHOOL_CODES.RKBS_XAG175,
     name: "Radha Krishna Public School",
-    sheetName: "Sheet1",
-  },
-  {
-    code: SCHOOL_CODES.SMPS_BHJ892,
-    name: "St. Mary's Public School",
-    sheetName: "SMPS",
-  },
-  {
-    code: SCHOOL_CODES.DVPS_KLM456,
-    name: "Delhi Valley Public School",
-    sheetName: "DVPS",
-  },
-  {
-    code: SCHOOL_CODES.VIDXBRICKS,
-    name: "Vidyaashram pilani",
-    sheetName: "VIAS",
+    sheetName: "RKPS",
   },
 ];
 
@@ -40,13 +32,11 @@ export const DataContext = createContext();
 export const DataProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [teams, setTeams] = useState([]);
-  const [sheetId, setSheetId] = useState(
-    "1q3qRg7MRneBcQ1-5EAieju9q2t4oD_tgSFG2NlBV7hg"
+  const [sheetId, setSheetId] = useState(import.meta.env.VITE_SHEET_ID || "");
+  const [apiKey, setApiKey] = useState(import.meta.env.VITE_API_KEY || "");
+  const [schoolCode, setSchoolCode] = useState(
+    localStorage.getItem("SchoolCode") || ""
   );
-  const [apiKey, setApiKey] = useState(
-    "AIzaSyBLjBNb5HpykaD3au1vS3NgW4MXnHY7YLQ"
-  );
-  const [schoolCode, setSchoolCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [isWriting, setIsWriting] = useState(false);
@@ -154,26 +144,33 @@ export const DataProvider = ({ children }) => {
       return;
     }
 
+    if (sheetName === "NONE") {
+      setError("Invalid Code");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
     try {
       const url = getApiUrl(sheetId, sheetName);
-      console.log("API URL: ", url);
       const response = await fetch(url);
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        setError("Invalid Code. Please Try Again");
+        return;
       }
 
       const apiResponse = await response.json();
 
       if (!apiResponse.values || apiResponse.values.length === 0) {
-        throw new Error("No data found in the sheet");
+        setError("Invalid Code. Please Try Again");
+        return;
       }
 
       const apiRows = parseApiResponse(apiResponse);
       const teamsData = convertToTeams(apiRows, schoolCode);
+      localStorage.setItem("SchoolCode", schoolCode);
       setAuthenticated(true);
       setTeams(teamsData);
     } catch (error) {
