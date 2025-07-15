@@ -177,32 +177,14 @@ const ProjectsCarousel = () => {
       outcomes:
         "Students will learn about real-time systems, mobile connectivity, and create a practical pet care solution.",
     },
+   
     {
       id: 4,
-      title: "Line Following Delivery Robot",
-      category: "Service Robotics",
-      description:
-        "Build a robot that follows marked paths to deliver small items between different locations in a building.",
-      image: "photo-1485827404703-89b55fcc595e",
-      duration: "Week 7-8",
-      difficulty: "Intermediate",
-      technologies: ["Arduino", "IR Sensors", "Motors", "Chassis Design"],
-      features: [
-        "Line following navigation",
-        "Obstacle detection and stopping",
-        "Delivery compartment mechanism",
-        "Speed control and turning",
-      ],
-      outcomes:
-        "Students will understand navigation principles and build a robot with practical delivery applications.",
-    },
-    {
-      id: 5,
       title: "Smart Security Alert Robot",
       category: "Security Robotics",
       description:
         "Create a mobile security robot that patrols an area, detects motion, and sends alerts when intruders are detected.",
-      image: "photo-1558618644-fcd25c85cd64",
+      image: "photo-1485827404703-89b55fcc595e",
       duration: "Week 8-9",
       difficulty: "Advanced",
       technologies: [

@@ -116,7 +116,7 @@ const FinalCtaSection = () => {
                 e.currentTarget.style.boxShadow = `var(--shadow)`;
               }}
             >
-              <span className="relative z-10">ENROLL NOW - ₹1,999 ONLY!</span>
+              <span className="relative z-10">ENROLL NOW</span>
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
                 style={{

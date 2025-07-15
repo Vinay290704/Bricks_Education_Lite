@@ -28,6 +28,11 @@ const SCHOOLS = [
     name: "Delhi Valley Public School",
     sheetName: "DVPS",
   },
+  {
+    code: SCHOOL_CODES.VIDXBRICKS,
+    name: "Vidyaashram pilani",
+    sheetName: "VIAS",
+  },
 ];
 
 export const DataContext = createContext();

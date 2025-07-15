@@ -65,13 +65,28 @@ const CampusVisitSection = () => {
     }
   }, []);
 
+  
+  const getImageUrl = (imageName) => {
+    try {
+      const url = new URL(`../../assets/images/${imageName}`, import.meta.url).href;
+      return url;
+    } catch (error) {
+      console.error(`Failed to load image: ${imageName}`, error);
+      return `https://via.placeholder.com/150x150?text=${encodeURIComponent(
+        imageName
+      )}`;
+    }
+  };
+
+  
+
   const leaders = [
     {
       id: 1,
       name: "Abhimanyu Saxena",
       position: "Co-Founder & CEO",
       company: "Scaler Academy",
-      image: "photo-1472099645785-5658abf4ff4e",
+      image: "Pic3.jpg",
       bio: "Serial entrepreneur and tech visionary who has built multiple successful companies in the education technology space.",
       achievements: [
         "Built Scaler from 0 to 10,000+ students",
@@ -85,7 +100,7 @@ const CampusVisitSection = () => {
       name: "Anshuman Singh",
       position: "Co-Founder & CTO",
       company: "Scaler Academy",
-      image: "photo-1507003211169-0a1dd7228f2d",
+      image: "Pic1.jpg",
       bio: "Technology leader with deep expertise in building scalable systems and mentoring the next generation of engineers.",
       achievements: [
         "Led engineering teams at top tech companies",
@@ -99,7 +114,7 @@ const CampusVisitSection = () => {
       name: "Prasanna Sankar",
       position: "Co-Founder",
       company: "Rippling",
-      image: "photo-1519085360753-af0119f7cbe7",
+      image: "pic2.jpg",
       bio: "Successful entrepreneur who has built and scaled multiple technology companies from startup to IPO.",
       achievements: [
         "Co-founded Rippling (valued at $11B)",
@@ -113,7 +128,7 @@ const CampusVisitSection = () => {
       name: "Manmeet Singh",
       position: "Founder & CEO",
       company: "Juspay",
-      image: "photo-1560250097-0b93528c311a",
+      image: "pic4.webp",
       bio: "Fintech pioneer who revolutionized digital payments in India and built one of the country's leading payment platforms.",
       achievements: [
         "Built Juspay to process $20B+ annually",
@@ -236,7 +251,7 @@ const CampusVisitSection = () => {
               <div className="p-0 flex-shrink-0 relative">
                 <div className="relative overflow-hidden">
                   <img
-                    src={`https://images.unsplash.com/${leader.image}?w=400&h=300&fit=crop&face`}
+                    src={getImageUrl(leader.image)}
                     alt={leader.name}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-all duration-700"
                   />
@@ -308,7 +323,7 @@ const CampusVisitSection = () => {
               <div className="flex justify-between items-start mb-6">
                 <div className="flex items-center gap-4">
                   <img
-                    src={`https://images.unsplash.com/${selectedPerson.image}?w=100&h=100&fit=crop&face`}
+                    src={getImageUrl(selectedPerson.image)}
                     alt={selectedPerson.name}
                     className="w-16 h-16 object-cover rounded-full"
                   />
@@ -359,7 +374,7 @@ const CampusVisitSection = () => {
               <div className="space-y-6">
                 <div className="relative">
                   <img
-                    src={`https://images.unsplash.com/${selectedPerson.image}?w=600&h=300&fit=crop&face`}
+                    src={getImageUrl(selectedPerson.image)}
                     alt={selectedPerson.name}
                     className="w-full h-48 object-cover"
                     style={{

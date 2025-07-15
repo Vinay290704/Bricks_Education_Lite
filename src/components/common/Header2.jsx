@@ -1,3 +1,4 @@
+
 import { Link, useLocation } from "react-router-dom";
 import { Trophy, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -8,6 +9,35 @@ const Header = () => {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
+
+  // Add dark theme styles
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = `
+      .glass-header {
+        background: rgba(15, 15, 23, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .header-gradient {
+        background: linear-gradient(135deg, #9333ea 0%, #06b6d4 50%, #22c55e 100%);
+      }
+      .glass-nav-item {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .nav-glow:hover {
+        box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   // Handle scroll for navbar hiding/showing
   useEffect(() => {
@@ -59,7 +89,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 bg-red-500 backdrop-blur-[20px] border-b border-red-500/10 shadow-[0_4px_20px_rgba(0,0,0,0.1)] transition-transform duration-300 ease-in-out ${
+      className={`fixed inset-x-0 top-0 z-50 glass-header border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.3)] transition-transform duration-300 ease-in-out ${
         isHeaderVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -68,10 +98,10 @@ const Header = () => {
           {/* Logo Section */}
           <Link
             to="/"
-            className="flex items-center gap-4 text-white transition-transform duration-300 ease-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 rounded-lg"
+            className="flex items-center gap-4 text-white transition-transform duration-300 ease-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:ring-offset-2 rounded-lg"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div className="relative w-[50px] h-[50px] bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center overflow-hidden shadow-[0_4px_15px_rgba(231,76,60,0.3)] transition-all duration-300 hover:rotate-[5deg] hover:scale-105 hover:shadow-[0_8px_25px_rgba(231,76,60,0.4)]">
+            <div className="relative w-[50px] h-[50px] header-gradient rounded-xl flex items-center justify-center overflow-hidden shadow-[0_4px_15px_rgba(147,51,234,0.3)] transition-all duration-300 hover:rotate-[5deg] hover:scale-105 hover:shadow-[0_8px_25px_rgba(147,51,234,0.4)]">
               <img
                 src={BricksLogo}
                 alt="Bricks Education Logo"
@@ -79,7 +109,7 @@ const Header = () => {
               />
             </div>
             <div className="text-2xl md:text-2xl font-bold text-white">
-              BRICKS <span className="text-lg md:text-2xl">EDUCATION</span>
+              BRICKS <span className="text-lg md:text-2xl bg-gradient-to-r from-cyan-400 to-green-400 bg-clip-text text-transparent">EDUCATION</span>
             </div>
           </Link>
 
@@ -88,10 +118,10 @@ const Header = () => {
             <li className="relative">
               <Link
                 to="/leaderboard"
-                className={`relative flex items-center gap-2.5 px-4 py-2 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 overflow-hidden ${
+                className={`relative flex items-center gap-2.5 px-4 py-2 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:ring-offset-2 overflow-hidden nav-glow ${
                   location.pathname === "/leaderboard"
-                    ? "bg-gradient-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/25"
-                    : "hover:bg-white/10"
+                    ? "header-gradient shadow-lg shadow-purple-500/25"
+                    : "glass-nav-item hover:bg-white/10"
                 }`}
               >
                 <Trophy size={18} className="flex-shrink-0" />
@@ -102,7 +132,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="relative p-3 rounded-xl text-white transition-all duration-300 ease-out hover:bg-white/10 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 md:hidden"
+            className="relative p-3 rounded-xl text-white transition-all duration-300 ease-out glass-nav-item hover:bg-white/10 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:ring-offset-2 md:hidden nav-glow"
             onClick={toggleMobileMenu}
             aria-label="Toggle mobile menu"
             aria-expanded={isMobileMenuOpen}
@@ -131,10 +161,10 @@ const Header = () => {
               <li>
                 <Link
                   to="/leaderboard"
-                  className={`relative flex items-center gap-3 px-4 py-3.5 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 overflow-hidden ${
+                  className={`relative flex items-center gap-3 px-4 py-3.5 rounded-[25px] font-medium text-white transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:ring-offset-2 overflow-hidden nav-glow ${
                     location.pathname === "/leaderboard"
-                      ? "bg-gradient-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/25"
-                      : "hover:bg-white/10"
+                      ? "header-gradient shadow-lg shadow-purple-500/25"
+                      : "glass-nav-item hover:bg-white/10"
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

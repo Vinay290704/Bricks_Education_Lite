@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react';
-import { Award, Star, CheckCircle, Sparkles } from 'lucide-react';
+import { Award, CheckCircle, Sparkles } from 'lucide-react';
+
+// Import partner logos
+import ScalerLogo from '../../assets/images/Scaler.jpg';
+import microsoftLogo from '../../assets/images/microsoft.png';
+import googleLogo from '../../assets/images/google.png'; // Replace with correct Google logo if needed
+import ibLogo from '../../assets/images/IVB.jpg';     // Replace with correct STEM logo if needed
 
 const PartnersSection = () => {
   useEffect(() => {
@@ -35,25 +41,25 @@ const PartnersSection = () => {
     {
       name: "Scaler",
       description: "India's Leading Tech Education Platform",
-      logo: "🚀",
+      logo: ScalerLogo,
       color: "hsl(var(--primary))",
     },
     {
       name: "Google",
       description: "Technology & Cloud Computing Partner",
-      logo: "🌟",
+      logo: googleLogo,
       color: "hsl(217, 91%, 60%)",
     },
     {
       name: "Microsoft",
       description: "Software Development & Azure Partner",
-      logo: "💼",
+      logo: microsoftLogo,
       color: "hsl(210, 100%, 50%)",
     },
     {
-      name: "STEM",
-      description: "Science, Technology, Engineering & Math",
-      logo: "🔬",
+      name: "InterviewBit",
+      description: "Interview Preparation & Coding Skills Platform",
+      logo: ibLogo,
       color: "hsl(var(--secondary))",
     },
   ];
@@ -65,7 +71,6 @@ const PartnersSection = () => {
         background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 50%, hsl(var(--background)) 100%)`,
       }}
     >
-      {/* Background decoration */}
       <div
         className="absolute inset-0"
         style={{
@@ -130,12 +135,16 @@ const PartnersSection = () => {
             >
               <div className="p-8 text-center">
                 <div
-                  className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300 text-3xl"
+                  className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300"
                   style={{
                     background: `linear-gradient(135deg, hsla(var(--primary), 0.1) 0%, hsla(var(--secondary), 0.1) 100%)`,
                   }}
                 >
-                  {partner.logo}
+                  <img 
+                    src={partner.logo} 
+                    alt={partner.name} 
+                    className="w-16 h-16 object-contain rounded-full" 
+                  />
                 </div>
                 <h3
                   className="text-xl font-bold mb-3 group-hover:transition-colors duration-300"
@@ -154,7 +163,6 @@ const PartnersSection = () => {
           ))}
         </div>
 
-        {/* Certificate highlight */}
         <div className="text-center mt-16">
           <div
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-semibold"

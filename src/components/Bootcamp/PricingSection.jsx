@@ -75,21 +75,6 @@ const PricingSection = () => {
         'Official certificates'
       ],
       buttonText: 'SECURE YOUR SPOT'
-    },
-    {
-      id: 'regular',
-      name: 'Regular Admission',
-      price: '₹5,999',
-      originalPrice: 'Full Price',
-      icon: Star,
-      color: 'gray',
-      features: [
-        'Basic program access',
-        'Standard mentorship',
-        'Course materials',
-        'Basic certificates'
-      ],
-      buttonText: 'JOIN WAITLIST'
     }
   ];
 
@@ -129,16 +114,6 @@ const PricingSection = () => {
           buttonStyle: {
             background: `linear-gradient(135deg, #9333EA 0%, #7C3AED 100%)`,
             color: '#fff'
-          }
-        };
-      default:
-        return {
-          priceStyle: { color: `hsl(var(--muted-foreground))` },
-          iconColor: `hsl(var(--muted-foreground))`,
-          checkColor: `hsl(var(--muted-foreground))`,
-          buttonStyle: {
-            background: `hsl(var(--muted))`,
-            color: `hsl(var(--muted-foreground))`
           }
         };
     }
@@ -194,128 +169,134 @@ const PricingSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {tiers.map((tier) => {
-            const colorStyles = getColorStyles(tier.color, tier.highlighted);
-            const isHighlighted = tier.highlighted;
-            
-            return (
-              <div 
-                key={tier.id}
-                className={`group overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-2 cursor-pointer relative ${
-                  isHighlighted ? 'transform scale-105' : ''
-                } ${colorStyles.cardStyle || ''}`}
-                style={{
-                  background: `hsl(var(--card))`,
-                  border: `2px solid ${isHighlighted ? '#FFD700' : 'hsl(var(--border))'}`,
-                  borderRadius: `var(--radius)`,
-                  boxShadow: isHighlighted ? undefined : `var(--shadow)`,
-                }}
-                onMouseEnter={(e) => {
-                  if (!isHighlighted) {
-                    e.currentTarget.style.borderColor = `hsla(var(--primary), 0.5)`;
-                    e.currentTarget.style.boxShadow = `var(--shadow-hover)`;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isHighlighted) {
-                    e.currentTarget.style.borderColor = `hsl(var(--border))`;
-                    e.currentTarget.style.boxShadow = `var(--shadow)`;
-                  }
-                }}
-              >
-                {/* Badge for Winner tier */}
-                {tier.badge && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+        {/* Side by side layout */}
+        <div className="flex justify-center">
+          <div className="flex flex-col sm:flex-row gap-8 max-w-5xl w-full">
+            {tiers.map((tier) => {
+              const colorStyles = getColorStyles(tier.color, tier.highlighted);
+              const isHighlighted = tier.highlighted;
+              
+              return (
+                <div 
+                  key={tier.id}
+                  className={`group overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-2 cursor-pointer relative flex-1 ${
+                    isHighlighted ? 'transform scale-105 sm:scale-110' : ''
+                  } ${colorStyles.cardStyle || ''}`}
+                  style={{
+                    background: `hsl(var(--card))`,
+                    border: `2px solid ${isHighlighted ? '#FFD700' : 'hsl(var(--border))'}`,
+                    borderRadius: `var(--radius)`,
+                    boxShadow: isHighlighted ? undefined : `var(--shadow)`,
+                    minHeight: '550px',
+                    maxWidth: '450px',
+                    margin: '0 auto'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isHighlighted) {
+                      e.currentTarget.style.borderColor = `hsla(var(--primary), 0.5)`;
+                      e.currentTarget.style.boxShadow = `var(--shadow-hover)`;
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isHighlighted) {
+                      e.currentTarget.style.borderColor = `hsl(var(--border))`;
+                      e.currentTarget.style.boxShadow = `var(--shadow)`;
+                    }
+                  }}
+                >
+                  {/* Badge for Winner tier */}
+                  {tier.badge && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                      <div
+                        className="px-6 py-2 text-sm font-bold rounded-full whitespace-nowrap"
+                        style={colorStyles.badgeStyle}
+                      >
+                        {tier.badge}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="p-8 text-center">
                     <div
-                      className="px-4 py-2 text-sm font-bold rounded-full"
-                      style={colorStyles.badgeStyle}
+                      className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300"
+                      style={{
+                        background: `linear-gradient(135deg, hsla(var(--primary), 0.1) 0%, hsla(var(--secondary), 0.1) 100%)`,
+                      }}
                     >
-                      {tier.badge}
+                      <tier.icon 
+                        className="w-10 h-10 transition-colors duration-300" 
+                        style={{ color: colorStyles.iconColor }}
+                      />
+                    </div>
+                    
+                    <h3 
+                      className="text-2xl font-bold mb-6 group-hover:transition-colors duration-300"
+                      style={{ color: `hsl(var(--foreground))` }}
+                    >
+                      {tier.name}
+                    </h3>
+                    
+                    <div className="mb-6">
+                      <div 
+                        className="text-4xl md:text-5xl font-bold mb-2"
+                        style={colorStyles.priceStyle}
+                      >
+                        {tier.price}
+                      </div>
+                      <div 
+                        className={`text-lg ${tier.originalPrice === 'Full Price' ? '' : 'line-through'}`}
+                        style={{ color: `hsl(var(--muted-foreground))` }}
+                      >
+                        {tier.originalPrice}
+                      </div>
                     </div>
                   </div>
-                )}
 
-                <div className="p-8 text-center">
-                  <div
-                    className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300"
-                    style={{
-                      background: `linear-gradient(135deg, hsla(var(--primary), 0.1) 0%, hsla(var(--secondary), 0.1) 100%)`,
-                    }}
-                  >
-                    <tier.icon 
-                      className="w-8 h-8 transition-colors duration-300" 
-                      style={{ color: colorStyles.iconColor }}
-                    />
-                  </div>
-                  
-                  <h3 
-                    className="text-2xl font-bold mb-4 group-hover:transition-colors duration-300"
-                    style={{ color: `hsl(var(--foreground))` }}
-                  >
-                    {tier.name}
-                  </h3>
-                  
-                  <div className="mb-2">
-                    <div 
-                      className="text-4xl md:text-5xl font-bold"
-                      style={colorStyles.priceStyle}
+                  <div className="px-8 pb-8 flex-grow flex flex-col">
+                    <ul className="space-y-4 mb-8 flex-grow">
+                      {tier.features.map((feature, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <CheckCircle 
+                            className="w-5 h-5 flex-shrink-0 mt-0.5" 
+                            style={{ color: colorStyles.checkColor }}
+                          />
+                          <span
+                            className="text-base leading-relaxed"
+                            style={{ color: `hsl(var(--muted-foreground))` }}
+                          >
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <button
+                      className="w-full transition-all duration-300 py-4 px-6 font-bold text-base group-hover:scale-105"
+                      style={{
+                        ...colorStyles.buttonStyle,
+                        borderRadius: `var(--radius)`,
+                        boxShadow: `var(--shadow)`,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.boxShadow = `var(--shadow-hover)`;
+                        if (tier.color === 'gray') {
+                          e.target.style.background = `hsl(var(--accent))`;
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.boxShadow = `var(--shadow)`;
+                        if (tier.color === 'gray') {
+                          e.target.style.background = `hsl(var(--muted))`;
+                        }
+                      }}
                     >
-                      {tier.price}
-                    </div>
-                    <div 
-                      className={`text-lg ${tier.originalPrice === 'Full Price' ? '' : 'line-through'}`}
-                      style={{ color: `hsl(var(--muted-foreground))` }}
-                    >
-                      {tier.originalPrice}
-                    </div>
+                      {tier.buttonText}
+                    </button>
                   </div>
                 </div>
-
-                <div className="p-8 pt-0 flex-grow flex flex-col">
-                  <ul className="space-y-4 mb-8 flex-grow">
-                    {tier.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <CheckCircle 
-                          className="w-5 h-5 flex-shrink-0 mt-0.5" 
-                          style={{ color: colorStyles.checkColor }}
-                        />
-                        <span
-                          className="text-sm leading-relaxed"
-                          style={{ color: `hsl(var(--muted-foreground))` }}
-                        >
-                          {feature}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <button
-                    className="w-full transition-all duration-300 py-4 px-6 font-bold text-sm group-hover:scale-105"
-                    style={{
-                      ...colorStyles.buttonStyle,
-                      borderRadius: `var(--radius)`,
-                      boxShadow: `var(--shadow)`,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.boxShadow = `var(--shadow-hover)`;
-                      if (tier.color === 'gray') {
-                        e.target.style.background = `hsl(var(--accent))`;
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.boxShadow = `var(--shadow)`;
-                      if (tier.color === 'gray') {
-                        e.target.style.background = `hsl(var(--muted))`;
-                      }
-                    }}
-                  >
-                    {tier.buttonText}
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
