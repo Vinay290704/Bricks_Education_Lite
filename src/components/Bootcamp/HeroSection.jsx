@@ -10,31 +10,32 @@ const HeroSection = () => {
   });
 
   useEffect(() => {
-    // Modern CSS variables with Gen Z color palette
+    // Modern CSS variables with lighter, glassy theme
     const style = document.createElement("style");
     style.textContent = `
       :root {
-        --background: 240 10% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 240 10% 3.9%;
-        --card-foreground: 0 0% 98%;
+        --background: 220 20% 95%;
+        --foreground: 220 10% 10%;
+        --card: 0 0% 100%;
+        --card-foreground: 220 10% 10%;
         --primary: 263 70% 50%;
         --primary-foreground: 0 0% 98%;
-        --secondary: 196 75% 88%;
-        --secondary-foreground: 240 5.9% 10%;
+        --secondary: 220 15% 25%;
+        --secondary-foreground: 0 0% 98%;
         --accent: 142 76% 36%;
-        --accent-foreground: 355.7 100% 97.3%;
-        --muted: 240 3.7% 15.9%;
-        --muted-foreground: 240 5% 64.9%;
-        --border: 240 3.7% 15.9%;
-        --input: 240 3.7% 15.9%;
+        --accent-foreground: 0 0% 98%;
+        --muted: 220 10% 90%;
+        --muted-foreground: 220 10% 40%;
+        --border: 220 15% 85%;
+        --input: 220 15% 85%;
         --ring: 263 70% 50%;
-        --glow: 0 0 40px rgba(147, 51, 234, 0.3);
-        --glow-green: 0 0 40px rgba(34, 197, 94, 0.3);
-        --glow-cyan: 0 0 40px rgba(6, 182, 212, 0.3);
+        --glow: 0 0 40px rgba(147, 51, 234, 0.15);
+        --glow-green: 0 0 40px rgba(34, 197, 94, 0.15);
+        --glow-cyan: 0 0 40px rgba(6, 182, 212, 0.15);
         --gradient-1: linear-gradient(135deg, #9333ea 0%, #06b6d4 50%, #22c55e 100%);
         --gradient-2: linear-gradient(45deg, #f59e0b 0%, #ef4444 50%, #8b5cf6 100%);
-        --glass: rgba(255, 255, 255, 0.1);
+        --glass: rgba(255, 255, 255, 0.25);
+        --glass-border: rgba(255, 255, 255, 0.3);
         --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
@@ -44,7 +45,9 @@ const HeroSection = () => {
       .glass-morphism {
         background: var(--glass);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
       }
       .gradient-text {
         background: var(--gradient-1);
@@ -63,8 +66,8 @@ const HeroSection = () => {
         animation: pulseGlow 2s infinite;
       }
       @keyframes pulseGlow {
-        0%, 100% { box-shadow: 0 0 20px rgba(147, 51, 234, 0.5); }
-        50% { box-shadow: 0 0 40px rgba(147, 51, 234, 0.8), 0 0 60px rgba(6, 182, 212, 0.3); }
+        0%, 100% { box-shadow: 0 0 20px rgba(147, 51, 234, 0.3); }
+        50% { box-shadow: 0 0 40px rgba(147, 51, 234, 0.5), 0 0 60px rgba(6, 182, 212, 0.2); }
       }
     `;
     document.head.appendChild(style);
@@ -102,7 +105,7 @@ const HeroSection = () => {
     <section
       className="relative overflow-hidden min-h-screen flex items-center"
       style={{
-        background: `hsl(var(--background))`,
+        background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%)`,
         color: `hsl(var(--foreground))`,
       }}
     >
@@ -110,15 +113,15 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         <div 
           className="absolute top-20 left-20 w-32 h-32 rounded-full floating"
-          style={{ background: 'var(--gradient-1)', opacity: 0.1 }}
+          style={{ background: 'var(--gradient-1)', opacity: 0.08 }}
         />
         <div 
           className="absolute top-40 right-32 w-24 h-24 rounded-full floating"
-          style={{ background: 'var(--gradient-2)', opacity: 0.1, animationDelay: '2s' }}
+          style={{ background: 'var(--gradient-2)', opacity: 0.08, animationDelay: '2s' }}
         />
         <div 
           className="absolute bottom-32 left-1/4 w-40 h-40 rounded-full floating"
-          style={{ background: 'var(--gradient-1)', opacity: 0.1, animationDelay: '4s' }}
+          style={{ background: 'var(--gradient-1)', opacity: 0.08, animationDelay: '4s' }}
         />
       </div>
 
@@ -131,9 +134,9 @@ const HeroSection = () => {
           </div>
 
           {/* Main Headline with Modern Typography */}
-          <h1 className="text-5xl md:text-5xl lg:text-6xl font-bold mb-6 leading-none tracking-tight"style={{ color: `hsl(var(--secondary))` }}>
+          <h1 className="text-5xl md:text-5xl lg:text-6xl font-bold mb-6 leading-none tracking-tight" style={{ color: `hsl(var(--secondary))` }}>
             BRICKS Innovation
-            <span className="block gradient-text mt-2"style={{ color: `black` }} >
+            <span className="block gradient-text mt-2" style={{ color: `black` }}>
               Bootcamp
             </span>
           </h1>
@@ -146,7 +149,7 @@ const HeroSection = () => {
           <p className="text-lg mb-8 max-w-2xl mx-auto leading-relaxed opacity-90">
             You can be the one or you will be left behind. This is your chance
             to interact with
-            <span className="gradient-text font-black "style={{ color: `hsl(var(--secondary))` }}> Abhimanyu Saxena</span> and industry legends!
+            <span className="gradient-text font-black " style={{ color: `hsl(var(--secondary))` }}> Abhimanyu Saxena</span> and industry legends!
           </p>
 
           {/* Modern Countdown Timer */}
@@ -156,7 +159,7 @@ const HeroSection = () => {
                 key={unit}
                 className="glass-morphism p-4 md:p-6 rounded-2xl transform hover:scale-105 transition-all duration-300"
                 style={{
-                  background: index % 2 === 0 ? 'var(--glass)' : 'rgba(147, 51, 234, 0.1)',
+                  background: index % 2 === 0 ? 'var(--glass)' : 'rgba(147, 51, 234, 0.05)',
                 }}
               >
                 <div className="text-2xl md:text-4xl font-black mb-1 gradient-text">

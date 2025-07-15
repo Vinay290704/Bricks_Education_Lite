@@ -147,7 +147,7 @@ const FomoSection = () => {
           ))}
         </div>
 
-      
+       
       </div>
     </section>
   );
