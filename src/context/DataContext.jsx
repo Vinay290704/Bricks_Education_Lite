@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   useEffect,
   useState,
@@ -16,7 +16,7 @@ const SCHOOLS = [
   {
     code: SCHOOL_CODES.RKBS_XAG175,
     name: "Radha Krishna Public School",
-    sheetName: "RKPS",
+    sheetName: "Sheet1",
   },
   {
     code: SCHOOL_CODES.SMPS_BHJ892,
@@ -36,12 +36,16 @@ export const DataProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [teams, setTeams] = useState([]);
   const [sheetId, setSheetId] = useState(
-    "1hSEQDnZq2ZewQcgZPxvmUWAMfqD0JXZLG5mJVhS_zFM"
+    "1q3qRg7MRneBcQ1-5EAieju9q2t4oD_tgSFG2NlBV7hg"
   );
-
+  const [apiKey, setApiKey] = useState(
+    "AIzaSyBLjBNb5HpykaD3au1vS3NgW4MXnHY7YLQ"
+  );
   const [schoolCode, setSchoolCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isWriting, setIsWriting] = useState(false);
+  const [writeError, setWriteError] = useState("");
 
   const schoolCodeToName = useMemo(() => {
     const mapping = {};
@@ -59,60 +63,23 @@ export const DataProvider = ({ children }) => {
     return mapping;
   }, []);
 
-  const getCsvUrl = useCallback((id, sheetName) => {
-    return `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(
-      sheetName
-    )}`;
-  }, []);
+  const getApiUrl = useCallback(
+    (id, sheetName, range = "A:Z") => {
+      return `https://sheets.googleapis.com/v4/spreadsheets/${id}/values/${encodeURIComponent(
+        sheetName
+      )}!${range}?key=${apiKey}`;
+    },
+    [apiKey]
+  );
 
-  const parseCSV = useCallback((csvText) => {
+  const parseApiResponse = useCallback((apiResponse) => {
     try {
-      const lines = [];
-      let current = "";
-      let inQuotes = false;
-
-      for (let i = 0; i < csvText.length; i++) {
-        const char = csvText[i];
-
-        if (char === '"') {
-          inQuotes = !inQuotes;
-        } else if (char === "\n" && !inQuotes) {
-          if (current.trim()) {
-            lines.push(current);
-          }
-          current = "";
-          continue;
-        }
-        current += char;
+      if (!apiResponse.values || !Array.isArray(apiResponse.values)) {
+        return [];
       }
-
-      if (current.trim()) {
-        lines.push(current);
-      }
-
-      return lines.map((line) => {
-        const result = [];
-        let current = "";
-        let inQuotes = false;
-
-        for (let i = 0; i < line.length; i++) {
-          const char = line[i];
-
-          if (char === '"') {
-            inQuotes = !inQuotes;
-          } else if (char === "," && !inQuotes) {
-            result.push(current.replace(/^"|"$/g, ""));
-            current = "";
-            continue;
-          }
-          current += char;
-        }
-
-        result.push(current.replace(/^"|"$/g, ""));
-        return result;
-      });
+      return apiResponse.values;
     } catch (error) {
-      throw new Error("Failed to parse CSV data");
+      throw new Error("Failed to parse API response");
     }
   }, []);
 
@@ -137,12 +104,13 @@ export const DataProvider = ({ children }) => {
   }, []);
 
   const convertToTeams = useCallback(
-    (csvRows, currentSchoolCode) => {
-      const teamsData = csvRows.map((row, index) => {
+    (apiRows, currentSchoolCode) => {
+      const teamsData = apiRows.map((row, index) => {
         const [teamName, points, ...members] = row;
 
         return {
           id: index + 1,
+          rowNumber: index + 1,
           name: teamName || `Team ${index + 1}`,
           points: parseInt(points) || 0,
           members: members.filter((member) => member && member.trim() !== ""),
@@ -170,6 +138,11 @@ export const DataProvider = ({ children }) => {
       return;
     }
 
+    if (!apiKey.trim()) {
+      setError("Please provide a valid API key");
+      return;
+    }
+
     const sheetName = schoolCodeToSheetName[schoolCode];
     if (!sheetName) {
       setError("Invalid school code selected");
@@ -180,33 +153,28 @@ export const DataProvider = ({ children }) => {
     setError("");
 
     try {
-      const url = getCsvUrl(sheetId, sheetName);
-      console.log("Url: ", url);
+      const url = getApiUrl(sheetId, sheetName);
+      console.log("API URL: ", url);
       const response = await fetch(url);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const csvText = await response.text();
+      const apiResponse = await response.json();
 
-      if (!csvText.trim()) {
-        throw new Error("Empty CSV data received");
-      }
-
-      const csvRows = parseCSV(csvText);
-
-      if (csvRows.length === 0) {
+      if (!apiResponse.values || apiResponse.values.length === 0) {
         throw new Error("No data found in the sheet");
       }
 
-      const teamsData = convertToTeams(csvRows, schoolCode);
+      const apiRows = parseApiResponse(apiResponse);
+      const teamsData = convertToTeams(apiRows, schoolCode);
       setAuthenticated(true);
       setTeams(teamsData);
     } catch (error) {
       setError(
         error.message ||
-          "Failed to load data. Please check your Sheet ID and make sure the sheet is public."
+          "Failed to load data. Please check your Sheet ID, API key, and make sure the sheet is accessible."
       );
     } finally {
       setLoading(false);
@@ -214,20 +182,263 @@ export const DataProvider = ({ children }) => {
   }, [
     sheetId,
     schoolCode,
+    apiKey,
     schoolCodeToSheetName,
-    getCsvUrl,
-    parseCSV,
+    getApiUrl,
+    parseApiResponse,
     convertToTeams,
   ]);
 
+  const formatTeamForSheet = useCallback((team) => {
+    return [team.name, team.points.toString(), ...team.members];
+  }, []);
+
+  const appendTeam = useCallback(
+    async (teamData) => {
+      if (!apiKey.trim() || !sheetId.trim() || !schoolCode.trim()) {
+        setWriteError("Missing required configuration");
+        return false;
+      }
+
+      const sheetName = schoolCodeToSheetName[schoolCode];
+      if (!sheetName) {
+        setWriteError("Invalid school code");
+        return false;
+      }
+
+      setIsWriting(true);
+      setWriteError("");
+
+      try {
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(
+          sheetName
+        )}!A:Z:append?valueInputOption=RAW&key=${apiKey}`;
+
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            values: [formatTeamForSheet(teamData)],
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Team added successfully:", result);
+
+        await loadData();
+        return true;
+      } catch (error) {
+        setWriteError(error.message || "Failed to add team");
+        return false;
+      } finally {
+        setIsWriting(false);
+      }
+    },
+    [
+      apiKey,
+      sheetId,
+      schoolCode,
+      schoolCodeToSheetName,
+      formatTeamForSheet,
+      loadData,
+    ]
+  );
+
+  const updateTeamPoints = useCallback(
+    async (teamId, newPoints) => {
+      if (!apiKey.trim() || !sheetId.trim() || !schoolCode.trim()) {
+        setWriteError("Missing required configuration");
+        return false;
+      }
+
+      const team = teams.find((t) => t.id === teamId);
+      if (!team) {
+        setWriteError("Team not found");
+        return false;
+      }
+
+      const sheetName = schoolCodeToSheetName[schoolCode];
+      if (!sheetName) {
+        setWriteError("Invalid school code");
+        return false;
+      }
+
+      setIsWriting(true);
+      setWriteError("");
+
+      try {
+        const range = `${sheetName}!B${team.rowNumber}`;
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(
+          range
+        )}?valueInputOption=RAW&key=${apiKey}`;
+
+        const response = await fetch(url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            values: [[newPoints.toString()]],
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Team points updated successfully:", result);
+
+        await loadData();
+        return true;
+      } catch (error) {
+        setWriteError(error.message || "Failed to update team points");
+        return false;
+      } finally {
+        setIsWriting(false);
+      }
+    },
+    [apiKey, sheetId, schoolCode, schoolCodeToSheetName, teams, loadData]
+  );
+
+  const deleteTeam = useCallback(
+    async (teamId) => {
+      if (!apiKey.trim() || !sheetId.trim() || !schoolCode.trim()) {
+        setWriteError("Missing required configuration");
+        return false;
+      }
+
+      const team = teams.find((t) => t.id === teamId);
+      if (!team) {
+        setWriteError("Team not found");
+        return false;
+      }
+
+      const sheetName = schoolCodeToSheetName[schoolCode];
+      if (!sheetName) {
+        setWriteError("Invalid school code");
+        return false;
+      }
+
+      setIsWriting(true);
+      setWriteError("");
+
+      try {
+        const range = `${sheetName}!A${team.rowNumber}:Z${team.rowNumber}`;
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(
+          range
+        )}?key=${apiKey}`;
+
+        const response = await fetch(url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            values: [[""]],
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Team deleted successfully:", result);
+
+        await loadData();
+        return true;
+      } catch (error) {
+        setWriteError(error.message || "Failed to delete team");
+        return false;
+      } finally {
+        setIsWriting(false);
+      }
+    },
+    [apiKey, sheetId, schoolCode, schoolCodeToSheetName, teams, loadData]
+  );
+
+  const batchUpdateTeams = useCallback(
+    async (updates) => {
+      if (!apiKey.trim() || !sheetId.trim() || !schoolCode.trim()) {
+        setWriteError("Missing required configuration");
+        return false;
+      }
+
+      const sheetName = schoolCodeToSheetName[schoolCode];
+      if (!sheetName) {
+        setWriteError("Invalid school code");
+        return false;
+      }
+
+      setIsWriting(true);
+      setWriteError("");
+
+      try {
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values:batchUpdate?key=${apiKey}`;
+
+        const batchData = updates.map((update) => ({
+          range: `${sheetName}!A${update.rowNumber}:Z${update.rowNumber}`,
+          values: [formatTeamForSheet(update.teamData)],
+        }));
+
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            valueInputOption: "RAW",
+            data: batchData,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Batch update successful:", result);
+
+        await loadData();
+        return true;
+      } catch (error) {
+        setWriteError(error.message || "Failed to batch update teams");
+        return false;
+      } finally {
+        setIsWriting(false);
+      }
+    },
+    [
+      apiKey,
+      sheetId,
+      schoolCode,
+      schoolCodeToSheetName,
+      formatTeamForSheet,
+      loadData,
+    ]
+  );
+
   useEffect(() => {
-    if (!sheetId.trim() || !schoolCode.trim() || !authenticated) return;
+    if (
+      !sheetId.trim() ||
+      !schoolCode.trim() ||
+      !apiKey.trim() ||
+      !authenticated
+    )
+      return;
 
     loadData();
 
     const interval = setInterval(loadData, 5000);
     return () => clearInterval(interval);
-  }, [loadData, sheetId, schoolCode, authenticated]);
+  }, [loadData, sheetId, schoolCode, apiKey, authenticated]);
 
   const getSchoolByCode = useCallback((code) => {
     return (
@@ -264,6 +475,14 @@ export const DataProvider = ({ children }) => {
       computedValues,
       getSchoolByCode,
       loadData,
+      apiKey,
+      setApiKey,
+      isWriting,
+      writeError,
+      appendTeam,
+      updateTeamPoints,
+      deleteTeam,
+      batchUpdateTeams,
     }),
     [
       authenticated,
@@ -277,6 +496,13 @@ export const DataProvider = ({ children }) => {
       computedValues,
       getSchoolByCode,
       loadData,
+      apiKey,
+      isWriting,
+      writeError,
+      appendTeam,
+      updateTeamPoints,
+      deleteTeam,
+      batchUpdateTeams,
     ]
   );
 

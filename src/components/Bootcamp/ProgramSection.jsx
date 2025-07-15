@@ -1,0 +1,160 @@
+import React, { useEffect } from 'react';
+import { BookOpen, Users, Star, Award, Zap, Target } from 'lucide-react';
+
+const ProgramSection = () => {
+  useEffect(() => {
+    if (!document.getElementById("program-section-styles")) {
+      const style = document.createElement("style");
+      style.id = "program-section-styles";
+      style.textContent = `
+        :root {
+          --background: 0 0% 100%;
+          --foreground: 210 22% 22%;
+          --card: 0 0% 100%;
+          --card-foreground: 210 22% 22%;
+          --primary: 4 85% 58%;
+          --primary-foreground: 0 0% 100%;
+          --secondary: 15 100% 60%;
+          --secondary-foreground: 0 0% 100%;
+          --muted: 0 0% 97%;
+          --muted-foreground: 0 0% 40%;
+          --accent: 43 89% 81%;
+          --accent-foreground: 210 22% 22%;
+          --border: 0 0% 90%;
+          --radius: 15px;
+          --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          --shadow-hover: 0 20px 50px rgba(231, 76, 60, 0.2);
+          --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }, []);
+
+  const features = [
+    { icon: BookOpen, title: "15+ Real-World Projects", desc: "Build actual products that matter" },
+    { icon: Users, title: "Direct Mentorship", desc: "From successful tech founders" },
+    { icon: Star, title: "Learn from Legends", desc: "Abhimanyu Saxena, Prasanna Sankar, Manmeet Singh" },
+    { icon: Award, title: "Official Certificates", desc: "From Google & Scaler" },
+    { icon: Zap, title: "Free Robotics Kit", desc: "Worth ₹4000 during workshop days" },
+    { icon: Target, title: "STEM Curriculum", desc: "Industry-relevant and future-ready" }
+  ];
+
+  return (
+    <section 
+      id="program" 
+      className="py-20 relative overflow-hidden"
+      style={{
+        background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 50%, hsl(var(--background)) 100%)`,
+      }}
+    >
+      {/* Background decoration */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(90deg, transparent 0%, hsla(var(--primary), 0.05) 50%, transparent 100%)`,
+        }}
+      ></div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-16">
+          <div
+            className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6"
+            style={{
+              background: `hsla(var(--primary), 0.1)`,
+            }}
+          >
+            <Award className="w-8 h-8" style={{ color: `hsl(var(--primary))` }} />
+          </div>
+          <h2
+            className="text-4xl md:text-5xl font-bold mb-6"
+            style={{ color: `hsl(var(--foreground))` }}
+          >
+            What's{" "}
+            <span
+              style={{
+                background: `linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%)`,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Included
+            </span>
+          </h2>
+          <p
+            className="text-xl max-w-3xl mx-auto leading-relaxed"
+            style={{ color: `hsl(var(--muted-foreground))` }}
+          >
+            3-Month Program That Changes Everything
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <div 
+              key={index} 
+              className="group overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+              style={{
+                background: `hsl(var(--card))`,
+                border: `2px solid hsl(var(--border))`,
+                borderRadius: `var(--radius)`,
+                boxShadow: `var(--shadow)`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = `hsla(var(--primary), 0.5)`;
+                e.currentTarget.style.boxShadow = `var(--shadow-hover)`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = `hsl(var(--border))`;
+                e.currentTarget.style.boxShadow = `var(--shadow)`;
+              }}
+            >
+              <div className="p-8 text-center">
+                <div
+                  className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300"
+                  style={{
+                    background: `linear-gradient(135deg, hsla(var(--primary), 0.1) 0%, hsla(var(--secondary), 0.1) 100%)`,
+                  }}
+                >
+                  <feature.icon 
+                    className="w-8 h-8 transition-colors duration-300" 
+                    style={{ color: `hsl(var(--primary))` }}
+                  />
+                </div>
+                <h3 
+                  className="text-xl font-bold mb-3 group-hover:transition-colors duration-300"
+                  style={{ color: `hsl(var(--foreground))` }}
+                >
+                  {feature.title}
+                </h3>
+                <p 
+                  className="leading-relaxed"
+                  style={{ color: `hsl(var(--muted-foreground))` }}
+                >
+                  {feature.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Additional highlight section */}
+        <div className="text-center mt-16">
+          <div
+            className="inline-block px-8 py-4 rounded-full text-lg font-semibold"
+            style={{
+              background: `linear-gradient(135deg, hsla(var(--primary), 0.1) 0%, hsla(var(--secondary), 0.1) 50%, hsla(var(--primary), 0.1) 100%)`,
+              border: `2px solid hsla(var(--primary), 0.2)`,
+              color: `hsl(var(--primary))`,
+            }}
+          >
+            🚀 Transform Your Future in Just 3 Months
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ProgramSection;
