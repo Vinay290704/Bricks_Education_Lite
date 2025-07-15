@@ -220,4 +220,7 @@ const HeroSection = () => {
   );
 };
 
+
 export default HeroSection;
+
+//changed the design of herosection
