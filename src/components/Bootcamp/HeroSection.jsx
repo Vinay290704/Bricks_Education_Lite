@@ -74,7 +74,7 @@ const HeroSection = () => {
 
     const timer = setInterval(() => {
       const now = new Date().getTime();
-      const admissionDeadline = new Date('August 15, 2025 00:00:00').getTime();
+      const admissionDeadline = new Date("August 15, 2025 00:00:00").getTime();
       const difference = admissionDeadline - now;
 
       if (difference > 0) {
@@ -82,7 +82,9 @@ const HeroSection = () => {
         const hours = Math.floor(
           (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
         );
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const minutes = Math.floor(
+          (difference % (1000 * 60 * 60)) / (1000 * 60)
+        );
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
         setTimeLeft({ days, hours, minutes, seconds });
@@ -107,21 +109,30 @@ const HeroSection = () => {
       style={{
         background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%)`,
         color: `hsl(var(--foreground))`,
+        paddingTop: `15px`,
       }}
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        <div 
+        <div
           className="absolute top-20 left-20 w-32 h-32 rounded-full floating"
-          style={{ background: 'var(--gradient-1)', opacity: 0.08 }}
+          style={{ background: "var(--gradient-1)", opacity: 0.08 }}
         />
-        <div 
+        <div
           className="absolute top-40 right-32 w-24 h-24 rounded-full floating"
-          style={{ background: 'var(--gradient-2)', opacity: 0.08, animationDelay: '2s' }}
+          style={{
+            background: "var(--gradient-2)",
+            opacity: 0.08,
+            animationDelay: "2s",
+          }}
         />
-        <div 
+        <div
           className="absolute bottom-32 left-1/4 w-40 h-40 rounded-full floating"
-          style={{ background: 'var(--gradient-1)', opacity: 0.08, animationDelay: '4s' }}
+          style={{
+            background: "var(--gradient-1)",
+            opacity: 0.08,
+            animationDelay: "4s",
+          }}
         />
       </div>
 
@@ -134,22 +145,38 @@ const HeroSection = () => {
           </div>
 
           {/* Main Headline with Modern Typography */}
-          <h1 className="text-5xl md:text-5xl lg:text-6xl font-bold mb-6 leading-none tracking-tight" style={{ color: `hsl(var(--secondary))` }}>
+          <h1
+            className="text-5xl md:text-5xl lg:text-6xl font-bold mb-6 leading-none tracking-tight"
+            style={{ color: `hsl(var(--secondary))` }}
+          >
             BRICKS Innovation
-            <span className="block gradient-text mt-2" style={{ color: `black` }}>
+            <span
+              className="block gradient-text mt-2"
+              style={{ color: `black` }}
+            >
               Bootcamp
             </span>
           </h1>
 
           {/* Subheadline */}
-          <p className="text-xl md:text-2xl mb-4 font-semibold" style={{ color: `hsl(var(--secondary))` }}>
+          <p
+            className="text-xl md:text-2xl mb-4 font-semibold"
+            style={{ color: `hsl(var(--secondary))` }}
+          >
             "Become the Top 0.1% — the Builders, Thinkers, and Future Leaders."
           </p>
 
           <p className="text-lg mb-8 max-w-2xl mx-auto leading-relaxed opacity-90">
             You can be the one or you will be left behind. This is your chance
             to interact with
-            <span className="gradient-text font-black " style={{ color: `hsl(var(--secondary))` }}> Abhimanyu Saxena</span> and industry legends!
+            <span
+              className="gradient-text font-black "
+              style={{ color: `hsl(var(--secondary))` }}
+            >
+              {" "}
+              Abhimanyu Saxena
+            </span>{" "}
+            and industry legends!
           </p>
 
           {/* Modern Countdown Timer */}
@@ -159,11 +186,14 @@ const HeroSection = () => {
                 key={unit}
                 className="glass-morphism p-4 md:p-6 rounded-2xl transform hover:scale-105 transition-all duration-300"
                 style={{
-                  background: index % 2 === 0 ? 'var(--glass)' : 'rgba(147, 51, 234, 0.05)',
+                  background:
+                    index % 2 === 0
+                      ? "var(--glass)"
+                      : "rgba(147, 51, 234, 0.05)",
                 }}
               >
                 <div className="text-2xl md:text-4xl font-black mb-1 gradient-text">
-                  {value.toString().padStart(2, '0')}
+                  {value.toString().padStart(2, "0")}
                 </div>
                 <div className="text-xs uppercase tracking-wider font-bold opacity-70">
                   {unit}
@@ -175,15 +205,26 @@ const HeroSection = () => {
           {/* Key Features with Icons */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
             <div className="flex items-center justify-center gap-3 p-4 glass-morphism rounded-xl hover:glow-purple transition-all duration-300">
-              <Rocket className="w-5 h-5" style={{ color: `hsl(var(--primary))` }} />
+              <Rocket
+                className="w-5 h-5"
+                style={{ color: `hsl(var(--primary))` }}
+              />
               <span className="font-semibold">Starts 15th August</span>
             </div>
             <div className="flex items-center justify-center gap-3 p-4 glass-morphism rounded-xl hover:glow-green transition-all duration-300">
-              <Zap className="w-5 h-5" style={{ color: `hsl(var(--accent))` }} />
-              <span className="font-semibold">2 Classes/Week, 60 mins each</span>
+              <Zap
+                className="w-5 h-5"
+                style={{ color: `hsl(var(--accent))` }}
+              />
+              <span className="font-semibold">
+                2 Classes/Week, 60 mins each
+              </span>
             </div>
             <div className="flex items-center justify-center gap-3 p-4 glass-morphism rounded-xl hover:glow-cyan transition-all duration-300">
-              <Star className="w-5 h-5" style={{ color: `hsl(var(--secondary))` }} />
+              <Star
+                className="w-5 h-5"
+                style={{ color: `hsl(var(--secondary))` }}
+              />
               <span className="font-semibold">Limited Seats Only</span>
             </div>
           </div>
@@ -193,9 +234,9 @@ const HeroSection = () => {
             <button
               className="px-8 py-4 text-lg font-bold flex items-center justify-center transform hover:-translate-y-2 pulse-glow rounded-2xl border-none"
               style={{
-                background: 'var(--gradient-1)',
+                background: "var(--gradient-1)",
                 color: `hsl(var(--primary-foreground))`,
-                transition: 'var(--transition)',
+                transition: "var(--transition)",
               }}
               onClick={() => scrollToSection("pricing")}
             >
@@ -203,7 +244,7 @@ const HeroSection = () => {
               ENROLL NOW
               <ArrowRight className="ml-2 w-5 h-5" />
             </button>
-            
+
             <button
               className="px-8 py-4 text-lg font-semibold flex items-center justify-center glass-morphism rounded-2xl hover:glow-cyan transition-all duration-300"
               style={{ color: `hsl(var(--foreground))` }}
@@ -213,13 +254,11 @@ const HeroSection = () => {
               Learn More
             </button>
           </div>
-
         </div>
       </div>
     </section>
   );
 };
-
 
 export default HeroSection;
 

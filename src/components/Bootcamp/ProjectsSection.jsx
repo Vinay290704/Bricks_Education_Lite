@@ -15,6 +15,35 @@ const ProjectsCarousel = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [imageLoadingStates, setImageLoadingStates] = useState({});
 
+  const imageExtensions = {
+    p1: ".jpeg",
+    p2: ".jpg",
+    p3: ".jpg",
+    p4: ".jpg",
+    p5: ".jpg",
+    p6: ".png",
+    p7: ".jpg",
+    p8: ".png",
+    p9: ".webp",
+    p10: ".jpg",
+  };
+
+  const getImageUrl = (imageName) => {
+    try {
+      const extension = imageExtensions[imageName] || ".jpg";
+      const url = new URL(
+        `../../assets/images/${imageName}${extension}`,
+        import.meta.url
+      ).href;
+      return url;
+    } catch (error) {
+      console.error(`Failed to load image: ${imageName}`, error);
+      return `https://via.placeholder.com/400x300?text=${encodeURIComponent(
+        imageName
+      )}`;
+    }
+  };
+
   useEffect(() => {
     if (!document.getElementById("projects-carousel-styles")) {
       const style = document.createElement("style");
@@ -116,7 +145,6 @@ const ProjectsCarousel = () => {
       category: "Agricultural Robotics",
       description:
         "Build a smart irrigation robot that monitors soil moisture and automatically waters plants when needed.",
-      image: "photo-1416879595882-3373a0480b5b",
       duration: "Week 4-5",
       difficulty: "Beginner",
       technologies: [
@@ -140,7 +168,6 @@ const ProjectsCarousel = () => {
       category: "Environmental Robotics",
       description:
         "Create a robotic system that identifies and sorts different types of waste materials using sensors and mechanical arms.",
-      image: "photo-1532996122724-e3c354a0b15b",
       duration: "Week 6-7",
       difficulty: "Intermediate",
       technologies: [
@@ -164,7 +191,6 @@ const ProjectsCarousel = () => {
       category: "Home Automation",
       description:
         "Design an automated pet feeder that dispenses food at scheduled times and can be controlled remotely.",
-      image: "photo-1450778869180-41d0601e046e",
       duration: "Week 5-6",
       difficulty: "Intermediate",
       technologies: ["Arduino", "Servo Motors", "RTC Module", "Mobile App"],
@@ -177,14 +203,13 @@ const ProjectsCarousel = () => {
       outcomes:
         "Students will learn about real-time systems, mobile connectivity, and create a practical pet care solution.",
     },
-   
+
     {
       id: 4,
       title: "Smart Security Alert Robot",
       category: "Security Robotics",
       description:
         "Create a mobile security robot that patrols an area, detects motion, and sends alerts when intruders are detected.",
-      image: "photo-1485827404703-89b55fcc595e",
       duration: "Week 8-9",
       difficulty: "Advanced",
       technologies: [
@@ -204,12 +229,11 @@ const ProjectsCarousel = () => {
         "Students will learn about security systems, sensor integration, and create a functional surveillance robot.",
     },
     {
-      id: 6,
+      id: 5,
       title: "Classroom Helper Robot",
       category: "Educational Robotics",
       description:
         "Build a robot assistant that can distribute worksheets, collect assignments, and help with basic classroom tasks.",
-      image: "photo-1509062522246-3755977927d7",
       duration: "Week 6-7",
       difficulty: "Intermediate",
       technologies: [
@@ -228,12 +252,11 @@ const ProjectsCarousel = () => {
         "Students will understand service robotics and create a robot that can assist in educational environments.",
     },
     {
-      id: 7,
+      id: 6,
       title: "Weather Monitoring Robot",
       category: "Environmental Monitoring",
       description:
         "Design a mobile weather station robot that moves around collecting temperature, humidity, and air quality data.",
-      image: "photo-1504608524841-42fe6f032b4b",
       duration: "Week 5-6",
       difficulty: "Beginner",
       technologies: [
@@ -252,12 +275,11 @@ const ProjectsCarousel = () => {
         "Students will learn about environmental monitoring and create a scientific data collection tool.",
     },
     {
-      id: 8,
+      id: 7,
       title: "Elderly Care Reminder Robot",
       category: "Healthcare Robotics",
       description:
         "Build a companion robot that reminds elderly people to take medication, drink water, and provides basic interaction.",
-      image: "photo-1559757148-5c350d0d3c56",
       duration: "Week 7-8",
       difficulty: "Advanced",
       technologies: [
@@ -275,6 +297,82 @@ const ProjectsCarousel = () => {
       ],
       outcomes:
         "Students will understand healthcare applications of robotics and create a socially beneficial project.",
+    },
+    {
+      id: 8,
+      title: "Library Book Organizing Robot",
+      category: "Educational Robotics",
+      description:
+        "Create an intelligent robot that scans book barcodes, identifies their correct shelf locations, and helps organize library books efficiently.",
+      duration: "Week 7-8",
+      difficulty: "Advanced",
+      technologies: [
+        "Arduino",
+        "Barcode Scanner",
+        "Servo Motors",
+        "Database Module",
+        "LCD Display",
+      ],
+      features: [
+        "Barcode scanning and identification",
+        "Automated book categorization",
+        "Shelf location mapping system",
+        "Digital inventory tracking",
+        "Voice-guided instructions",
+      ],
+      outcomes:
+        "Students will learn about data management, barcode technology, and create a practical solution for library automation.",
+    },
+    {
+      id: 9,
+      title: "Solar Panel Cleaning Robot",
+      category: "Renewable Energy Robotics",
+      description:
+        "Build an autonomous robot that cleans solar panels to maintain their efficiency, featuring water spraying and brush cleaning mechanisms.",
+      duration: "Week 6-7",
+      difficulty: "Intermediate",
+      technologies: [
+        "Arduino",
+        "Water Pump",
+        "Rotating Brushes",
+        "Solar Panel",
+        "Proximity Sensors",
+      ],
+      features: [
+        "Automated cleaning cycles",
+        "Water spray and brush system",
+        "Edge detection for safety",
+        "Solar-powered operation",
+        "Cleaning efficiency monitoring",
+      ],
+      outcomes:
+        "Students will understand renewable energy systems and create an environmentally beneficial maintenance robot.",
+    },
+    {
+      id: 10,
+      title: "Smart Shopping Assistant Robot",
+      category: "Retail Robotics",
+      description:
+        "Design a mobile robot that follows shoppers, carries their items, provides product information, and helps navigate store layouts.",
+      duration: "Week 8-9",
+      difficulty: "Advanced",
+      technologies: [
+        "Arduino",
+        "RFID Scanner",
+        "Voice Module",
+        "Motors",
+        "Weight Sensors",
+        "Bluetooth Module",
+      ],
+      features: [
+        "Product scanning and information",
+        "Voice-activated shopping list",
+        "Automated cart following",
+        "Price calculation and billing",
+        "Store navigation assistance",
+      ],
+      outcomes:
+        "Students will learn about retail technology, human-robot interaction, and create a practical shopping assistance solution.",
     },
   ];
 
@@ -317,17 +415,6 @@ const ProjectsCarousel = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedProject, prevSlide, nextSlide, closeModal]);
-
-  // Auto-advance carousel (optional)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!selectedProject) {
-        nextSlide();
-      }
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, [selectedProject, nextSlide]);
 
   const handleImageLoad = (projectId) => {
     setImageLoadingStates((prev) => ({ ...prev, [projectId]: false }));
@@ -505,6 +592,7 @@ const ProjectsCarousel = () => {
                     .map((project) => (
                       <div
                         key={project.id}
+                        onClick={() => setSelectedProject(project)}
                         className="group overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-2 cursor-pointer"
                         style={{
                           background: `hsl(var(--card))`,
@@ -529,7 +617,6 @@ const ProjectsCarousel = () => {
                               </div>
                             )}
                             <img
-                              src={`https://images.unsplash.com/${project.image}?w=400&h=200&fit=crop`}
                               alt={project.title}
                               className="w-full h-44 object-cover group-hover:scale-110 transition-all duration-700"
                               onLoadStart={() =>
@@ -537,6 +624,7 @@ const ProjectsCarousel = () => {
                               }
                               onLoad={() => handleImageLoad(project.id)}
                               onError={() => handleImageLoad(project.id)}
+                              src={getImageUrl(`p${project.id}`)}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
                             <div className="absolute top-4 left-4">
@@ -631,14 +719,6 @@ const ProjectsCarousel = () => {
                               borderRadius: `var(--radius)`,
                               boxShadow: `var(--shadow)`,
                             }}
-                            onMouseEnter={(e) => {
-                              e.target.style.background = `linear-gradient(135deg, hsla(var(--primary), 0.9) 0%, hsla(var(--secondary), 0.9) 100%)`;
-                              e.target.style.boxShadow = `var(--shadow-hover)`;
-                            }}
-                            onMouseLeave={(e) => {
-                              e.target.style.background = `linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%)`;
-                              e.target.style.boxShadow = `var(--shadow)`;
-                            }}
                           >
                             View Details
                             <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -713,7 +793,7 @@ const ProjectsCarousel = () => {
               <div className="space-y-8">
                 <div className="relative">
                   <img
-                    src={`https://images.unsplash.com/${selectedProject.image}?w=800&h=400&fit=crop`}
+                    src={getImageUrl(`p${selectedProject.id}`)}
                     alt={selectedProject.title}
                     className="w-full h-80 object-cover"
                     style={{

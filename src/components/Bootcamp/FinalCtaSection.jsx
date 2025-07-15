@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Zap, Lock, Smartphone, Target } from 'lucide-react';
+import React, { useEffect } from "react";
+import { Zap, Lock, Smartphone, Target } from "lucide-react";
 
 const FinalCtaSection = () => {
   useEffect(() => {
@@ -47,11 +47,11 @@ const FinalCtaSection = () => {
   const features = [
     { icon: Lock, text: "Secure Payment" },
     { icon: Smartphone, text: "Mobile-Friendly" },
-    { icon: Target, text: "Results Guaranteed" }
+    { icon: Target, text: "Results Guaranteed" },
   ];
 
   return (
-    <section 
+    <section
       className="py-20 relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 50%, hsl(var(--background)) 100%)`,
@@ -97,7 +97,8 @@ const FinalCtaSection = () => {
             className="text-xl mb-12 max-w-3xl mx-auto leading-relaxed"
             style={{ color: `hsl(var(--muted-foreground))` }}
           >
-            Limited Seats. Lifetime Learning. Don't let this opportunity slip away.
+            Limited Seats. Lifetime Learning. Don't let this opportunity slip
+            away.
           </p>
 
           <div className="mb-12">
@@ -115,6 +116,9 @@ const FinalCtaSection = () => {
               onMouseLeave={(e) => {
                 e.currentTarget.style.boxShadow = `var(--shadow)`;
               }}
+              onClick={() =>
+                window.open("https://wa.me/919871672790", "Connect with Bricks")
+              }
             >
               <span className="relative z-10">ENROLL NOW</span>
               <div
@@ -128,32 +132,18 @@ const FinalCtaSection = () => {
 
           <div className="flex flex-wrap justify-center items-center gap-8 text-sm">
             {features.map((feature, index) => (
-              <div 
+              <div
                 key={index}
                 className="flex items-center gap-2 transition-all duration-300 hover:scale-105"
                 style={{ color: `hsl(var(--muted-foreground))` }}
               >
-                <feature.icon 
-                  className="w-4 h-4" 
+                <feature.icon
+                  className="w-4 h-4"
                   style={{ color: `hsl(var(--primary))` }}
                 />
                 <span>{feature.text}</span>
               </div>
             ))}
-          </div>
-
-          {/* Additional emphasis */}
-          <div className="mt-12">
-            <div
-              className="inline-block px-6 py-3 rounded-full text-sm font-semibold"
-              style={{
-                background: `linear-gradient(135deg, hsla(var(--primary), 0.1) 0%, hsla(var(--secondary), 0.1) 50%, hsla(var(--primary), 0.1) 100%)`,
-                border: `2px solid hsla(var(--primary), 0.2)`,
-                color: `hsl(var(--primary))`,
-              }}
-            >
-              ⚡ Join 10,000+ Future Tech Leaders
-            </div>
           </div>
         </div>
       </div>

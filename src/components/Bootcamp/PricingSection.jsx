@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { CheckCircle, Crown, Star, Users } from 'lucide-react';
+import React, { useEffect } from "react";
+import { CheckCircle, Crown, Star, Users } from "lucide-react";
 
 const PricingSection = () => {
   useEffect(() => {
@@ -45,47 +45,47 @@ const PricingSection = () => {
 
   const tiers = [
     {
-      id: 'winner',
-      name: 'Workshop Winners',
-      price: '₹1,999',
-      originalPrice: '₹5,999',
-      badge: '🏆 WINNER\'S TIER',
+      id: "winner",
+      name: "Workshop Winners",
+      price: "₹1,999",
+      originalPrice: "₹5,999",
+      badge: "🏆 WINNER'S TIER",
       icon: Crown,
-      color: 'gold',
+      color: "gold",
       features: [
-        'All program benefits',
-        'Free robotics kit (₹4000 value)',
-        'Priority mentor access',
-        'Exclusive network access'
+        "All program benefits",
+        "Free robotics kit (₹4000 value)",
+        "Priority mentor access",
+        "Exclusive network access",
       ],
-      buttonText: 'CLAIM WINNER\'S SPOT',
-      highlighted: true
+      buttonText: "CLAIM WINNER'S SPOT",
+      highlighted: true,
     },
     {
-      id: 'partner',
-      name: 'Partner Schools',
-      price: '₹3,499',
-      originalPrice: '₹5,999',
+      id: "partner",
+      name: "Partner Schools",
+      price: "₹3,499",
+      originalPrice: "₹5,999",
       icon: Users,
-      color: 'purple',
+      color: "purple",
       features: [
-        'Full program access',
-        'Robotics kit included',
-        'Mentorship sessions',
-        'Official certificates'
+        "Full program access",
+        "Robotics kit included",
+        "Mentorship sessions",
+        "Official certificates",
       ],
-      buttonText: 'SECURE YOUR SPOT'
-    }
+      buttonText: "SECURE YOUR SPOT",
+    },
   ];
 
   const getColorStyles = (color, isHighlighted = false) => {
     switch (color) {
-      case 'gold':
+      case "gold":
         return {
-          cardStyle: isHighlighted ? 'winner-glow' : '',
+          cardStyle: isHighlighted ? "winner-glow" : "",
           badgeStyle: {
             background: `linear-gradient(135deg, #FFD700 0%, #FFA500 100%)`,
-            color: '#000'
+            color: "#000",
           },
           priceStyle: {
             background: `linear-gradient(135deg, #FFD700 0%, #FFA500 100%)`,
@@ -93,35 +93,35 @@ const PricingSection = () => {
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
           },
-          iconColor: '#FFD700',
-          checkColor: '#FFD700',
+          iconColor: "#FFD700",
+          checkColor: "#FFD700",
           buttonStyle: {
             background: `linear-gradient(135deg, #FFD700 0%, #FFA500 100%)`,
-            color: '#000'
-          }
+            color: "#000",
+          },
         };
-      case 'purple':
+      case "purple":
         return {
-          cardStyle: 'partner-glow',
+          cardStyle: "partner-glow",
           priceStyle: {
             background: `linear-gradient(135deg, #9333EA 0%, #7C3AED 100%)`,
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
           },
-          iconColor: '#9333EA',
-          checkColor: '#9333EA',
+          iconColor: "#9333EA",
+          checkColor: "#9333EA",
           buttonStyle: {
             background: `linear-gradient(135deg, #9333EA 0%, #7C3AED 100%)`,
-            color: '#fff'
-          }
+            color: "#fff",
+          },
         };
     }
   };
 
   return (
-    <section 
-      id="pricing" 
+    <section
+      id="pricing"
       className="py-20 relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 50%, hsl(var(--background)) 100%)`,
@@ -143,7 +143,10 @@ const PricingSection = () => {
               background: `hsla(var(--primary), 0.1)`,
             }}
           >
-            <Crown className="w-8 h-8" style={{ color: `hsl(var(--primary))` }} />
+            <Crown
+              className="w-8 h-8"
+              style={{ color: `hsl(var(--primary))` }}
+            />
           </div>
           <h2
             className="text-4xl md:text-5xl font-bold mb-6"
@@ -175,21 +178,23 @@ const PricingSection = () => {
             {tiers.map((tier) => {
               const colorStyles = getColorStyles(tier.color, tier.highlighted);
               const isHighlighted = tier.highlighted;
-              
+
               return (
-                <div 
+                <div
                   key={tier.id}
                   className={`group overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-2 cursor-pointer relative flex-1 ${
-                    isHighlighted ? 'transform scale-105 sm:scale-110' : ''
-                  } ${colorStyles.cardStyle || ''}`}
+                    isHighlighted ? "transform scale-105 sm:scale-110" : ""
+                  } ${colorStyles.cardStyle || ""}`}
                   style={{
                     background: `hsl(var(--card))`,
-                    border: `2px solid ${isHighlighted ? '#FFD700' : 'hsl(var(--border))'}`,
+                    border: `2px solid ${
+                      isHighlighted ? "#FFD700" : "hsl(var(--border))"
+                    }`,
                     borderRadius: `var(--radius)`,
                     boxShadow: isHighlighted ? undefined : `var(--shadow)`,
-                    minHeight: '550px',
-                    maxWidth: '450px',
-                    margin: '0 auto'
+                    minHeight: "550px",
+                    maxWidth: "450px",
+                    margin: "0 auto",
                   }}
                   onMouseEnter={(e) => {
                     if (!isHighlighted) {
@@ -206,9 +211,9 @@ const PricingSection = () => {
                 >
                   {/* Badge for Winner tier */}
                   {tier.badge && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                    <div className="absolute left-33 top-4 transform -translate-x-1/2 z-10">
                       <div
-                        className="px-6 py-2 text-sm font-bold rounded-full whitespace-nowrap"
+                        className="absolute px-6 py-2 text-sm font-bold rounded-full whitespace-nowrap"
                         style={colorStyles.badgeStyle}
                       >
                         {tier.badge}
@@ -216,35 +221,39 @@ const PricingSection = () => {
                     </div>
                   )}
 
-                  <div className="p-8 text-center">
+                  <div className="p-8 text-center ">
                     <div
                       className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300"
                       style={{
                         background: `linear-gradient(135deg, hsla(var(--primary), 0.1) 0%, hsla(var(--secondary), 0.1) 100%)`,
                       }}
                     >
-                      <tier.icon 
-                        className="w-10 h-10 transition-colors duration-300" 
+                      <tier.icon
+                        className="w-10 h-10 transition-colors duration-300"
                         style={{ color: colorStyles.iconColor }}
                       />
                     </div>
-                    
-                    <h3 
+
+                    <h3
                       className="text-2xl font-bold mb-6 group-hover:transition-colors duration-300"
                       style={{ color: `hsl(var(--foreground))` }}
                     >
                       {tier.name}
                     </h3>
-                    
+
                     <div className="mb-6">
-                      <div 
+                      <div
                         className="text-4xl md:text-5xl font-bold mb-2"
                         style={colorStyles.priceStyle}
                       >
                         {tier.price}
                       </div>
-                      <div 
-                        className={`text-lg ${tier.originalPrice === 'Full Price' ? '' : 'line-through'}`}
+                      <div
+                        className={`text-lg ${
+                          tier.originalPrice === "Full Price"
+                            ? ""
+                            : "line-through"
+                        }`}
                         style={{ color: `hsl(var(--muted-foreground))` }}
                       >
                         {tier.originalPrice}
@@ -256,8 +265,8 @@ const PricingSection = () => {
                     <ul className="space-y-4 mb-8 flex-grow">
                       {tier.features.map((feature, index) => (
                         <li key={index} className="flex items-start gap-3">
-                          <CheckCircle 
-                            className="w-5 h-5 flex-shrink-0 mt-0.5" 
+                          <CheckCircle
+                            className="w-5 h-5 flex-shrink-0 mt-0.5"
                             style={{ color: colorStyles.checkColor }}
                           />
                           <span
@@ -269,7 +278,6 @@ const PricingSection = () => {
                         </li>
                       ))}
                     </ul>
-
                     <button
                       className="w-full transition-all duration-300 py-4 px-6 font-bold text-base group-hover:scale-105"
                       style={{
@@ -279,16 +287,19 @@ const PricingSection = () => {
                       }}
                       onMouseEnter={(e) => {
                         e.target.style.boxShadow = `var(--shadow-hover)`;
-                        if (tier.color === 'gray') {
+                        if (tier.color === "gray") {
                           e.target.style.background = `hsl(var(--accent))`;
                         }
                       }}
                       onMouseLeave={(e) => {
                         e.target.style.boxShadow = `var(--shadow)`;
-                        if (tier.color === 'gray') {
+                        if (tier.color === "gray") {
                           e.target.style.background = `hsl(var(--muted))`;
                         }
                       }}
+                      onClick={() =>
+                        window.open("https://wa.me/919871672790", "Connect with Bricks")
+                      }
                     >
                       {tier.buttonText}
                     </button>
