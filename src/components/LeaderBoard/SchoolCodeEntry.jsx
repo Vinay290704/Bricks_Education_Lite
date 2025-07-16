@@ -49,13 +49,11 @@ const SchoolCodeEntry = () => {
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
-            <img
-              src={getImageUrl("Logo.png")}
-              alt="Bricks Logo"
-              className="w-12 h-12 object-contain"
-            />
-          </div>
+          <img
+            src={getImageUrl("Logo.png")}
+            alt="Bricks Logo"
+            className="w-20 h-20 object-contain mx-auto mb-6"
+          />
           <h1 className="text-4xl font-black text-gray-800 mb-2">
             Welcome to Bricks
           </h1>
