@@ -67,13 +67,11 @@ const Header = () => {
             className="flex items-center gap-4 text-gray-800 transition-transform duration-300 ease-out hover:scale-105 focus:outline-none "
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div className="relative w-[50px] h-[50px] bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 rounded-xl flex items-center justify-center overflow-hidden shadow-lg shadow-orange-500/30 transition-all duration-300 hover:rotate-[5deg] hover:scale-105 hover:shadow-xl hover:shadow-orange-500/40">
-              <img
-                src={BricksLogo}
-                alt="Bricks Education Logo"
-                className="w-full h-full object-cover rounded-xl"
-              />
-            </div>
+            <img
+              src={BricksLogo}
+              alt="Bricks Education Logo"
+              className="w-[50px] h-[50px] object-cover rounded-xl transition-all duration-300 hover:rotate-[5deg] hover:scale-105"
+            />
             <div className="text-2xl md:text-2xl font-bold text-gray-800">
               BRICKS{" "}
               <span className="text-lg md:text-2xl bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent font-black">

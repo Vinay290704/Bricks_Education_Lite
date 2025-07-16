@@ -15,11 +15,11 @@ const BootCamp = () => {
       <main>
         <HeroSection />
         <FomoSection />
+        <PartnersSection />
         <ProjectsCarousel />
         <ProgramSection />
         <PricingSection />
         <CampusVisitSection />
-        <PartnersSection />
         <FinalCtaSection />
       </main>
     </div>

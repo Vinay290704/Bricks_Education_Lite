@@ -88,7 +88,7 @@ const PricingSection = () => {
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-            Limited Time Offers - Choose Your Path to Success 🚀
+            Limited Time Offers - Choose Your Path to Success
           </p>
 
           {/* Trust indicators */}
@@ -292,18 +292,10 @@ const PricingSection = () => {
               Robotics Kit
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-              Get your hands on this amazing robotics kit worth{" "}
+              Get amazing robotics kit worth{" "}
               <span className="font-bold text-orange-600">₹4000</span> -
-              included free with both tiers! 🎁
+              included free with both tiers!
             </p>
-
-            {/* Value proposition */}
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-full px-6 py-3 mb-12">
-              <Star className="w-5 h-5 text-orange-500" />
-              <span className="text-orange-700 font-medium">
-                Professionally curated for learning
-              </span>
-            </div>
           </div>
 
           {/* Kit Content */}

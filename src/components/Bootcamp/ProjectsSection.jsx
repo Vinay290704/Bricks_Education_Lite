@@ -131,13 +131,10 @@ const ProjectsCarousel = () => {
 
   return (
     <section className="relative overflow-hidden py-10 bg-gradient-to-br from-orange-50 via-white to-orange-100">
-      {/* Floating background elements */}
       <div className="absolute top-10 left-10 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl animate-bounce"></div>
       <div className="absolute bottom-20 right-20 w-40 h-40 bg-orange-400/15 rounded-full blur-3xl animate-bounce"></div>
       <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-orange-500/5 rounded-full blur-2xl animate-pulse"></div>
-
       <div className="container mx-auto px-4 relative z-10">
-        {/* Header Section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full mb-6 shadow-2xl">
             <Zap className="w-10 h-10 text-white" />
@@ -151,10 +148,8 @@ const ProjectsCarousel = () => {
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
             Real projects that solve real problems. Build confidence, learn
             valuable skills, and create something awesome that friends and
-            family will love! 🚀
+            family will love!
           </p>
-
-          {/* Trust indicators for parents */}
           <div className="flex flex-wrap justify-center gap-6 mt-8 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <Users className="w-4 h-4 text-orange-500" />
@@ -170,8 +165,6 @@ const ProjectsCarousel = () => {
             </div>
           </div>
         </div>
-
-        {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
           {projects.map((project, index) => {
             const IconComponent = project.icon;
@@ -181,7 +174,6 @@ const ProjectsCarousel = () => {
                 className="group bg-white border-2 border-gray-100 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-3 hover:border-orange-200 hover:shadow-2xl shadow-lg flex flex-col"
               >
                 <div className="p-6 bg-gradient-to-r from-orange-50 to-orange-100 flex flex-col h-full">
-                  {/* Top section: Category, difficulty, icon, title, and description */}
                   <div className="flex items-start justify-between mb-4">
                     <span className="px-3 py-1.5 bg-orange-500/90 text-white rounded-full text-xs font-semibold">
                       {project.category}
@@ -204,8 +196,6 @@ const ProjectsCarousel = () => {
                   <p className="text-gray-600 mb-4 text-sm leading-relaxed">
                     {project.description}
                   </p>
-
-                  {/* Bottom section: Skills section with flex-grow to push it to the bottom */}
                   <div className="flex-grow flex items-end">
                     <div className="bg-gradient-to-r from-orange-500/5 to-orange-400/10 p-4 rounded-xl border border-orange-500/20 w-full">
                       <h4 className="text-sm font-semibold text-orange-600 mb-2">
@@ -221,8 +211,6 @@ const ProjectsCarousel = () => {
             );
           })}
         </div>
-
-        {/* Parents Section */}
         <div className="text-center">
           <div className="bg-white border border-gray-200 rounded-2xl p-8 max-w-4xl mx-auto shadow-lg">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -249,8 +237,8 @@ const ProjectsCarousel = () => {
                   Age-Appropriate
                 </h4>
                 <p className="text-gray-600">
-                  Designed specifically for this age with proper scaffolding
-                  and support.
+                  Designed specifically for this age with proper scaffolding and
+                  support.
                 </p>
               </div>
               <div className="text-center">

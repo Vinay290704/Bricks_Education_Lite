@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  MapPin,
-  Users,
-  X,
-  Linkedin,
-} from "lucide-react";
+import { MapPin, Users, X, Linkedin } from "lucide-react";
 
 const CampusVisitSection = () => {
   const getImageUrl = (imageName) => {
@@ -120,7 +115,7 @@ const CampusVisitSection = () => {
               className="text-4xl font-bold mb-4"
               style={{ color: `hsl(var(--primary-foreground))` }}
             >
-              🎯 Visit Our Campus & Meet These Legends!
+              Visit Our Campus & Meet These Legends!
             </h3>
             <p
               className="text-xl leading-relaxed max-w-4xl mx-auto mb-6"
@@ -130,16 +125,6 @@ const CampusVisitSection = () => {
               exclusive opportunities to meet and learn directly from these
               industry pioneers who have built billion-dollar companies
             </p>
-            <div
-              className="inline-block px-6 py-3 rounded-full font-semibold"
-              style={{
-                background: `hsla(var(--primary-foreground), 0.2)`,
-                color: `hsl(var(--primary-foreground))`,
-                border: `2px solid hsla(var(--primary-foreground), 0.3)`,
-              }}
-            >
-              🌟 Campus visits include personal mentorship sessions
-            </div>
           </div>
         </div>
 

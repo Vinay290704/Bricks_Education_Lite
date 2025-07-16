@@ -47,10 +47,14 @@ const Footer = () => {
           <div className="text-center md:text-left">
             <div className="p-4 rounded-xl bg-gray-800/60 backdrop-blur-sm border border-orange-400/30 shadow-lg">
               <p className="text-sm text-gray-300 leading-relaxed">
-                <strong className="text-white block mb-2">Note:</strong>
-                Our team will capture key moments from the workshop through
-                photos and videos. The school is welcome to use this content on
-                their website, social media, or in promotional materials.
+                <strong>Bricks </strong>
+                is where kids learn robotics and programming in a fun, hands-on
+                way. We teach students how to build robots, code programs, and
+                solve real problems using technology. Our courses help young
+                minds develop creativity, logical thinking, and technical skills
+                that prepare them for the future. With expert teachers and
+                exciting projects, we make learning about technology enjoyable
+                and accessible for everyone.
               </p>
             </div>
           </div>

@@ -65,10 +65,8 @@ const ProgramSection = () => {
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            3-Month Program That Changes Everything 🚀
+            3-Month Program That Changes Everything
           </p>
-
-          {/* Trust indicators */}
           <div className="flex flex-wrap justify-center gap-6 mt-8 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <Users className="w-4 h-4 text-orange-500" />
@@ -85,7 +83,6 @@ const ProgramSection = () => {
           </div>
         </div>
 
-        {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
@@ -136,7 +133,7 @@ const ProgramSection = () => {
 
             <div className="relative z-10">
               <h3 className="text-3xl font-bold mb-4">
-                🚀 Transform Your Future in Just 3 Months
+                Transform Your Future in Just 3 Months
               </h3>
               <p className="text-xl opacity-90 mb-6">
                 Join the next generation of innovators and problem solvers
