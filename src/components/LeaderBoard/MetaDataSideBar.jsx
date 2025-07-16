@@ -103,7 +103,7 @@ const MetadataSidebar = () => {
       <div className="flex-1 p-6 overflow-auto">
         <div className="flex items-center gap-3 mb-4">
           <Calendar className="w-6 h-6 text-orange-600" />
-          <h3 className="text-lg font-bold text-gray-800">Upcoming Events</h3>
+          <h3 className="text-lg font-bold text-gray-800">Events Planned</h3>
         </div>
 
         <div className="space-y-4">
