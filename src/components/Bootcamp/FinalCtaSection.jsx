@@ -67,7 +67,10 @@ const FinalCtaSection = () => {
                 e.currentTarget.style.boxShadow = `var(--shadow)`;
               }}
               onClick={() =>
-                window.open("https://wa.me/919871672790", "Connect with Bricks")
+                window.open(
+                  "https://wa.me/919871672790?text=Hi%20Bricks%20Education!%20I'm%20interested%20in%20your%20robotics%20and%20programming%20courses.",
+                  "Connect with Bricks"
+                )
               }
             >
               <span className="flex items-center justify-center">

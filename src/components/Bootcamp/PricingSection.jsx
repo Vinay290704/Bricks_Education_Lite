@@ -207,7 +207,10 @@ const PricingSection = () => {
                   <button
                     className="w-full mt-8 py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 group-hover:scale-105 bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-xl"
                     onClick={() =>
-                      window.open("https://wa.me/919871672790", "_blank")
+                      window.open(
+                        "https://wa.me/919871672790?text=Hi%20Bricks%20Education!%20I'm%20interested%20in%20your%20robotics%20and%20programming%20courses.",
+                        "Connect with Bricks"
+                      )
                     }
                   >
                     CLAIM YOUR SPOT NOW
