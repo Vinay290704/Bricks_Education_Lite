@@ -62,7 +62,7 @@ const Footer = () => {
                 Phone:
               </span>
               <a
-                href="tel:+919462311937"
+                href="tel:+919871672790"
                 className="footer-accent text-xl font-medium transition-all duration-300 hover:scale-105 footer-link"
               >
                 +91 98716 72790
@@ -74,7 +74,7 @@ const Footer = () => {
                 Email:
               </span>
               <a
-                href="mailto:aryan@bricks.org.in"
+                href="mailto:support@bricks.org.in"
                 className="footer-accent text-xl font-medium transition-all duration-300 hover:scale-105 footer-link"
               >
                 support@bricks.org.in
