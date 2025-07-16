@@ -158,7 +158,7 @@ const ProjectsCarousel = () => {
           <div className="flex flex-wrap justify-center gap-6 mt-8 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <Users className="w-4 h-4 text-orange-500" />
-              <span>Age-appropriate for 9th graders</span>
+              <span>Age-appropriate</span>
             </div>
             <div className="flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-orange-500" />
@@ -249,7 +249,7 @@ const ProjectsCarousel = () => {
                   Age-Appropriate
                 </h4>
                 <p className="text-gray-600">
-                  Designed specifically for 9th graders with proper scaffolding
+                  Designed specifically for this age with proper scaffolding
                   and support.
                 </p>
               </div>

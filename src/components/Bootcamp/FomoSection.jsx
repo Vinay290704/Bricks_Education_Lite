@@ -1,5 +1,4 @@
-import { GraduationCap, Trophy, Heart, Star, Zap } from "lucide-react";
-import { useEffect } from "react";
+import { GraduationCap, Trophy, Zap } from "lucide-react";
 
 const FomoSection = () => {
   const trustPoints = [
@@ -68,7 +67,7 @@ const FomoSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-black mb-6 leading-tight text-gray-800">
-            Why Grade 9 is the
+            Why this age is the
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 mt-2">
               Perfect Time to Start ?
             </span>
@@ -105,11 +104,8 @@ const FomoSection = () => {
               key={point.title}
               className="group relative bg-white rounded-2xl border-2 border-orange-200 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden"
             >
-              {/* Animated border gradient effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="absolute inset-[2px] bg-white rounded-2xl"></div>
-              
-              {/* Content */}
               <div className="relative z-10 p-6 text-center">
                 <div
                   className={`w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${point.gradient} flex items-center justify-center transform hover:rotate-12 transition-transform duration-300 shadow-lg`}
