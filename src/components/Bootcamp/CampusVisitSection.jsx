@@ -82,7 +82,7 @@ const CampusVisitSection = () => {
     {
       id: 1,
       name: "Abhimanyu Saxena",
-      position: "Co-Founder & CEO",
+      position: "Co-Founder",
       company: "Scaler Academy",
       image: "Pic3.jpg",
       bio: "Serial entrepreneur and tech visionary who has built multiple successful companies in the education technology space.",
@@ -96,7 +96,7 @@ const CampusVisitSection = () => {
     {
       id: 2,
       name: "Anshuman Singh",
-      position: "Co-Founder & CTO",
+      position: "Co-Founder & CEO",
       company: "Scaler Academy",
       image: "Pic1.jpg",
       bio: "Technology leader with deep expertise in building scalable systems and mentoring the next generation of engineers.",
