@@ -1,5 +1,4 @@
-
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 const Footer = () => {
   useEffect(() => {
@@ -37,7 +36,7 @@ const Footer = () => {
       document.head.removeChild(style);
     };
   }, []);
-  
+
   return (
     <footer className="footer-glass text-white py-12 relative overflow-hidden">
       {/* Background decorative elements */}
@@ -59,22 +58,26 @@ const Footer = () => {
 
           <div className="text-center md:text-left">
             <div className="mb-6 p-4 rounded-xl backdrop-blur-sm bg-white/5 border border-white/10">
-              <span className="font-semibold text-white block mb-2">Phone:</span>
+              <span className="font-semibold text-white block mb-2">
+                Phone:
+              </span>
               <a
                 href="tel:+919462311937"
                 className="footer-accent text-xl font-medium transition-all duration-300 hover:scale-105 footer-link"
               >
-                +91 94623 11937
+                +91 98716 72790
               </a>
             </div>
 
             <div className="p-4 rounded-xl backdrop-blur-sm bg-white/5 border border-white/10">
-              <span className="font-semibold text-white block mb-2">Email:</span>
+              <span className="font-semibold text-white block mb-2">
+                Email:
+              </span>
               <a
                 href="mailto:aryan@bricks.org.in"
                 className="footer-accent text-xl font-medium transition-all duration-300 hover:scale-105 footer-link"
               >
-                aryan@bricks.org.in
+                support@bricks.org.in
               </a>
             </div>
           </div>
@@ -82,11 +85,10 @@ const Footer = () => {
           <div className="text-center md:text-left">
             <div className="p-4 rounded-xl backdrop-blur-sm bg-white/5 border border-white/10">
               <p className="text-sm text-gray-300 leading-relaxed">
-                <strong className="text-white block mb-2">Note:</strong> 
-                Our team will capture key moments from the
-                workshop through photos and videos. The school is welcome to use
-                this content on their website, social media, or in promotional
-                materials.
+                <strong className="text-white block mb-2">Note:</strong>
+                Our team will capture key moments from the workshop through
+                photos and videos. The school is welcome to use this content on
+                their website, social media, or in promotional materials.
               </p>
             </div>
           </div>
