@@ -48,13 +48,11 @@ const MetadataSidebar = () => {
     <div className="h-full flex flex-col">
       <div className="p-8 bg-gradient-to-br from-orange-600 via-orange-700 to-red-800 text-white">
         <div className="flex items-center gap-4 mb-6">
-          <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-lg overflow-hidden">
-            <img
-              src={BricksLogo}
-              alt="Bricks Logo"
-              className="w-10 h-10 object-contain"
-            />
-          </div>
+          <img
+            src={BricksLogo}
+            alt="Bricks Logo"
+            className="w-16 h-16 object-contain"
+          />
           <div>
             <h1 className="text-3xl font-black">Bricks</h1>
             <p className="text-orange-100">Educational Platform</p>
