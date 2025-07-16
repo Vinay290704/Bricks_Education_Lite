@@ -324,12 +324,6 @@ const PricingSection = () => {
                     Build & Create
                   </span>
                 </h3>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  This comprehensive robotics kit includes all the essential
-                  components needed to bring your ideas to life. From basic
-                  circuits to advanced robotics projects, this kit has you
-                  covered.
-                </p>
               </div>
 
               {/* Kit Features Grid */}
@@ -352,23 +346,6 @@ const PricingSection = () => {
                     </p>
                   </div>
                 ))}
-              </div>
-
-              {/* Kit Value */}
-              <div className="bg-gradient-to-r from-orange-500/10 to-orange-600/10 rounded-2xl p-4 border border-orange-500/20">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold text-gray-900">
-                      Kit Value: ₹4000
-                    </h4>
-                    <p className="text-orange-600 font-medium">
-                      Yours FREE with any tier!
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
