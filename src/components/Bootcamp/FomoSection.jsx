@@ -58,18 +58,12 @@ const FomoSection = () => {
   ];
 
   return (
-    <section className="overflow-hidden py-10 bg-gradient-to-br from-orange-50 to-white">
+    <section className="relative overflow-hidden py-10 bg-gradient-to-br from-orange-50 to-white">
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-1/4 left-10 w-64 h-64 bg-orange-400/20 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-10 w-64 h-64 bg-orange-300/20 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-200/15 rounded-full blur-3xl" />
       </div>
-
-      <div className="floating-lines top-20" />
-      <div
-        className="floating-lines bottom-20"
-        style={{ animationDelay: "2s" }}
-      />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
@@ -109,10 +103,14 @@ const FomoSection = () => {
           {trustPoints.map((point, index) => (
             <div
               key={point.title}
-              className="animated-border hover-lift glow-card"
-              style={{ animationDelay: point.delay }}
+              className="group relative bg-white rounded-2xl border-2 border-orange-200 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden"
             >
-              <div className="orange-content text-center">
+              {/* Animated border gradient effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-[2px] bg-white rounded-2xl"></div>
+              
+              {/* Content */}
+              <div className="relative z-10 p-6 text-center">
                 <div
                   className={`w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${point.gradient} flex items-center justify-center transform hover:rotate-12 transition-transform duration-300 shadow-lg`}
                 >
