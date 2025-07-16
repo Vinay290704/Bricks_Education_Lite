@@ -10,71 +10,9 @@ const HeroSection = () => {
   });
 
   useEffect(() => {
-    // Modern CSS variables with lighter, glassy theme
-    const style = document.createElement("style");
-    style.textContent = `
-      :root {
-        --background: 220 20% 95%;
-        --foreground: 220 10% 10%;
-        --card: 0 0% 100%;
-        --card-foreground: 220 10% 10%;
-        --primary: 263 70% 50%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 220 15% 25%;
-        --secondary-foreground: 0 0% 98%;
-        --accent: 142 76% 36%;
-        --accent-foreground: 0 0% 98%;
-        --muted: 220 10% 90%;
-        --muted-foreground: 220 10% 40%;
-        --border: 220 15% 85%;
-        --input: 220 15% 85%;
-        --ring: 263 70% 50%;
-        --glow: 0 0 40px rgba(147, 51, 234, 0.15);
-        --glow-green: 0 0 40px rgba(34, 197, 94, 0.15);
-        --glow-cyan: 0 0 40px rgba(6, 182, 212, 0.15);
-        --gradient-1: linear-gradient(135deg, #9333ea 0%, #06b6d4 50%, #22c55e 100%);
-        --gradient-2: linear-gradient(45deg, #f59e0b 0%, #ef4444 50%, #8b5cf6 100%);
-        --glass: rgba(255, 255, 255, 0.25);
-        --glass-border: rgba(255, 255, 255, 0.3);
-        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .glow-purple { box-shadow: var(--glow); }
-      .glow-green { box-shadow: var(--glow-green); }
-      .glow-cyan { box-shadow: var(--glow-cyan); }
-      .glass-morphism {
-        background: var(--glass);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--glass-border);
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-      }
-      .gradient-text {
-        background: var(--gradient-1);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      .floating {
-        animation: float 6s ease-in-out infinite;
-      }
-      @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-20px); }
-      }
-      .pulse-glow {
-        animation: pulseGlow 2s infinite;
-      }
-      @keyframes pulseGlow {
-        0%, 100% { box-shadow: 0 0 20px rgba(147, 51, 234, 0.3); }
-        50% { box-shadow: 0 0 40px rgba(147, 51, 234, 0.5), 0 0 60px rgba(6, 182, 212, 0.2); }
-      }
-    `;
-    document.head.appendChild(style);
-
     const timer = setInterval(() => {
       const now = new Date().getTime();
-      const admissionDeadline = new Date("August 15, 2025 00:00:00").getTime();
+      const admissionDeadline = new Date("2025-08-15T00:00:00").getTime();
       const difference = admissionDeadline - now;
 
       if (difference > 0) {
@@ -95,162 +33,128 @@ const HeroSection = () => {
 
     return () => {
       clearInterval(timer);
-      document.head.removeChild(style);
     };
   }, []);
 
   const scrollToSection = (sectionId) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
-    <section
-      className="relative overflow-hidden min-h-screen flex items-center"
-      style={{
-        background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%)`,
-        color: `hsl(var(--foreground))`,
-        paddingTop: `15px`,
-      }}
-    >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
+    <section className="relative overflow-hidden min-h-screen flex items-center bg-gradient-to-br from-orange-50 via-white to-orange-100">
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-100 to-orange-200 animate-pulse"></div>
         <div
-          className="absolute top-20 left-20 w-32 h-32 rounded-full floating"
-          style={{ background: "var(--gradient-1)", opacity: 0.08 }}
-        />
-        <div
-          className="absolute top-40 right-32 w-24 h-24 rounded-full floating"
+          className="absolute inset-0 opacity-20"
           style={{
-            background: "var(--gradient-2)",
-            opacity: 0.08,
-            animationDelay: "2s",
-          }}
-        />
-        <div
-          className="absolute bottom-32 left-1/4 w-40 h-40 rounded-full floating"
-          style={{
-            background: "var(--gradient-1)",
-            opacity: 0.08,
-            animationDelay: "4s",
+            backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(
+              '<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#f97316" fill-opacity="0.1"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>'
+            )}")`,
+            backgroundSize: "60px 60px",
           }}
         />
       </div>
 
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="text-center max-w-5xl mx-auto">
-          {/* Status Badge */}
-          <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 glass-morphism rounded-full text-sm font-medium transform hover:scale-105 cursor-pointer transition-all duration-300">
-            <div className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
-            <span>⚠️ BOOTCAMP STARTS 15TH AUGUST!</span>
-          </div>
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute top-20 left-20 w-40 h-40 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full opacity-20 animate-bounce"
+          style={{ animationDuration: "6s" }}
+        />
+        <div
+          className="absolute top-1/3 right-32 w-32 h-32 bg-gradient-to-r from-orange-300 to-orange-500 rounded-full opacity-15 animate-bounce"
+          style={{ animationDuration: "8s", animationDelay: "1s" }}
+        />
+        <div
+          className="absolute bottom-1/4 left-1/3 w-48 h-48 bg-gradient-to-r from-orange-500 to-orange-700 rounded-full opacity-10 animate-bounce"
+          style={{ animationDuration: "10s", animationDelay: "2s" }}
+        />
+        <div
+          className="absolute bottom-32 right-20 w-24 h-24 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full opacity-25 animate-bounce"
+          style={{ animationDuration: "7s", animationDelay: "3s" }}
+        />
+      </div>
 
-          {/* Main Headline with Modern Typography */}
-          <h1
-            className="text-5xl md:text-5xl lg:text-6xl font-bold mb-6 leading-none tracking-tight"
-            style={{ color: `hsl(var(--secondary))` }}
-          >
+      <div className="container mx-auto px-6 py-30 relative z-10">
+        <div className="text-center max-w-6xl mx-auto">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-none tracking-tight text-gray-800 drop-shadow-lg">
             BRICKS Innovation
-            <span
-              className="block gradient-text mt-2"
-              style={{ color: `black` }}
-            >
+            <span className="block bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent mt-4 animate-pulse">
               Bootcamp
             </span>
           </h1>
-
-          {/* Subheadline */}
-          <p
-            className="text-xl md:text-2xl mb-4 font-semibold"
-            style={{ color: `hsl(var(--secondary))` }}
-          >
+          <p className="text-2xl md:text-3xl mb-6 font-bold text-gray-700 drop-shadow-md">
             "Become the Top 0.1% — the Builders, Thinkers, and Future Leaders."
           </p>
-
-          <p className="text-lg mb-8 max-w-2xl mx-auto leading-relaxed opacity-90">
+          <p className="text-xl mb-12 max-w-3xl mx-auto leading-relaxed font-medium text-gray-600">
             You can be the one or you will be left behind. This is your chance
             to interact with
-            <span
-              className="gradient-text font-black "
-              style={{ color: `hsl(var(--secondary))` }}
-            >
-              {" "}
-              Abhimanyu Saxena
-            </span>{" "}
+            <span className="bg-gradient-to-r from-orange-500 to-orange-700 bg-clip-text text-transparent font-black mx-2">
+              Anshuman Singh , Abhimanyu Saxena
+            </span>
             and industry legends!
           </p>
-
-          {/* Modern Countdown Timer */}
-          <div className="flex justify-center gap-3 mb-10 flex-wrap">
+          <div
+            className="flex justify-center gap-4 mb-12 flex-wrap"
+            role="timer"
+            aria-label="Countdown to bootcamp start"
+          >
             {Object.entries(timeLeft).map(([unit, value], index) => (
               <div
                 key={unit}
-                className="glass-morphism p-4 md:p-6 rounded-2xl transform hover:scale-105 transition-all duration-300"
-                style={{
-                  background:
-                    index % 2 === 0
-                      ? "var(--glass)"
-                      : "rgba(147, 51, 234, 0.05)",
-                }}
+                className="bg-white/40 backdrop-blur-lg border border-orange-200 p-6 md:p-8 rounded-3xl transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-orange-200"
+                aria-label={`${value} ${unit}`}
               >
-                <div className="text-2xl md:text-4xl font-black mb-1 gradient-text">
+                <div className="text-3xl md:text-5xl font-black mb-2 bg-gradient-to-r from-orange-500 to-orange-700 bg-clip-text text-transparent">
                   {value.toString().padStart(2, "0")}
                 </div>
-                <div className="text-xs uppercase tracking-wider font-bold opacity-70">
+                <div className="text-sm uppercase tracking-widest font-bold text-gray-600">
                   {unit}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Key Features with Icons */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-            <div className="flex items-center justify-center gap-3 p-4 glass-morphism rounded-xl hover:glow-purple transition-all duration-300">
-              <Rocket
-                className="w-5 h-5"
-                style={{ color: `hsl(var(--primary))` }}
-              />
-              <span className="font-semibold">Starts 15th August</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div className="flex items-center justify-center gap-4 p-6 bg-white/40 backdrop-blur-lg border border-orange-200 rounded-2xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-100">
+              <Rocket className="w-6 h-6 text-orange-600" aria-hidden="true" />
+              <span className="font-bold text-lg text-gray-700">
+                Starts 15th August
+              </span>
             </div>
-            <div className="flex items-center justify-center gap-3 p-4 glass-morphism rounded-xl hover:glow-green transition-all duration-300">
-              <Zap
-                className="w-5 h-5"
-                style={{ color: `hsl(var(--accent))` }}
-              />
-              <span className="font-semibold">
+            <div className="flex items-center justify-center gap-4 p-6 bg-white/40 backdrop-blur-lg border border-orange-200 rounded-2xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-100">
+              <Zap className="w-6 h-6 text-orange-600" aria-hidden="true" />
+              <span className="font-bold text-lg text-gray-700">
                 2 Classes/Week, 60 mins each
               </span>
             </div>
-            <div className="flex items-center justify-center gap-3 p-4 glass-morphism rounded-xl hover:glow-cyan transition-all duration-300">
-              <Star
-                className="w-5 h-5"
-                style={{ color: `hsl(var(--secondary))` }}
-              />
-              <span className="font-semibold">Limited Seats Only</span>
+            <div className="flex items-center justify-center gap-4 p-6 bg-white/40 backdrop-blur-lg border border-orange-200 rounded-2xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-100">
+              <Star className="w-6 h-6 text-orange-600" aria-hidden="true" />
+              <span className="font-bold text-lg text-gray-700">
+                Limited Seats Only
+              </span>
             </div>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <button
-              className="px-8 py-4 text-lg font-bold flex items-center justify-center transform hover:-translate-y-2 pulse-glow rounded-2xl border-none"
-              style={{
-                background: "var(--gradient-1)",
-                color: `hsl(var(--primary-foreground))`,
-                transition: "var(--transition)",
-              }}
+              className="px-10 py-5 text-xl font-bold flex items-center justify-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl border-none min-w-[200px] transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-orange-300 focus:outline-none focus:ring-4 focus:ring-orange-300"
               onClick={() => scrollToSection("pricing")}
+              aria-label="Enroll now in the bootcamp"
             >
-              <Sparkles className="mr-2 w-5 h-5" />
+              <Sparkles className="mr-3 w-6 h-6" aria-hidden="true" />
               ENROLL NOW
-              <ArrowRight className="ml-2 w-5 h-5" />
+              <ArrowRight className="ml-3 w-6 h-6" aria-hidden="true" />
             </button>
 
             <button
-              className="px-8 py-4 text-lg font-semibold flex items-center justify-center glass-morphism rounded-2xl hover:glow-cyan transition-all duration-300"
-              style={{ color: `hsl(var(--foreground))` }}
+              className="px-10 py-5 text-xl font-bold flex items-center justify-center bg-white/40 backdrop-blur-lg border-2 border-orange-300 text-orange-700 hover:bg-orange-50 rounded-2xl min-w-[200px] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-100 focus:outline-none focus:ring-4 focus:ring-orange-300"
               onClick={() => scrollToSection("program")}
+              aria-label="Learn more about the program"
             >
-              <Play className="mr-2 w-5 h-5" />
+              <Play className="mr-3 w-6 h-6" aria-hidden="true" />
               Learn More
             </button>
           </div>
@@ -261,5 +165,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-//changed the design of herosection

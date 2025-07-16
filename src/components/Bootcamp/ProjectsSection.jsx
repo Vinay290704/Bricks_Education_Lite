@@ -1,1001 +1,274 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import {
-  ChevronLeft,
-  ChevronRight,
-  ExternalLink,
-  X,
-  Clock,
   Star,
   Zap,
-  Loader2,
+  Users,
+  Trophy,
+  BookOpen,
+  Home,
+  Recycle,
+  Heart,
+  Shield,
+  GraduationCap,
+  CloudRain,
+  Stethoscope,
+  BookMarked,
 } from "lucide-react";
 
 const ProjectsCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [imageLoadingStates, setImageLoadingStates] = useState({});
-
-  const imageExtensions = {
-    p1: ".jpeg",
-    p2: ".jpg",
-    p3: ".jpg",
-    p4: ".jpg",
-    p5: ".jpg",
-    p6: ".png",
-    p7: ".jpg",
-    p8: ".png",
-    p9: ".webp",
-    p10: ".jpg",
-  };
-
-  const getImageUrl = (imageName) => {
-    try {
-      const extension = imageExtensions[imageName] || ".jpg";
-      const url = new URL(
-        `../../assets/images/${imageName}${extension}`,
-        import.meta.url
-      ).href;
-      return url;
-    } catch (error) {
-      console.error(`Failed to load image: ${imageName}`, error);
-      return `https://via.placeholder.com/400x300?text=${encodeURIComponent(
-        imageName
-      )}`;
-    }
-  };
-
-  useEffect(() => {
-    if (!document.getElementById("projects-carousel-styles")) {
-      const style = document.createElement("style");
-      style.id = "projects-carousel-styles";
-      style.textContent = `
-        :root {
-          --background: 0 0% 100%;
-          --foreground: 210 22% 22%;
-          --card: 0 0% 100%;
-          --card-foreground: 210 22% 22%;
-          --primary: 4 85% 58%;
-          --primary-foreground: 0 0% 100%;
-          --secondary: 15 100% 60%;
-          --secondary-foreground: 0 0% 100%;
-          --muted: 0 0% 97%;
-          --muted-foreground: 0 0% 40%;
-          --accent: 43 89% 81%;
-          --accent-foreground: 210 22% 22%;
-          --border: 0 0% 90%;
-          --radius: 15px;
-          --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-          --shadow-hover: 0 20px 50px rgba(231, 76, 60, 0.2);
-          --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .line-clamp-2 {
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        
-        .line-clamp-3 {
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        
-        .backdrop-blur-sm {
-          backdrop-filter: blur(4px);
-        }
-        
-        .modal-overlay {
-          backdrop-filter: blur(8px);
-          animation: fadeIn 0.3s ease-out;
-        }
-        
-        .modal-content {
-          animation: slideInUp 0.3s ease-out;
-        }
-        
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes slideInUp {
-          from { 
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-          }
-          to { 
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-        
-        .image-loading {
-          position: relative;
-          overflow: hidden;
-        }
-        
-        .image-loading::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-          animation: shimmer 1.5s infinite;
-          z-index: 1;
-        }
-        
-        @keyframes shimmer {
-          0% { left: -100%; }
-          100% { left: 100%; }
-        }
-      `;
-      document.head.appendChild(style);
-    }
-  }, []);
-
   const projects = [
     {
       id: 1,
-      title: "Automated Plant Watering System",
-      category: "Agricultural Robotics",
+      title: "Smart Plant Care Robot",
+      category: "Home & Garden",
       description:
-        "Build a smart irrigation robot that monitors soil moisture and automatically waters plants when needed.",
-      duration: "Week 4-5",
+        "Build an AI plant assistant that knows when your plants need water! Perfect for busy families.",
       difficulty: "Beginner",
-      technologies: [
-        "Arduino Uno",
-        "Soil Moisture Sensor",
-        "Water Pump",
-        "Basic Programming",
-      ],
-      features: [
-        "Automatic soil moisture detection",
-        "Scheduled watering system",
-        "LED indicators for system status",
-        "Manual override controls",
-      ],
-      outcomes:
-        "Students will learn sensor basics, understand automation principles, and create a useful home gardening tool.",
+      skillsGained: "Arduino programming, sensor integration, problem-solving",
+      icon: Home,
     },
     {
       id: 2,
-      title: "Smart Trash Sorting Robot",
-      category: "Environmental Robotics",
+      title: "Eco-Warrior Recycling Bot",
+      category: "Environmental",
       description:
-        "Create a robotic system that identifies and sorts different types of waste materials using sensors and mechanical arms.",
-      duration: "Week 6-7",
+        "Create a robot that sorts trash automatically - be a hero for the planet while learning cutting-edge tech!",
       difficulty: "Intermediate",
-      technologies: [
-        "Arduino",
-        "Servo Motors",
-        "Color Sensors",
-        "Mechanical Design",
-      ],
-      features: [
-        "Material identification using sensors",
-        "Robotic arm for sorting mechanism",
-        "Multiple sorting bins",
-        "Waste counting and statistics",
-      ],
-      outcomes:
-        "Students will understand environmental applications of robotics and build a socially useful project.",
+      skillsGained: "Computer vision, servo motors, sustainable engineering",
+      icon: Recycle,
     },
     {
       id: 3,
-      title: "Pet Feeding Robot",
-      category: "Home Automation",
+      title: "Pet Butler Robot",
+      category: "Smart Home",
       description:
-        "Design an automated pet feeder that dispenses food at scheduled times and can be controlled remotely.",
-      duration: "Week 5-6",
+        "Build the ultimate pet care assistant! Feeds your furry friends on schedule and tracks their health.",
       difficulty: "Intermediate",
-      technologies: ["Arduino", "Servo Motors", "RTC Module", "Mobile App"],
-      features: [
-        "Scheduled automatic feeding",
-        "Portion control mechanism",
-        "Mobile app remote control",
-        "Low food level alerts",
-      ],
-      outcomes:
-        "Students will learn about real-time systems, mobile connectivity, and create a practical pet care solution.",
+      skillsGained: "App development, real-time systems, user interface design",
+      icon: Heart,
     },
-
     {
       id: 4,
-      title: "Smart Security Alert Robot",
-      category: "Security Robotics",
+      title: "Home Security Guardian",
+      category: "Safety & Security",
       description:
-        "Create a mobile security robot that patrols an area, detects motion, and sends alerts when intruders are detected.",
-      duration: "Week 8-9",
+        "Design a smart security robot that protects your home and sends alerts to your phone. Feel like a tech superhero!",
       difficulty: "Advanced",
-      technologies: [
-        "Arduino",
-        "PIR Sensors",
-        "Camera Module",
-        "Motors",
-        "Buzzer",
-      ],
-      features: [
-        "Motion detection and alerts",
-        "Automated patrol patterns",
-        "Photo capture of detected movement",
-        "Remote monitoring via smartphone",
-      ],
-      outcomes:
-        "Students will learn about security systems, sensor integration, and create a functional surveillance robot.",
+      skillsGained:
+        "Image processing, wireless communication, security protocols",
+      icon: Shield,
     },
     {
       id: 5,
-      title: "Classroom Helper Robot",
-      category: "Educational Robotics",
+      title: "Study Buddy Assistant",
+      category: "Education",
       description:
-        "Build a robot assistant that can distribute worksheets, collect assignments, and help with basic classroom tasks.",
-      duration: "Week 6-7",
+        "Create a helpful robot that organizes your homework, reminds you of deadlines, and makes studying fun!",
       difficulty: "Intermediate",
-      technologies: [
-        "Arduino",
-        "Ultrasonic Sensors",
-        "Servo Motors",
-        "Voice Module",
-      ],
-      features: [
-        "Voice command recognition",
-        "Object pickup and delivery",
-        "Obstacle avoidance navigation",
-        "Interactive student responses",
-      ],
-      outcomes:
-        "Students will understand service robotics and create a robot that can assist in educational environments.",
+      skillsGained:
+        "Speech recognition, task management, user experience design",
+      icon: GraduationCap,
     },
     {
       id: 6,
-      title: "Weather Monitoring Robot",
-      category: "Environmental Monitoring",
+      title: "Weather Station Explorer",
+      category: "Science & Discovery",
       description:
-        "Design a mobile weather station robot that moves around collecting temperature, humidity, and air quality data.",
-      duration: "Week 5-6",
+        "Build a mobile weather lab that collects data like a real scientist. Perfect for future meteorologists!",
       difficulty: "Beginner",
-      technologies: [
-        "Arduino",
-        "Weather Sensors",
-        "LCD Display",
-        "Data Logging",
-      ],
-      features: [
-        "Multiple environmental sensors",
-        "Real-time data display",
-        "Data logging and storage",
-        "Mobile data collection",
-      ],
-      outcomes:
-        "Students will learn about environmental monitoring and create a scientific data collection tool.",
+      skillsGained: "Data analysis, sensor networks, scientific reporting",
+      icon: CloudRain,
     },
     {
       id: 7,
-      title: "Elderly Care Reminder Robot",
-      category: "Healthcare Robotics",
+      title: "Grandparent Care Companion",
+      category: "Healthcare",
       description:
-        "Build a companion robot that reminds elderly people to take medication, drink water, and provides basic interaction.",
-      duration: "Week 7-8",
+        "Design a caring robot that helps elderly family members with reminders and emergency alerts. Technology with heart!",
       difficulty: "Advanced",
-      technologies: [
-        "Arduino",
-        "Voice Module",
-        "RTC",
-        "LED Display",
-        "Sensors",
-      ],
-      features: [
-        "Medication reminder alarms",
-        "Voice interaction and responses",
-        "Emergency alert system",
-        "Simple games and entertainment",
-      ],
-      outcomes:
-        "Students will understand healthcare applications of robotics and create a socially beneficial project.",
+      skillsGained:
+        "Health monitoring, emergency protocols, compassionate design",
+      icon: Stethoscope,
     },
     {
       id: 8,
-      title: "Library Book Organizing Robot",
-      category: "Educational Robotics",
+      title: "Library Detective Robot",
+      category: "Organization",
       description:
-        "Create an intelligent robot that scans book barcodes, identifies their correct shelf locations, and helps organize library books efficiently.",
-      duration: "Week 7-8",
+        "Create a super-smart library assistant that finds and organizes books faster than any human librarian!",
       difficulty: "Advanced",
-      technologies: [
-        "Arduino",
-        "Barcode Scanner",
-        "Servo Motors",
-        "Database Module",
-        "LCD Display",
-      ],
-      features: [
-        "Barcode scanning and identification",
-        "Automated book categorization",
-        "Shelf location mapping system",
-        "Digital inventory tracking",
-        "Voice-guided instructions",
-      ],
-      outcomes:
-        "Students will learn about data management, barcode technology, and create a practical solution for library automation.",
-    },
-    {
-      id: 9,
-      title: "Solar Panel Cleaning Robot",
-      category: "Renewable Energy Robotics",
-      description:
-        "Build an autonomous robot that cleans solar panels to maintain their efficiency, featuring water spraying and brush cleaning mechanisms.",
-      duration: "Week 6-7",
-      difficulty: "Intermediate",
-      technologies: [
-        "Arduino",
-        "Water Pump",
-        "Rotating Brushes",
-        "Solar Panel",
-        "Proximity Sensors",
-      ],
-      features: [
-        "Automated cleaning cycles",
-        "Water spray and brush system",
-        "Edge detection for safety",
-        "Solar-powered operation",
-        "Cleaning efficiency monitoring",
-      ],
-      outcomes:
-        "Students will understand renewable energy systems and create an environmentally beneficial maintenance robot.",
-    },
-    {
-      id: 10,
-      title: "Smart Shopping Assistant Robot",
-      category: "Retail Robotics",
-      description:
-        "Design a mobile robot that follows shoppers, carries their items, provides product information, and helps navigate store layouts.",
-      duration: "Week 8-9",
-      difficulty: "Advanced",
-      technologies: [
-        "Arduino",
-        "RFID Scanner",
-        "Voice Module",
-        "Motors",
-        "Weight Sensors",
-        "Bluetooth Module",
-      ],
-      features: [
-        "Product scanning and information",
-        "Voice-activated shopping list",
-        "Automated cart following",
-        "Price calculation and billing",
-        "Store navigation assistance",
-      ],
-      outcomes:
-        "Students will learn about retail technology, human-robot interaction, and create a practical shopping assistance solution.",
+      skillsGained:
+        "Database management, pattern recognition, system optimization",
+      icon: BookMarked,
     },
   ];
-
-  const itemsPerPage =
-    window.innerWidth >= 1280
-      ? 5
-      : window.innerWidth >= 1024
-      ? 4
-      : window.innerWidth >= 768
-      ? 2
-      : 1;
-  const totalPages = Math.ceil(projects.length / itemsPerPage);
-
-  const nextSlide = useCallback(
-    () => setCurrentIndex((prev) => (prev + 1) % totalPages),
-    [totalPages]
-  );
-  const prevSlide = useCallback(
-    () => setCurrentIndex((prev) => (prev - 1 + totalPages) % totalPages),
-    [totalPages]
-  );
-  const closeModal = useCallback(() => setSelectedProject(null), []);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (selectedProject) {
-        if (event.key === "Escape") {
-          closeModal();
-        }
-      } else {
-        if (event.key === "ArrowLeft") {
-          prevSlide();
-        } else if (event.key === "ArrowRight") {
-          nextSlide();
-        }
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedProject, prevSlide, nextSlide, closeModal]);
-
-  const handleImageLoad = (projectId) => {
-    setImageLoadingStates((prev) => ({ ...prev, [projectId]: false }));
-  };
-
-  const handleImageLoadStart = (projectId) => {
-    setImageLoadingStates((prev) => ({ ...prev, [projectId]: true }));
-  };
 
   const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
       case "Beginner":
-        return "bg-green-100 text-green-800 border-green-200";
+        return "bg-gradient-to-r from-green-100 to-green-200 text-green-800 border-green-300";
       case "Intermediate":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+        return "bg-gradient-to-r from-yellow-100 to-orange-200 text-orange-800 border-orange-300";
       case "Advanced":
-        return "bg-red-100 text-red-800 border-red-200";
+        return "bg-gradient-to-r from-red-100 to-red-200 text-red-800 border-red-300";
       default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
+        return "bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 border-gray-300";
     }
   };
 
   const getDifficultyIcon = (difficulty) => {
     switch (difficulty) {
       case "Beginner":
-        return <Star className="w-3 h-3" />;
+        return <Star className="w-3 h-3 fill-current" />;
       case "Intermediate":
+        return <Trophy className="w-3 h-3 fill-current" />;
       case "Advanced":
-        return <Zap className="w-3 h-3" />;
+        return <Zap className="w-3 h-3 fill-current" />;
       default:
-        return <Star className="w-3 h-3" />;
+        return <Star className="w-3 h-3 fill-current" />;
     }
   };
 
   return (
-    <section
-      className="py-20 relative overflow-hidden"
-      style={{
-        background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 50%, hsl(var(--background)) 100%)`,
-      }}
-    >
-      {/* Background decoration */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `linear-gradient(90deg, transparent 0%, hsla(var(--primary), 0.05) 50%, transparent 100%)`,
-        }}
-      ></div>
+    <section className="relative overflow-hidden py-10 bg-gradient-to-br from-orange-50 via-white to-orange-100">
+      {/* Floating background elements */}
+      <div className="absolute top-10 left-10 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl animate-bounce"></div>
+      <div className="absolute bottom-20 right-20 w-40 h-40 bg-orange-400/15 rounded-full blur-3xl animate-bounce"></div>
+      <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-orange-500/5 rounded-full blur-2xl animate-pulse"></div>
 
       <div className="container mx-auto px-4 relative z-10">
+        {/* Header Section */}
         <div className="text-center mb-16">
-          <div
-            className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6"
-            style={{
-              background: `hsla(var(--primary), 0.1)`,
-            }}
-          >
-            <Zap className="w-8 h-8" style={{ color: `hsl(var(--primary))` }} />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full mb-6 shadow-2xl">
+            <Zap className="w-10 h-10 text-white" />
           </div>
-          <h2
-            className="text-4xl md:text-5xl font-bold mb-6"
-            style={{ color: `hsl(var(--foreground))` }}
-          >
-            <span
-              style={{
-                background: `linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%)`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              Real-World Robotics Projects
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900">
+            <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+              Amazing Robots
             </span>{" "}
-            You'll Build
+            You'll Actually Build!
           </h2>
-          <p
-            className="text-xl max-w-3xl mx-auto leading-relaxed"
-            style={{ color: `hsl(var(--muted-foreground))` }}
-          >
-            From smart home automation to healthcare robots - create projects
-            that solve real problems and showcase your skills
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            Real projects that solve real problems. Build confidence, learn
+            valuable skills, and create something awesome that friends and
+            family will love! 🚀
           </p>
-        </div>
 
-        {/* Carousel Navigation */}
-        <div className="flex justify-between items-center mb-12">
-          <button
-            onClick={prevSlide}
-            className="group flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300 disabled:opacity-50 hover:scale-110"
-            style={{
-              background: `hsl(var(--card))`,
-              border: `2px solid hsl(var(--border))`,
-              color: `hsl(var(--foreground))`,
-              boxShadow: `var(--shadow)`,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = `hsl(var(--primary))`;
-              e.currentTarget.style.color = `hsl(var(--primary))`;
-              e.currentTarget.style.boxShadow = `var(--shadow-hover)`;
-            }}
-            onMouseLeave={(e) => {
-              if (!e.currentTarget.disabled) {
-                e.currentTarget.style.borderColor = `hsl(var(--border))`;
-                e.currentTarget.style.color = `hsl(var(--foreground))`;
-                e.currentTarget.style.boxShadow = `var(--shadow)`;
-              }
-            }}
-            disabled={currentIndex === 0}
-            aria-label="Previous projects"
-          >
-            <ChevronLeft className="w-6 h-6 transition-transform group-hover:-translate-x-0.5" />
-          </button>
-
-          <div className="flex space-x-3">
-            {Array.from({ length: totalPages }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className="w-3 h-3 rounded-full transition-all duration-300 hover:scale-125"
-                style={{
-                  background:
-                    index === currentIndex
-                      ? `hsl(var(--primary))`
-                      : `hsl(var(--muted))`,
-                  transform:
-                    index === currentIndex ? "scale(1.25)" : "scale(1)",
-                }}
-                aria-label={`Go to page ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={nextSlide}
-            className="group flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300 disabled:opacity-50 hover:scale-110"
-            style={{
-              background: `hsl(var(--card))`,
-              border: `2px solid hsl(var(--border))`,
-              color: `hsl(var(--foreground))`,
-              boxShadow: `var(--shadow)`,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = `hsl(var(--primary))`;
-              e.currentTarget.style.color = `hsl(var(--primary))`;
-              e.currentTarget.style.boxShadow = `var(--shadow-hover)`;
-            }}
-            onMouseLeave={(e) => {
-              if (!e.currentTarget.disabled) {
-                e.currentTarget.style.borderColor = `hsl(var(--border))`;
-                e.currentTarget.style.color = `hsl(var(--foreground))`;
-                e.currentTarget.style.boxShadow = `var(--shadow)`;
-              }
-            }}
-            disabled={currentIndex === totalPages - 1}
-            aria-label="Next projects"
-          >
-            <ChevronRight className="w-6 h-6 transition-transform group-hover:translate-x-0.5" />
-          </button>
-        </div>
-
-        {/* Projects Carousel */}
-        <div className="overflow-hidden">
-          <div
-            className="flex transition-transform duration-700 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
-            {Array.from({ length: totalPages }).map((_, pageIndex) => (
-              <div key={pageIndex} className="flex-shrink-0 w-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 px-2">
-                  {projects
-                    .slice(
-                      pageIndex * itemsPerPage,
-                      (pageIndex + 1) * itemsPerPage
-                    )
-                    .map((project) => (
-                      <div
-                        key={project.id}
-                        onClick={() => setSelectedProject(project)}
-                        className="group overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-2 cursor-pointer"
-                        style={{
-                          background: `hsl(var(--card))`,
-                          border: `2px solid hsl(var(--border))`,
-                          borderRadius: `var(--radius)`,
-                          boxShadow: `var(--shadow)`,
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = `hsla(var(--primary), 0.5)`;
-                          e.currentTarget.style.boxShadow = `var(--shadow-hover)`;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = `hsl(var(--border))`;
-                          e.currentTarget.style.boxShadow = `var(--shadow)`;
-                        }}
-                      >
-                        <div className="p-0 flex-shrink-0 relative">
-                          <div className="relative overflow-hidden">
-                            {imageLoadingStates[project.id] && (
-                              <div className="absolute inset-0 flex items-center justify-center bg-gray-100 image-loading">
-                                <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
-                              </div>
-                            )}
-                            <img
-                              alt={project.title}
-                              className="w-full h-44 object-cover group-hover:scale-110 transition-all duration-700"
-                              onLoadStart={() =>
-                                handleImageLoadStart(project.id)
-                              }
-                              onLoad={() => handleImageLoad(project.id)}
-                              onError={() => handleImageLoad(project.id)}
-                              src={getImageUrl(`p${project.id}`)}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
-                            <div className="absolute top-4 left-4">
-                              <span
-                                className="px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm"
-                                style={{
-                                  background: `hsla(var(--primary), 0.9)`,
-                                  color: `hsl(var(--primary-foreground))`,
-                                }}
-                              >
-                                {project.category}
-                              </span>
-                            </div>
-                            <div className="absolute top-4 right-4">
-                              <span
-                                className={`px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm flex items-center gap-1 ${getDifficultyColor(
-                                  project.difficulty
-                                )}`}
-                                style={{
-                                  border: `1px solid`,
-                                }}
-                              >
-                                {getDifficultyIcon(project.difficulty)}
-                                {project.difficulty}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="p-6 flex-grow flex flex-col">
-                          <h3
-                            className="text-lg font-bold mb-3 line-clamp-2 group-hover:transition-colors duration-300"
-                            style={{ color: `hsl(var(--foreground))` }}
-                          >
-                            {project.title}
-                          </h3>
-                          <p
-                            className="mb-4 text-sm line-clamp-3 flex-grow leading-relaxed"
-                            style={{ color: `hsl(var(--muted-foreground))` }}
-                          >
-                            {project.description}
-                          </p>
-
-                          <div className="flex items-center justify-between mb-4">
-                            <span
-                              className="text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-1"
-                              style={{
-                                color: `hsl(var(--primary))`,
-                                background: `hsla(var(--primary), 0.1)`,
-                              }}
-                            >
-                              <Clock className="w-3 h-3" />
-                              {project.duration}
-                            </span>
-                            <div className="flex flex-wrap gap-1">
-                              {project.technologies
-                                .slice(0, 1)
-                                .map((tech, index) => (
-                                  <span
-                                    key={index}
-                                    className="px-2 py-1 rounded-md text-xs"
-                                    style={{
-                                      background: `hsl(var(--muted))`,
-                                      color: `hsl(var(--muted-foreground))`,
-                                      border: `1px solid hsl(var(--border))`,
-                                    }}
-                                  >
-                                    {tech}
-                                  </span>
-                                ))}
-                              {project.technologies.length > 1 && (
-                                <span
-                                  className="px-2 py-1 rounded-md text-xs"
-                                  style={{
-                                    background: `hsl(var(--muted))`,
-                                    color: `hsl(var(--muted-foreground))`,
-                                    border: `1px solid hsl(var(--border))`,
-                                  }}
-                                >
-                                  +{project.technologies.length - 1}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-
-                          <button
-                            onClick={() => setSelectedProject(project)}
-                            className="w-full transition-all duration-300 py-3 px-4 font-semibold flex items-center justify-center text-sm group-hover:scale-105"
-                            style={{
-                              background: `linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%)`,
-                              color: `hsl(var(--primary-foreground))`,
-                              borderRadius: `var(--radius)`,
-                              boxShadow: `var(--shadow)`,
-                            }}
-                          >
-                            View Details
-                            <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            ))}
+          {/* Trust indicators for parents */}
+          <div className="flex flex-wrap justify-center gap-6 mt-8 text-sm text-gray-600">
+            <div className="flex items-center gap-2">
+              <Users className="w-4 h-4 text-orange-500" />
+              <span>Age-appropriate for 9th graders</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-orange-500" />
+              <span>Structured learning path</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Trophy className="w-4 h-4 text-orange-500" />
+              <span>Portfolio-worthy projects</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Modal */}
-      {selectedProject && (
-        <div
-          className="fixed inset-0 flex items-center justify-center z-50 p-4 modal-overlay"
-          style={{
-            background: `rgba(0, 0, 0, 0.7)`,
-          }}
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              closeModal();
-            }
-          }}
-        >
-          <div
-            className="max-w-5xl max-h-[90vh] overflow-y-auto w-full modal-content"
-            style={{
-              background: `hsl(var(--card))`,
-              border: `2px solid hsl(var(--border))`,
-              borderRadius: `var(--radius)`,
-              boxShadow: `var(--shadow-hover)`,
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="p-8">
-              <div className="flex justify-between items-start mb-8">
-                <div>
-                  <h2
-                    className="text-3xl font-bold mb-2"
-                    style={{
-                      background: `linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%)`,
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    {selectedProject.title}
-                  </h2>
-                  <span
-                    className="px-4 py-2 rounded-full text-sm font-medium"
-                    style={{
-                      background: `hsla(var(--primary), 0.1)`,
-                      color: `hsl(var(--primary))`,
-                    }}
-                  >
-                    {selectedProject.category}
-                  </span>
-                </div>
-                <button
-                  onClick={closeModal}
-                  className="text-2xl w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 hover:bg-red-50 hover:text-red-500"
-                  style={{ color: `hsl(var(--muted-foreground))` }}
-                  aria-label="Close modal"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-
-              <div className="space-y-8">
-                <div className="relative">
-                  <img
-                    src={getImageUrl(`p${selectedProject.id}`)}
-                    alt={selectedProject.title}
-                    className="w-full h-80 object-cover"
-                    style={{
-                      borderRadius: `var(--radius)`,
-                      boxShadow: `var(--shadow)`,
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background: `linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.2) 100%)`,
-                      borderRadius: `var(--radius)`,
-                    }}
-                  ></div>
-                </div>
-
-                <div>
-                  <h4
-                    className="font-bold mb-4 text-xl flex items-center gap-2"
-                    style={{ color: `hsl(var(--foreground))` }}
-                  >
-                    <Zap
-                      className="w-5 h-5"
-                      style={{ color: `hsl(var(--primary))` }}
-                    />
-                    Project Overview
-                  </h4>
-                  <p
-                    className="leading-relaxed text-lg p-6"
-                    style={{
-                      color: `hsl(var(--muted-foreground))`,
-                      background: `hsla(var(--muted), 0.5)`,
-                      border: `1px solid hsl(var(--border))`,
-                      borderRadius: `var(--radius)`,
-                    }}
-                  >
-                    {selectedProject.description}
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
+          {projects.map((project, index) => {
+            const IconComponent = project.icon;
+            return (
+              <div
+                key={project.id}
+                className="group bg-white border-2 border-gray-100 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-3 hover:border-orange-200 hover:shadow-2xl shadow-lg flex flex-col"
+              >
+                <div className="p-6 bg-gradient-to-r from-orange-50 to-orange-100 flex flex-col h-full">
+                  {/* Top section: Category, difficulty, icon, title, and description */}
+                  <div className="flex items-start justify-between mb-4">
+                    <span className="px-3 py-1.5 bg-orange-500/90 text-white rounded-full text-xs font-semibold">
+                      {project.category}
+                    </span>
+                    <span
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium border flex items-center gap-1 ${getDifficultyColor(
+                        project.difficulty
+                      )}`}
+                    >
+                      {getDifficultyIcon(project.difficulty)}
+                      {project.difficulty}
+                    </span>
+                  </div>
+                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-4 shadow-lg">
+                    <IconComponent className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-orange-600 transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                    {project.description}
                   </p>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div
-                    className="p-6"
-                    style={{
-                      background: `hsla(var(--muted), 0.5)`,
-                      border: `1px solid hsl(var(--border))`,
-                      borderRadius: `var(--radius)`,
-                    }}
-                  >
-                    <h4
-                      className="font-bold mb-3 flex items-center gap-2"
-                      style={{ color: `hsl(var(--foreground))` }}
-                    >
-                      <Clock
-                        className="w-4 h-4"
-                        style={{ color: `hsl(var(--primary))` }}
-                      />
-                      Duration
-                    </h4>
-                    <p style={{ color: `hsl(var(--muted-foreground))` }}>
-                      {selectedProject.duration}
-                    </p>
-                  </div>
-                  <div
-                    className="p-6"
-                    style={{
-                      background: `hsla(var(--muted), 0.5)`,
-                      border: `1px solid hsl(var(--border))`,
-                      borderRadius: `var(--radius)`,
-                    }}
-                  >
-                    <h4
-                      className="font-bold mb-3"
-                      style={{ color: `hsl(var(--foreground))` }}
-                    >
-                      Difficulty Level
-                    </h4>
-                    <span
-                      className={`px-4 py-2 rounded-full text-sm font-medium border ${getDifficultyColor(
-                        selectedProject.difficulty
-                      )} flex items-center gap-2 w-fit`}
-                    >
-                      {getDifficultyIcon(selectedProject.difficulty)}
-                      {selectedProject.difficulty}
-                    </span>
-                  </div>
-                  <div
-                    className="p-6"
-                    style={{
-                      background: `hsla(var(--muted), 0.5)`,
-                      border: `1px solid hsl(var(--border))`,
-                      borderRadius: `var(--radius)`,
-                    }}
-                  >
-                    <h4
-                      className="font-bold mb-3"
-                      style={{ color: `hsl(var(--foreground))` }}
-                    >
-                      Category
-                    </h4>
-                    <span
-                      className="px-4 py-2 rounded-full text-sm font-medium"
-                      style={{
-                        background: `hsla(var(--primary), 0.1)`,
-                        color: `hsl(var(--primary))`,
-                      }}
-                    >
-                      {selectedProject.category}
-                    </span>
-                  </div>
-                </div>
-
-                <div>
-                  <h4
-                    className="font-bold mb-4 text-xl"
-                    style={{ color: `hsl(var(--foreground))` }}
-                  >
-                    Technologies & Components
-                  </h4>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                    {selectedProject.technologies.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-4 py-3 text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-md text-center"
-                        style={{
-                          background: `hsla(var(--primary), 0.1)`,
-                          color: `hsl(var(--primary))`,
-                          border: `1px solid hsla(var(--primary), 0.2)`,
-                          borderRadius: `var(--radius)`,
-                        }}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {selectedProject.features && (
-                  <div>
-                    <h4
-                      className="font-bold mb-4 text-xl"
-                      style={{ color: `hsl(var(--foreground))` }}
-                    >
-                      Key Features
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {selectedProject.features.map((feature, index) => (
-                        <div
-                          key={index}
-                          className="flex items-start gap-3 p-4"
-                          style={{
-                            background: `hsla(var(--muted), 0.3)`,
-                            border: `1px solid hsl(var(--border))`,
-                            borderRadius: `var(--radius)`,
-                          }}
-                        >
-                          <Zap
-                            className="w-5 h-5 flex-shrink-0 mt-0.5"
-                            style={{ color: `hsl(var(--primary))` }}
-                          />
-                          <span
-                            className="text-sm"
-                            style={{ color: `hsl(var(--muted-foreground))` }}
-                          >
-                            {feature}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {selectedProject.outcomes && (
-                  <div>
-                    <h4
-                      className="font-bold mb-4 text-xl"
-                      style={{ color: `hsl(var(--foreground))` }}
-                    >
-                      Learning Outcomes
-                    </h4>
-                    <div
-                      className="p-6"
-                      style={{
-                        background: `linear-gradient(135deg, hsla(var(--primary), 0.05) 0%, hsla(var(--secondary), 0.05) 100%)`,
-                        border: `2px solid hsla(var(--primary), 0.2)`,
-                        borderRadius: `var(--radius)`,
-                      }}
-                    >
-                      <p
-                        className="text-base leading-relaxed"
-                        style={{ color: `hsl(var(--muted-foreground))` }}
-                      >
-                        {selectedProject.outcomes}
+                  {/* Bottom section: Skills section with flex-grow to push it to the bottom */}
+                  <div className="flex-grow flex items-end">
+                    <div className="bg-gradient-to-r from-orange-500/5 to-orange-400/10 p-4 rounded-xl border border-orange-500/20 w-full">
+                      <h4 className="text-sm font-semibold text-orange-600 mb-2">
+                        💪 Skills You'll Gain:
+                      </h4>
+                      <p className="text-xs text-gray-700">
+                        {project.skillsGained}
                       </p>
                     </div>
                   </div>
-                )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Parents Section */}
+        <div className="text-center">
+          <div className="bg-white border border-gray-200 rounded-2xl p-8 max-w-4xl mx-auto shadow-lg">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Why These Projects Matter ?
+            </h3>
+            <div className="grid md:grid-cols-3 gap-6 text-sm">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <BookOpen className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  Real-World Skills
+                </h4>
+                <p className="text-gray-600">
+                  Programming, engineering, and problem-solving skills that
+                  colleges and employers value.
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  Age-Appropriate
+                </h4>
+                <p className="text-gray-600">
+                  Designed specifically for 9th graders with proper scaffolding
+                  and support.
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Trophy className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  Portfolio Building
+                </h4>
+                <p className="text-gray-600">
+                  Each project becomes a showcase piece for college applications
+                  and internships.
+                </p>
               </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </section>
   );
 };

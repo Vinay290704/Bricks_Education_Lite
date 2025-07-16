@@ -1,312 +1,217 @@
-import React, { useEffect } from "react";
-import { CheckCircle, Crown, Star, Users } from "lucide-react";
+import React from "react";
+import {
+  CheckCircle,
+  Crown,
+  Star,
+  Users,
+  Zap,
+  Award,
+  Gift,
+  Trophy,
+} from "lucide-react";
 
 const PricingSection = () => {
-  useEffect(() => {
-    if (!document.getElementById("pricing-section-styles")) {
-      const style = document.createElement("style");
-      style.id = "pricing-section-styles";
-      style.textContent = `
-        :root {
-          --background: 0 0% 100%;
-          --foreground: 210 22% 22%;
-          --card: 0 0% 100%;
-          --card-foreground: 210 22% 22%;
-          --primary: 4 85% 58%;
-          --primary-foreground: 0 0% 100%;
-          --secondary: 15 100% 60%;
-          --secondary-foreground: 0 0% 100%;
-          --muted: 0 0% 97%;
-          --muted-foreground: 0 0% 40%;
-          --accent: 43 89% 81%;
-          --accent-foreground: 210 22% 22%;
-          --border: 0 0% 90%;
-          --radius: 15px;
-          --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-          --shadow-hover: 0 20px 50px rgba(231, 76, 60, 0.2);
-          --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .winner-glow {
-          box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), var(--shadow);
-        }
-        
-        .winner-glow:hover {
-          box-shadow: 0 0 40px rgba(255, 215, 0, 0.5), var(--shadow-hover);
-        }
-        
-        .partner-glow:hover {
-          box-shadow: 0 0 30px rgba(147, 51, 234, 0.2), var(--shadow-hover);
-        }
-      `;
-      document.head.appendChild(style);
-    }
-  }, []);
-
   const tiers = [
     {
       id: "winner",
       name: "Workshop Winners",
       price: "₹1,999",
       originalPrice: "₹5,999",
+      discount: "67% OFF",
       badge: "🏆 WINNER'S TIER",
       icon: Crown,
       color: "gold",
       features: [
-        "All program benefits",
-        "Free robotics kit (₹4000 value)",
-        "Priority mentor access",
-        "Exclusive network access",
+        "All program benefits included",
+        "Free robotics kit worth ₹4000",
+        "Priority mentor access & guidance",
+        "Exclusive alumni network access",
+        "Certificate from Google & Scaler",
+        "Live project demonstrations",
+        "Career guidance sessions",
+        "Lifetime community access",
       ],
       buttonText: "CLAIM WINNER'S SPOT",
       highlighted: true,
+      popular: true,
     },
     {
       id: "partner",
       name: "Partner Schools",
       price: "₹3,499",
       originalPrice: "₹5,999",
+      discount: "42% OFF",
       icon: Users,
-      color: "purple",
+      color: "orange",
       features: [
         "Full program access",
         "Robotics kit included",
-        "Mentorship sessions",
+        "Regular mentorship sessions",
         "Official certificates",
+        "Project-based learning",
+        "Industry expert sessions",
+        "Skill assessment reports",
+        "Alumni network access",
       ],
       buttonText: "SECURE YOUR SPOT",
     },
   ];
 
-  const getColorStyles = (color, isHighlighted = false) => {
-    switch (color) {
-      case "gold":
-        return {
-          cardStyle: isHighlighted ? "winner-glow" : "",
-          badgeStyle: {
-            background: `linear-gradient(135deg, #FFD700 0%, #FFA500 100%)`,
-            color: "#000",
-          },
-          priceStyle: {
-            background: `linear-gradient(135deg, #FFD700 0%, #FFA500 100%)`,
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          },
-          iconColor: "#FFD700",
-          checkColor: "#FFD700",
-          buttonStyle: {
-            background: `linear-gradient(135deg, #FFD700 0%, #FFA500 100%)`,
-            color: "#000",
-          },
-        };
-      case "purple":
-        return {
-          cardStyle: "partner-glow",
-          priceStyle: {
-            background: `linear-gradient(135deg, #9333EA 0%, #7C3AED 100%)`,
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          },
-          iconColor: "#9333EA",
-          checkColor: "#9333EA",
-          buttonStyle: {
-            background: `linear-gradient(135deg, #9333EA 0%, #7C3AED 100%)`,
-            color: "#fff",
-          },
-        };
-    }
-  };
-
   return (
     <section
       id="pricing"
-      className="py-20 relative overflow-hidden"
-      style={{
-        background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 50%, hsl(var(--background)) 100%)`,
-      }}
+      className="relative overflow-hidden py-20 bg-gradient-to-br from-orange-50 via-white to-orange-100"
     >
-      {/* Background decoration */}
+      {/* Floating background elements */}
       <div
-        className="absolute inset-0"
-        style={{
-          background: `linear-gradient(90deg, transparent 0%, hsla(var(--primary), 0.05) 50%, transparent 100%)`,
-        }}
+        className="absolute top-10 right-10 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl animate-bounce"
+        style={{ animationDuration: "6s" }}
+      ></div>
+      <div
+        className="absolute bottom-20 left-20 w-40 h-40 bg-orange-400/15 rounded-full blur-3xl animate-bounce"
+        style={{ animationDuration: "8s", animationDelay: "1s" }}
+      ></div>
+      <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-orange-500/5 rounded-full blur-2xl animate-pulse"></div>
+      <div
+        className="absolute top-1/4 left-1/4 w-28 h-28 bg-orange-300/10 rounded-full blur-3xl animate-pulse"
+        style={{ animationDelay: "2s" }}
       ></div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
+        {/* Header Section */}
+        <div className="text-center mb-16 animate-fade-in">
           <div
-            className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6"
-            style={{
-              background: `hsla(var(--primary), 0.1)`,
-            }}
+            className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full mb-6 shadow-2xl"
+            style={{ boxShadow: "0 10px 30px -10px rgba(249, 115, 22, 0.4)" }}
           >
-            <Crown
-              className="w-8 h-8"
-              style={{ color: `hsl(var(--primary))` }}
-            />
+            <Crown className="w-10 h-10 text-white" />
           </div>
-          <h2
-            className="text-4xl md:text-5xl font-bold mb-6"
-            style={{ color: `hsl(var(--foreground))` }}
-          >
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900">
             Special{" "}
-            <span
-              style={{
-                background: `linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%)`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
+            <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
               Pricing
             </span>
           </h2>
-          <p
-            className="text-xl max-w-3xl mx-auto leading-relaxed"
-            style={{ color: `hsl(var(--muted-foreground))` }}
-          >
-            Choose Your Path to Success
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+            Limited Time Offers - Choose Your Path to Success 🚀
           </p>
+
+          {/* Trust indicators */}
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600">
+            <div className="flex items-center gap-2">
+              <Award className="w-4 h-4 text-orange-500" />
+              <span>Google Certified</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Star className="w-4 h-4 text-orange-500" />
+              <span>4.9/5 Rating</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Users className="w-4 h-4 text-orange-500" />
+              <span>500+ Alumni</span>
+            </div>
+          </div>
         </div>
 
-        {/* Side by side layout */}
-        <div className="flex justify-center">
-          <div className="flex flex-col sm:flex-row gap-8 max-w-5xl w-full">
-            {tiers.map((tier) => {
-              const colorStyles = getColorStyles(tier.color, tier.highlighted);
-              const isHighlighted = tier.highlighted;
+        <div className="flex justify-center mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl w-full">
+            {tiers.map((tier, index) => (
+              <div
+                key={tier.id}
+                className={`group relative bg-white border-2 rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl ${
+                  tier.highlighted
+                    ? "border-orange-300 shadow-2xl transform scale-105"
+                    : "border-gray-200 shadow-lg hover:border-orange-200"
+                }`}
+                style={{
+                  animationDelay: `${index * 200}ms`,
+                  boxShadow: tier.highlighted
+                    ? "0 25px 50px -12px rgba(249, 115, 22, 0.25)"
+                    : "0 10px 30px -5px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+               
+                <div className="absolute top-6 right-6 bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-full text-sm font-bold z-10">
+                  {tier.discount}
+                </div>
 
-              return (
-                <div
-                  key={tier.id}
-                  className={`group overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-2 cursor-pointer relative flex-1 ${
-                    isHighlighted ? "transform scale-105 sm:scale-110" : ""
-                  } ${colorStyles.cardStyle || ""}`}
-                  style={{
-                    background: `hsl(var(--card))`,
-                    border: `2px solid ${
-                      isHighlighted ? "#FFD700" : "hsl(var(--border))"
-                    }`,
-                    borderRadius: `var(--radius)`,
-                    boxShadow: isHighlighted ? undefined : `var(--shadow)`,
-                    minHeight: "550px",
-                    maxWidth: "450px",
-                    margin: "0 auto",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isHighlighted) {
-                      e.currentTarget.style.borderColor = `hsla(var(--primary), 0.5)`;
-                      e.currentTarget.style.boxShadow = `var(--shadow-hover)`;
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isHighlighted) {
-                      e.currentTarget.style.borderColor = `hsl(var(--border))`;
-                      e.currentTarget.style.boxShadow = `var(--shadow)`;
-                    }
-                  }}
-                >
-                  {/* Badge for Winner tier */}
-                  {tier.badge && (
-                    <div className="absolute left-33 top-4 transform -translate-x-1/2 z-10">
-                      <div
-                        className="absolute px-6 py-2 text-sm font-bold rounded-full whitespace-nowrap"
-                        style={colorStyles.badgeStyle}
-                      >
-                        {tier.badge}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="p-8 text-center ">
+                <div className="p-8 lg:p-10">
+                  <div className="text-center mb-8">
                     <div
-                      className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300"
-                      style={{
-                        background: `linear-gradient(135deg, hsla(var(--primary), 0.1) 0%, hsla(var(--secondary), 0.1) 100%)`,
-                      }}
+                      className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300 ${
+                        tier.highlighted
+                          ? "bg-gradient-to-br from-orange-500 to-orange-600 shadow-lg"
+                          : "bg-gradient-to-br from-gray-100 to-gray-200"
+                      }`}
                     >
                       <tier.icon
-                        className="w-10 h-10 transition-colors duration-300"
-                        style={{ color: colorStyles.iconColor }}
+                        className={`w-10 h-10 ${
+                          tier.highlighted ? "text-white" : "text-orange-500"
+                        }`}
                       />
                     </div>
 
-                    <h3
-                      className="text-2xl font-bold mb-6 group-hover:transition-colors duration-300"
-                      style={{ color: `hsl(var(--foreground))` }}
-                    >
+                    <h3 className="text-2xl lg:text-3xl font-bold mb-2 text-gray-900">
                       {tier.name}
                     </h3>
 
-                    <div className="mb-6">
-                      <div
-                        className="text-4xl md:text-5xl font-bold mb-2"
-                        style={colorStyles.priceStyle}
-                      >
-                        {tier.price}
+                    {tier.badge && (
+                      <div className="inline-block px-4 py-2 bg-orange-500/10 border border-orange-500/20 rounded-full mb-4">
+                        <span className="text-orange-600 text-sm font-medium">
+                          {tier.badge}
+                        </span>
                       </div>
-                      <div
-                        className={`text-lg ${
-                          tier.originalPrice === "Full Price"
-                            ? ""
-                            : "line-through"
-                        }`}
-                        style={{ color: `hsl(var(--muted-foreground))` }}
-                      >
-                        {tier.originalPrice}
-                      </div>
-                    </div>
+                    )}
                   </div>
 
-                  <div className="px-8 pb-8 flex-grow flex flex-col">
-                    <ul className="space-y-4 mb-8 flex-grow">
-                      {tier.features.map((feature, index) => (
-                        <li key={index} className="flex items-start gap-3">
-                          <CheckCircle
-                            className="w-5 h-5 flex-shrink-0 mt-0.5"
-                            style={{ color: colorStyles.checkColor }}
-                          />
-                          <span
-                            className="text-base leading-relaxed"
-                            style={{ color: `hsl(var(--muted-foreground))` }}
-                          >
+                  {/* Pricing */}
+                  <div className="text-center mb-8">
+                    <div className="flex items-center justify-center gap-3 mb-2">
+                      <span className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+                        {tier.price}
+                      </span>
+                      <span className="text-lg text-gray-500 line-through">
+                        {tier.originalPrice}
+                      </span>
+                    </div>
+                    <p className="text-gray-600">One-time payment</p>
+                  </div>
+
+                  {/* Features */}
+                  <div className="mb-8">
+                    <ul className="space-y-4">
+                      {tier.features.map((feature, featureIndex) => (
+                        <li
+                          key={featureIndex}
+                          className="flex items-start gap-3"
+                        >
+                          <div className="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mt-0.5">
+                            <CheckCircle className="w-4 h-4 text-white" />
+                          </div>
+                          <span className="text-gray-700 leading-relaxed">
                             {feature}
                           </span>
                         </li>
                       ))}
                     </ul>
-                    <button
-                      className="w-full transition-all duration-300 py-4 px-6 font-bold text-base group-hover:scale-105"
-                      style={{
-                        ...colorStyles.buttonStyle,
-                        borderRadius: `var(--radius)`,
-                        boxShadow: `var(--shadow)`,
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.boxShadow = `var(--shadow-hover)`;
-                        if (tier.color === "gray") {
-                          e.target.style.background = `hsl(var(--accent))`;
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.boxShadow = `var(--shadow)`;
-                        if (tier.color === "gray") {
-                          e.target.style.background = `hsl(var(--muted))`;
-                        }
-                      }}
-                      onClick={() =>
-                        window.open("https://wa.me/919871672790", "Connect with Bricks")
-                      }
-                    >
-                      {tier.buttonText}
-                    </button>
                   </div>
+
+                  {/* CTA Button */}
+                  <button
+                    className={`w-full py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 group-hover:scale-105 ${
+                      tier.highlighted
+                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-xl"
+                        : "bg-gradient-to-r from-gray-900 to-gray-800 text-white hover:from-orange-500 hover:to-orange-600"
+                    }`}
+                    onClick={() =>
+                      window.open("https://wa.me/919871672790", "_blank")
+                    }
+                  >
+                    {tier.buttonText}
+                  </button>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </div>

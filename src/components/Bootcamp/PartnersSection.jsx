@@ -1,42 +1,13 @@
-import React, { useEffect } from 'react';
-import { Award, CheckCircle, Sparkles } from 'lucide-react';
+import React, { useEffect } from "react";
+import { Award, CheckCircle, Sparkles } from "lucide-react";
 
 // Import partner logos
-import ScalerLogo from '../../assets/images/Scaler.jpg';
-import microsoftLogo from '../../assets/images/microsoft.png';
-import googleLogo from '../../assets/images/google.png'; // Replace with correct Google logo if needed
-import ibLogo from '../../assets/images/IVB.jpg';     // Replace with correct STEM logo if needed
+import ScalerLogo from "../../assets/images/Scaler.jpg";
+import microsoftLogo from "../../assets/images/microsoft.png";
+import googleLogo from "../../assets/images/google.png";
+import ibLogo from "../../assets/images/IVB.jpg";
 
 const PartnersSection = () => {
-  useEffect(() => {
-    if (!document.getElementById("partners-section-styles")) {
-      const style = document.createElement("style");
-      style.id = "partners-section-styles";
-      style.textContent = `
-        :root {
-          --background: 0 0% 100%;
-          --foreground: 210 22% 22%;
-          --card: 0 0% 100%;
-          --card-foreground: 210 22% 22%;
-          --primary: 4 85% 58%;
-          --primary-foreground: 0 0% 100%;
-          --secondary: 15 100% 60%;
-          --secondary-foreground: 0 0% 100%;
-          --muted: 0 0% 97%;
-          --muted-foreground: 0 0% 40%;
-          --accent: 43 89% 81%;
-          --accent-foreground: 210 22% 22%;
-          --border: 0 0% 90%;
-          --radius: 15px;
-          --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-          --shadow-hover: 0 20px 50px rgba(231, 76, 60, 0.2);
-          --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-      `;
-      document.head.appendChild(style);
-    }
-  }, []);
-
   const partners = [
     {
       name: "Scaler",
@@ -65,8 +36,8 @@ const PartnersSection = () => {
   ];
 
   return (
-    <section 
-      className="py-20 relative overflow-hidden"
+    <section
+      className="py-10 relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 50%, hsl(var(--background)) 100%)`,
       }}
@@ -86,7 +57,10 @@ const PartnersSection = () => {
               background: `hsla(var(--primary), 0.1)`,
             }}
           >
-            <Award className="w-8 h-8" style={{ color: `hsl(var(--primary))` }} />
+            <Award
+              className="w-8 h-8"
+              style={{ color: `hsl(var(--primary))` }}
+            />
           </div>
           <h2
             className="text-4xl md:text-5xl font-bold mb-6"
@@ -140,10 +114,10 @@ const PartnersSection = () => {
                     background: `linear-gradient(135deg, hsla(var(--primary), 0.1) 0%, hsla(var(--secondary), 0.1) 100%)`,
                   }}
                 >
-                  <img 
-                    src={partner.logo} 
-                    alt={partner.name} 
-                    className="w-16 h-16 object-contain rounded-full" 
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="w-16 h-16 object-contain rounded-full"
                   />
                 </div>
                 <h3
@@ -174,7 +148,9 @@ const PartnersSection = () => {
           >
             <Sparkles className="w-6 h-6" />
             <span>Official Certificates</span>
-            <span style={{ color: `hsl(var(--muted-foreground))` }}>from Google & Scaler</span>
+            <span style={{ color: `hsl(var(--muted-foreground))` }}>
+              from STEM & Bricks
+            </span>
             <CheckCircle className="w-5 h-5" />
           </div>
         </div>
