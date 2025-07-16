@@ -1,31 +1,44 @@
 import { useContext, useEffect } from "react";
 import { DataContext } from "../../context/DataContext";
-import { Calendar, MapPin, Users, TrendingUp } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  Users,
+  TrendingUp,
+  Play,
+  Zap,
+  Trophy,
+} from "lucide-react";
 import EventCard from "./EventCard";
 import BricksLogo from "../../assets/images/Logo.png";
+
 const MetadataSidebar = () => {
   const { computedValues } = useContext(DataContext);
+
   const upcomingEvents = [
     {
       id: 1,
-      title: "Build && Fun",
-      time: "12:00 PM",
+      title: "Robo Races",
+      time: "Day-1",
       type: "WorkShop",
-      description: "Build Robots in teams using Kits",
+      description: "Race to see whose robot is fastest!",
+      icon: Play,
     },
     {
       id: 2,
-      title: "Robo Races",
-      time: "12:45 PM",
+      title: "Real Project Building",
+      time: "Day-2",
       type: "WorkShop",
-      description: "Wanna check whose robot is faster?",
+      description: "Build practical robot solutions!",
+      icon: Zap,
     },
     {
       id: 3,
-      title: "Robo Wars",
-      time: "1:00 PM",
+      title: "Exhibition",
+      time: "Day-3",
       type: "WorkShop",
-      description: "Present your team's skills by fun wars",
+      description: "Show your team's skills in fun wars!",
+      icon: Trophy,
     },
   ];
 
