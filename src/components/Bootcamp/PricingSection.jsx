@@ -13,7 +13,7 @@ import {
   Shield,
   Sparkles,
 } from "lucide-react";
-import roboticsKitImage from "../../assets/images/robotics-kit.webp";
+import roboticsKitImage from "../../assets/images/robotics-kit.jpg";
 
 const PricingSection = () => {
   const commonFeatures = [
