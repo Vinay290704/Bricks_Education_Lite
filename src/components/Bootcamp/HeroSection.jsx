@@ -141,7 +141,12 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <button
               className="px-10 py-5 text-xl font-bold flex items-center justify-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl border-none min-w-[200px] transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-orange-300 focus:outline-none focus:ring-4 focus:ring-orange-300"
-              onClick={() => scrollToSection("pricing")}
+              onClick={() =>
+                window.open(
+                  "https://payments.cashfree.com/forms/bricks-bootcamp",
+                  "_blank"
+                )
+              }
               aria-label="Enroll now in the bootcamp"
             >
               <Sparkles className="mr-3 w-6 h-6" aria-hidden="true" />

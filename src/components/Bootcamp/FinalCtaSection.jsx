@@ -1,4 +1,5 @@
 import { Zap, ArrowRight } from "lucide-react";
+import { FaWhatsapp } from 'react-icons/fa';
 
 const FinalCtaSection = () => {
   return (
@@ -51,7 +52,7 @@ const FinalCtaSection = () => {
             away.
           </p>
 
-          <div className="mb-12">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-12">
             <button
               className="pulse-glow group relative overflow-hidden px-12 py-6 text-xl font-bold transition-all duration-300 hover:-translate-y-2 hover:scale-105"
               style={{
@@ -68,8 +69,8 @@ const FinalCtaSection = () => {
               }}
               onClick={() =>
                 window.open(
-                  "https://wa.me/919871672790?text=Hi%20Bricks%20Education!%20I'm%20interested%20in%20your%20robotics%20and%20programming%20courses.",
-                  "Connect with Bricks"
+                  "https://payments.cashfree.com/forms/bricks-bootcamp",
+                  "_blank"
                 )
               }
             >
@@ -83,6 +84,19 @@ const FinalCtaSection = () => {
                   background: `linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--primary)) 100%)`,
                 }}
               ></div>
+            </button>
+            <button
+              className="px-10 py-5 text-xl font-bold flex items-center justify-center bg-white/40 backdrop-blur-lg border-2 border-orange-300 text-orange-700 hover:bg-orange-50 rounded-2xl min-w-[200px] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-100 focus:outline-none focus:ring-4 focus:ring-orange-300"
+              onClick={() =>
+                window.open(
+                  "https://wa.me/919871672790?text=Hi%20Bricks%20Education!%20I'm%20interested%20in%20your%20robotics%20and%20programming%20courses.",
+                  "Connect with Bricks"
+                )
+              }
+              aria-label="Learn more about the program"
+            >
+              <FaWhatsapp className="mr-3 w-6 h-6" aria-hidden="true" />
+              Contact Us
             </button>
           </div>
         </div>

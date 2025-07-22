@@ -7,7 +7,7 @@ import {
 } from "react";
 const SCHOOL_CODES = {
   NONE: "NONE",
-  RKBS_XAG175: "RKBS_XAG175",
+  RKBS_BRI175: "RKBS_BRI175",
   VAPS_BRI271: "VAPS_BRI271",
 };
 
@@ -21,9 +21,9 @@ const SCHOOLS = [
     sheetName: "VIDY",
   },
   {
-    code: SCHOOL_CODES.RKBS_XAG175,
-    name: "Radha Krishna Public School",
-    sheetName: "RKPS",
+    code: SCHOOL_CODES.RKBS_BRI175,
+    name: "Radha Krishna Birla School",
+    sheetName: "RKBS",
   },
 ];
 
