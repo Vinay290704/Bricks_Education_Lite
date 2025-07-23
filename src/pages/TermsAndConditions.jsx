@@ -368,6 +368,25 @@ const TermsAndConditions = () => {
     <div className="min-h-screen bg-[#F8F8F8] py-15">
       {/* Header Section */}
       <div className="bg-gradient-to-r from-[#FF5722] to-[#FF7043] text-white">
+        <div className="max-w-6xl mx-auto px-4 py-16 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Bricks Education Aryan Jakhar
+          </h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Terms And Condition
+          </h1>
+          {/*<p className="text-xl opacity-90 max-w-2xl mx-auto">
+            Get in Touch with Bricks Education Aryan Jakhar
+          </p>
+          <p className="text-lg opacity-80 max-w-3xl mx-auto mt-4">
+            We'd love to hear from you! Whether you have questions about our
+            robotics and programming courses or want to enroll your child, our
+            team is here to help.
+          </p>*/}
+        </div>
+      </div>
+      {/*
+      <div className="bg-gradient-to-r from-[#FF5722] to-[#FF7043] text-white">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -379,7 +398,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 py-12">

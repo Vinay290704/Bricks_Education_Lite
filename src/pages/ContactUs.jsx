@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react"; // Import useContext
 import { Mail, Phone, MapPin, Linkedin, Send } from "lucide-react";
-import toast, { Toaster } from "react-hot-toast"; // Import toast and Toaster
+import toast, { Toaster } from "react-hot-toast";
+import { DataContext } from "../context/DataContext"; // Import DataContext
 
 const ContactUs = () => {
+  // Destructure the new submission function and related states from DataContext
+  const { submitContactForm, isWriting, writeError } = useContext(DataContext);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,34 +22,47 @@ const ContactUs = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    // Made handleSubmit async
     e.preventDefault();
-    // In a real application, you would send this data to a backend server.
-    // For now, we'll just log it and show a success toast.
-    console.log("Form submitted:", formData);
-    toast.success("Thank you for your message! We will get back to you soon."); // Replaced alert with toast
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+
+    // Call the new submitContactForm function from DataContext
+    const success = await submitContactForm(formData);
+
+    if (success) {
+      toast.success(
+        "Thank you for your message! We will get back to you soon."
+      );
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } else {
+      // Display error message from DataContext if submission failed
+      toast.error(writeError || "Failed to send message. Please try again.");
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#F8F8F8] py-16">
-      <Toaster position="top-center" reverseOrder={false} />{" "}
+      <Toaster position="top-center" reverseOrder={false} />
+      {/* Header Section */}
       <div className="bg-gradient-to-r from-[#FF5722] to-[#FF7043] text-white">
         <div className="max-w-6xl mx-auto px-4 py-16 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Bricks Education Aryan Jakhar
+          </h1>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-          <p className="text-xl opacity-90 max-w-2xl mx-auto">
-            Get in Touch with Bricks
+          {/*<p className="text-xl opacity-90 max-w-2xl mx-auto">
+            Get in Touch with Bricks Education Aryan Jakhar
           </p>
           <p className="text-lg opacity-80 max-w-3xl mx-auto mt-4">
             We'd love to hear from you! Whether you have questions about our
             robotics and programming courses or want to enroll your child, our
             team is here to help.
-          </p>
+          </p>*/}
         </div>
       </div>
       <div className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -209,8 +226,37 @@ const ContactUs = () => {
             <button
               type="submit"
               className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#FF5722] to-[#FF7043] text-white font-semibold rounded-md shadow-lg hover:from-[#FF7043] hover:to-[#FF5722] transition-all duration-300 transform hover:scale-105"
+              disabled={isWriting} // Disable button while submitting
             >
-              <Send className="w-5 h-5" /> Send Message
+              {isWriting ? (
+                <>
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="w-5 h-5" /> Send Message
+                </>
+              )}
             </button>
           </form>
         </div>

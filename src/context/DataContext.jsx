@@ -5,6 +5,7 @@ import {
   useMemo,
   useCallback,
 } from "react";
+
 const SCHOOL_CODES = {
   NONE: "NONE",
   RKBS_BRI175: "RKBS_BRI175",
@@ -26,6 +27,7 @@ const SCHOOLS = [
     sheetName: "RKBS",
   },
 ];
+const CONTACT_MESSAGES_SHEET_NAME = "ContactMessages";
 
 export const DataContext = createContext();
 
@@ -194,6 +196,61 @@ export const DataProvider = ({ children }) => {
   const formatTeamForSheet = useCallback((team) => {
     return [team.name, team.points.toString(), ...team.members];
   }, []);
+  const submitContactForm = useCallback(
+    async (formData) => {
+      if (!apiKey.trim() || !sheetId.trim()) {
+        setWriteError("Missing required API key or Sheet ID for contact form.");
+        return false;
+      }
+
+      setIsWriting(true);
+      setWriteError("");
+
+      try {
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(
+          CONTACT_MESSAGES_SHEET_NAME
+        )}!A:Z:append?valueInputOption=RAW&key=${apiKey}`;
+        const rowData = [
+          [
+            new Date().toLocaleString(),
+            formData.name,
+            formData.email,
+            formData.subject,
+            formData.message,
+          ],
+        ];
+
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            values: rowData,
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            `Failed to submit message: ${
+              errorData.error.message || response.statusText
+            }`
+          );
+        }
+
+        const result = await response.json();
+        console.log("Contact message submitted successfully:", result);
+        return true;
+      } catch (error) {
+        setWriteError(error.message || "Failed to submit contact message.");
+        return false;
+      } finally {
+        setIsWriting(false);
+      }
+    },
+    [apiKey, sheetId]
+  );
 
   const appendTeam = useCallback(
     async (teamData) => {
@@ -485,6 +542,7 @@ export const DataProvider = ({ children }) => {
       updateTeamPoints,
       deleteTeam,
       batchUpdateTeams,
+      submitContactForm,
     }),
     [
       authenticated,
@@ -505,6 +563,7 @@ export const DataProvider = ({ children }) => {
       updateTeamPoints,
       deleteTeam,
       batchUpdateTeams,
+      submitContactForm,
     ]
   );
 
