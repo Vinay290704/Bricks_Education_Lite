@@ -375,13 +375,6 @@ const PrivacyPolicy = () => {
             </div>
           </div>
         </div>
-
-        {/* Footer Note */}
-        <div className="text-center mt-8 pt-8 border-t border-[#EEEEEE]">
-          <p className="text-sm text-[#555555]">
-            Last updated: July 2025 • Bricks Education
-          </p>
-        </div>
       </div>
     </div>
   );
