@@ -100,10 +100,10 @@ const ContactUs = () => {
                     Email:
                   </h3>
                   <a
-                    href="mailto:support@bricks.org"
+                    href="mailto:support@bricks.org.in"
                     className="text-[#FF5722] hover:underline"
                   >
-                    support@bricks.org
+                    support@bricks.org.in
                   </a>
                 </div>
               </div>
