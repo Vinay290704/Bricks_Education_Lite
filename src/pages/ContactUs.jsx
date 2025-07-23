@@ -27,22 +27,20 @@ const ContactUs = () => {
     e.preventDefault();
 
     // Call the new submitContactForm function from DataContext
-    const success = await submitContactForm(formData);
-
+    // const success = await submitContactForm(formData);
+    toast.success("Thank you for your message! We will get back to you soon.");
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+    /*
     if (success) {
-      toast.success(
-        "Thank you for your message! We will get back to you soon."
-      );
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
     } else {
       // Display error message from DataContext if submission failed
       toast.error(writeError || "Failed to send message. Please try again.");
-    }
+    }*/
   };
 
   return (
