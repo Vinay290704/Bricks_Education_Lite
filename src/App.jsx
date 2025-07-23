@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { DataProvider } from "./context/DataContext";
 import Leaderboard from "./pages/Leaderboard";
 import BootCamp from "./pages/BootCamp";
@@ -8,9 +9,24 @@ import TermsAndConditions from "./pages/TermsAndConditions";
 import ContactUs from "./pages/ContactUs";
 import RefundPolicy from "./pages/RefundPolicy";
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [pathname]);
+
+  return null; 
+};
+
 const App = () => {
   return (
     <Router>
+      <ScrollToTop />
       <DataProvider>
         <div className="flex flex-col min-h-screen bg-gray-950 font-inter">
           <Header2 />
