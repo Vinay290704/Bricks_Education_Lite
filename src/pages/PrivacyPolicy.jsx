@@ -28,9 +28,9 @@ const PrivacyPolicy = () => {
       content: (
         <div className="space-y-4">
           <p className="text-[#555555] leading-relaxed">
-            Bricks Education collects various types of information
-            to provide and improve our robotics and programming education
-            services. This includes:
+            Bricks Education collects various types of information to provide
+            and improve our robotics and programming education services. This
+            includes:
           </p>
           <ul className="space-y-2 text-[#555555]">
             <li className="flex items-start gap-2">
@@ -78,8 +78,8 @@ const PrivacyPolicy = () => {
       content: (
         <div className="space-y-4">
           <p className="text-[#555555] leading-relaxed">
-            The information collected by Bricks Education is used
-            for the following purposes:
+            The information collected by Bricks Education is used for the
+            following purposes:
           </p>
           <ul className="space-y-2 text-[#555555]">
             <li className="flex items-start gap-2">
@@ -132,9 +132,9 @@ const PrivacyPolicy = () => {
       content: (
         <div className="space-y-4">
           <p className="text-[#555555] leading-relaxed">
-            Bricks Education is committed to protecting your
-            personal information. We implement a variety of security measures to
-            maintain the safety of your data:
+            Bricks Education is committed to protecting your personal
+            information. We implement a variety of security measures to maintain
+            the safety of your data:
           </p>
           <ul className="space-y-2 text-[#555555]">
             <li className="flex items-start gap-2">
@@ -238,10 +238,10 @@ const PrivacyPolicy = () => {
       content: (
         <div className="space-y-4">
           <p className="text-[#555555] leading-relaxed">
-            Bricks Education reserves the right to update or modify
-            this Privacy Policy at any time. Any changes will be posted on this
-            page with an updated "Effective Date." We encourage you to review
-            this policy periodically for any changes.
+            Bricks Education reserves the right to update or modify this Privacy
+            Policy at any time. Any changes will be posted on this page with an
+            updated "Effective Date." We encourage you to review this policy
+            periodically for any changes.
           </p>
         </div>
       ),
@@ -289,10 +289,10 @@ const PrivacyPolicy = () => {
         {/* Introduction */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-8 border border-[#EEEEEE]">
           <p className="text-lg text-[#555555] leading-relaxed">
-            This Privacy Policy describes how{" "}
-            <strong>Bricks Education </strong> collects, uses, and protects the personal information you
-            provide when using our website and services. By accessing or using
-            our services, you agree to the terms of this Privacy Policy.
+            This Privacy Policy describes how <strong>Bricks Education </strong>{" "}
+            collects, uses, and protects the personal information you provide
+            when using our website and services. By accessing or using our
+            services, you agree to the terms of this Privacy Policy.
           </p>
         </div>
 
@@ -350,6 +350,7 @@ const PrivacyPolicy = () => {
                 practices, please contact us:
               </p>
               <ul className="mt-2 space-y-1 text-[#555555]">
+                <li>Legal Name: Aryan Jakhar</li>
                 <li>
                   Email:{" "}
                   <a

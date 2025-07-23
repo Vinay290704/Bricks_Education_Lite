@@ -236,6 +236,7 @@ const RefundPolicy = () => {
                 clarification before enrolling, please contact us:
               </p>
               <ul className="mt-2 space-y-1 text-[#555555]">
+                <li>Legal Name: Aryan Jakhar</li>
                 <li>
                   Email:{" "}
                   <a

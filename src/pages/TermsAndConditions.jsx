@@ -473,6 +473,7 @@ const TermsAndConditions = () => {
                 </Link>{" "}
                 page.
               </p>
+              <li>Legal Name: Aryan Jakhar</li>
             </div>
           </div>
         </div>
