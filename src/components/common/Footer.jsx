@@ -16,7 +16,10 @@ const Footer = () => {
           {/* Bricks Education & Quick Links */}
           <div className="text-center md:text-left">
             <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-orange-300 bg-clip-text text-transparent">
-              BRICKS EDUCATION ARYAN JAKHAR
+              BRICKS EDUCATION
+            </h3>
+            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-orange-300 bg-clip-text text-transparent">
+              ADHYAYAN AND ARYAN JAKHAR
             </h3>
             <p className="text-gray-300 italic text-lg leading-relaxed font-medium mb-6">
               Learning by Doing, Leading by Thinking!
@@ -94,7 +97,7 @@ const Footer = () => {
           <div className="text-center md:text-left">
             <div className="p-4 rounded-xl bg-gray-800/60 backdrop-blur-sm border border-orange-400/30 shadow-lg">
               <p className="text-sm text-gray-300 leading-relaxed">
-                <strong>Bricks Education Aryan Jakhar </strong>
+                <strong>Bricks Education Adhyayan and Aryan Jakhar </strong>
                 is where kids learn robotics and programming in a fun, hands-on
                 way. We teach students how to build robots, code programs, and
                 solve real problems using technology. Our courses help young
@@ -110,7 +113,8 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="mt-8 pt-6 border-t border-orange-400/30 text-center">
           <p className="text-gray-400 text-sm">
-            © 2025 Bricks Education Aryan Jakhar. All rights reserved.
+            © 2025 Bricks Education Adhyayan and Aryan Jakhar . All rights
+            reserved.
           </p>
         </div>
       </div>

@@ -254,7 +254,7 @@ const PrivacyPolicy = () => {
       <div className="bg-gradient-to-r from-[#FF5722] to-[#FF7043] text-white">
         <div className="max-w-6xl mx-auto px-4 py-16 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Bricks Education Aryan Jakhar
+            Bricks Education Adhyayan and Aryan Jakhar
           </h1>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Privacy Policy
@@ -350,7 +350,7 @@ const PrivacyPolicy = () => {
                 practices, please contact us:
               </p>
               <ul className="mt-2 space-y-1 text-[#555555]">
-                <li>Legal Name: Aryan Jakhar</li>
+                <li>Legal Name: Adhyayan and Aryan Jakhar</li>
                 <li>
                   Email:{" "}
                   <a

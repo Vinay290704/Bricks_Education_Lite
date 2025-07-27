@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react"; // Import useContext
-import { Mail, Phone, MapPin, Linkedin, Send , FileText} from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Send, FileText } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 import { DataContext } from "../context/DataContext"; // Import DataContext
 
@@ -50,7 +50,7 @@ const ContactUs = () => {
       <div className="bg-gradient-to-r from-[#FF5722] to-[#FF7043] text-white">
         <div className="max-w-6xl mx-auto px-4 py-16 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Bricks Education Aryan Jakhar
+            Bricks Education Adhyayan and Aryan Jakhar
           </h1>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
           {/*<p className="text-xl opacity-90 max-w-2xl mx-auto">
@@ -141,15 +141,17 @@ const ContactUs = () => {
                   </a>
                 </div>
               </div>
-              <div className="p-4 rounded-xl bg-gray-800/60 backdrop-blur-sm border border-orange-400/30 shadow-lg hover:shadow-xl hover:bg-gray-700/60 transition-all duration-300 mt-6"> {/* Added mt-6 for spacing */}
-              <span className="font-semibold text-white block mb-2 flex items-center gap-2">
-                <FileText className="w-4 h-4 text-orange-400" />
-                Legal Name:
-              </span>
-              <p className="text-gray-300 text-xl font-medium">
-                Aryan Jakhar
-              </p>
-            </div>
+              <div className="p-4 rounded-xl bg-gray-800/60 backdrop-blur-sm border border-orange-400/30 shadow-lg hover:shadow-xl hover:bg-gray-700/60 transition-all duration-300 mt-6">
+                {" "}
+                {/* Added mt-6 for spacing */}
+                <span className="font-semibold text-white block mb-2 flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-orange-400" />
+                  Legal Name:
+                </span>
+                <p className="text-gray-300 text-xl font-medium">
+                  Adhyayan and Aryan Jakhar
+                </p>
+              </div>
             </div>
           </div>
         </div>
