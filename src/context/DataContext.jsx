@@ -10,6 +10,7 @@ const SCHOOL_CODES = {
   NONE: "NONE",
   RKBS_BRI175: "RKBS_BRI175",
   VAPS_BRI271: "VAPS_BRI271",
+  MGGJ_BRI216: "MGGJ_BRI216",
 };
 
 const SCHOOLS = [
@@ -25,6 +26,11 @@ const SCHOOLS = [
     code: SCHOOL_CODES.RKBS_BRI175,
     name: "Radha Krishna Birla School",
     sheetName: "RKBS",
+  },
+  {
+    code: SCHOOL_CODES.MGGJ_BRI216,
+    name: "Mahatma Gandhi Government School Jeeni",
+    sheetName: "MGGJ"
   },
 ];
 const CONTACT_MESSAGES_SHEET_NAME = "ContactMessages";
@@ -230,7 +236,7 @@ export const DataProvider = ({ children }) => {
           }),
         });
 
-        console.log(response)
+        console.log(response);
 
         if (!response.ok) {
           const errorData = await response.json();
